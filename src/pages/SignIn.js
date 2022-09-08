@@ -1,31 +1,11 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { signInWithGoogle } from "../firebase/googleAuth";
-import { auth } from "../firebase/firebase";
-import { authActions } from "../store/auth";
 
 function SignIn() {
-  const dispatch = useDispatch();
   const displayName = useSelector((state) => state.auth.displayName);
   const email = useSelector((state) => state.auth.email);
   const uid = useSelector((state) => state.auth.uid);
   const isAuth = useSelector((state) => state.auth.isAuth);
-
-  useEffect(() => {
-    const authControl = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const { displayName, email, uid } = currentUser;
-        dispatch(authActions.login({ displayName, email, uid }));
-      } else {
-        dispatch(authActions.logout());
-      }
-    });
-
-    return () => {
-      authControl();
-    };
-  }, [dispatch]);
 
   const signInHandler = async () => {
     try {
