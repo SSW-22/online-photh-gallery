@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import Landing from "./pages/Landing";
 import MyEvent from "./pages/MyEvent";
 import BrowseEvents from "./pages/BrowsEvents";
+import Protected from "./components/Protected";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/myevent" element={<MyEvent />} />
+        <Route
+          path="/myevent"
+          element={
+            <Protected>
+              <MyEvent />
+            </Protected>
+          }
+        />
         <Route path="/events" element={<BrowseEvents />} />
       </Routes>
     </>
