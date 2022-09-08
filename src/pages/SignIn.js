@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { signInWithGoogle } from "../firebase/googleAuth";
 import { auth } from "../firebase/firebase";
 import { authActions } from "../store/auth";
+import UploadingImages from "./editPage/UploadImages";
 
 function SignIn() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function SignIn() {
         <h1>{uid}</h1>
         <h1>{isAuth}</h1>
       </div>
+      {/* <UploadingImages user={user} /> */}
     </>
   );
 }
