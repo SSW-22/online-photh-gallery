@@ -4,18 +4,8 @@ import PreviewSlide from "./PreviewSlide";
 import addDocument from "../../firebase/addDocument";
 import uploadFileProgress from "../../firebase/uploadFileProgress";
 
-const userDummyData = {
-  title: "Moonlight",
-  subTitle: "Seungmin",
-  thumbnailBg: "black",
-  thumbnailText: "white",
-  images: [],
-};
 // eslint-disable-next-line react/prop-types
-function Event({ user }) {
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  const userData = userDummyData;
+function UploadImages({ user }) {
   const [progress, setProgress] = useState(0);
   const [images, setImages] = useState([]);
   const [imageData, setImageData] = useState({});
@@ -69,7 +59,7 @@ function Event({ user }) {
     )
       .then(async (data) => {
         const galleryDoc = {
-          ...userData,
+          ...user,
           images: data,
         };
         await addDocument("gallery", galleryDoc, user.uid);
@@ -119,29 +109,4 @@ function Event({ user }) {
   );
 }
 
-export default Event;
-
-// const titleHandler = (e) => {
-//   setTitle(e.target.value);
-// };
-
-// const descriptionHandler = (e) => {
-//   setDescription(e.target.value);
-// };
-
-// const imageHandler = (e) => {
-//   setImageData(e.target.files[0]);
-// };
-
-// const editHandler = (index) => {
-//   console.log(images[index]);
-//   const selectedImageInfo = {
-//     title: images[index].title,
-//     description: images[index].description,
-//     imgUrl: images[index].imgUrl,
-//   };
-//   setImageData(selectedImageInfo);
-//   setTitle(images[index].title);
-//   setDescription(images[index].description);
-//   setImageData(images[index].imgUrl);
-// };
+export default UploadImages;

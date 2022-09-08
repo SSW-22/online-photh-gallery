@@ -7,7 +7,6 @@ function PreviewSlide({ images }) {
         images.map((image, index) => (
           <li key={image.title}>
             <img src={URL.createObjectURL(image.imgUrl)} alt="" />
-            {/* eslint-disable-next-line react/prop-types */}
           </li>
         ))
       }
