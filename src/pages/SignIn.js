@@ -1,20 +1,31 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { signInWithGoogle, signOutWithGoogle } from "../firebase/googleAuth";
 import { auth } from "../firebase/firebase";
+import { authActions } from "../store/auth";
 
 function SignIn() {
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const displayName = useSelector((state) => state.auth.displayName);
+  const email = useSelector((state) => state.auth.email);
+  const uid = useSelector((state) => state.auth.uid);
+  const isAuth = useSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const authControl = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        const { displayName, email, uid } = currentUser;
+        dispatch(authActions.login({ displayName, email, uid }));
+      } else {
+        dispatch(authActions.logout());
+      }
     });
 
     return () => {
-      unSub();
+      authControl();
     };
-  }, []);
+  }, [dispatch]);
 
   const signInHandler = async () => {
     try {
@@ -49,14 +60,12 @@ function SignIn() {
       >
         Log out
       </button>
-      {user ? (
-        <div>
-          <h1>{user.displayName}</h1>
-          <h1>{user.email}</h1>
-        </div>
-      ) : (
-        <h1>logged out</h1>
-      )}
+      <div>
+        <h1>{displayName}</h1>
+        <h1>{email}</h1>
+        <h1>{uid}</h1>
+        <h1>{isAuth}</h1>
+      </div>
     </>
   );
 }
