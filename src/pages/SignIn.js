@@ -2,6 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { signInWithGoogle, signOutWithGoogle } from "../firebase/googleAuth";
 import { auth } from "../firebase/firebase";
+import UploadingImages from "./editPage/UploadImages";
 
 function SignIn() {
   const [user, setUser] = useState({});
@@ -57,6 +58,8 @@ function SignIn() {
       ) : (
         <h1>logged out</h1>
       )}
+
+      <UploadingImages user={user} />
     </>
   );
 }
