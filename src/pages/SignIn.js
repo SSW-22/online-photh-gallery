@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { signInWithGoogle, signOutWithGoogle } from "../firebase/googleAuth";
+import { signInWithGoogle } from "../firebase/googleAuth";
 import { auth } from "../firebase/firebase";
 import { authActions } from "../store/auth";
 
@@ -35,14 +35,6 @@ function SignIn() {
     }
   };
 
-  const signOutHandler = async () => {
-    try {
-      await signOutWithGoogle();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
       <button
@@ -53,13 +45,7 @@ function SignIn() {
         Sign in
       </button>
       <br />
-      <button
-        onClick={signOutHandler}
-        type="button"
-        className="bg-black text-white"
-      >
-        Log out
-      </button>
+
       <div>
         <h1>{displayName}</h1>
         <h1>{email}</h1>
