@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import MyEventStatus from "../components/MyEventStatus";
 
 const DUMMY_DATA = {
-  status: "hosted",
+  status: "draft",
   thumbnailBgColor: "bg-[#007BED]",
   thumbnailTextColor: "text-[#FFFFFF]",
   title: "My Youth",
