@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
 import { authActions } from "./store/auth";
 
+import Editor from "./pages/Editor";
 import Navbar from "./components/Navbar";
 import SignIn from "./pages/SignIn";
 import Landing from "./pages/Landing";
@@ -41,6 +42,14 @@ function App() {
           element={
             <Protected>
               <MyEvent />
+            </Protected>
+          }
+        />
+        <Route
+          path="/editor"
+          element={
+            <Protected>
+              <Editor />
             </Protected>
           }
         />

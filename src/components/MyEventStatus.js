@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import recycleImg from "../asset/recycle-bin-sketch.png";
 import pencelImg from "../asset/pencil-tool.png";
 
@@ -9,12 +10,12 @@ function MyEventStatus({ userData }) {
       <>
         <p className="text-base mb-6">You dont have any events created.</p>
         <div className="w-[200px] h-[200px] bg-[#D9D9D9] mb-6" />
-        <p className="flex">
+        <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
             <img src={pencelImg} alt="" className="w-full h-full" />
           </span>
           Click to create your event
-        </p>
+        </NavLink>
 
         {/* <a
           href="https://www.flaticon.com/free-icons/pencil"
@@ -36,12 +37,12 @@ function MyEventStatus({ userData }) {
           <p className={`${thumbnailTextColor} ml-4 text-sm`}>{name}</p>
           <p className={`${thumbnailTextColor} ml-4 text-xl`}>{title}</p>
         </div>
-        <p className="flex">
+        <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
             <img src={pencelImg} alt="" className="w-full h-full" />
           </span>
           Click to create your event
-        </p>
+        </NavLink>
         <button type="button" className="flex">
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
