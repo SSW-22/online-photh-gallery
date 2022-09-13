@@ -32,10 +32,15 @@ function MyEventStatus({ userData }) {
       <>
         <p className="text-base mb-6">Your event is currently being built.</p>
         <div
-          className={`w-[200px] h-[200px] ${thumbnailBgColor} opacity-70 mb-6 flex flex-col justify-center`}
+          className="w-[200px] h-[200px] opacity-70 mb-6 flex flex-col justify-center"
+          style={{ backgroundColor: thumbnailBgColor }}
         >
-          <p className={`${thumbnailTextColor} ml-4 text-sm`}>{name}</p>
-          <p className={`${thumbnailTextColor} ml-4 text-xl`}>{title}</p>
+          <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+            {name}
+          </p>
+          <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+            {title}
+          </p>
         </div>
         <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
@@ -67,11 +72,19 @@ function MyEventStatus({ userData }) {
     return (
       <>
         <p className="text-base mb-6">Your event is currently being hosted.</p>
+        {/* <div
+          className={`w-[200px] h-[200px] mb-6 flex flex-col justify-center ${thumbnailBgColor}`}
+        > */}
         <div
-          className={`w-[200px] h-[200px] ${thumbnailBgColor} mb-6 flex flex-col justify-center`}
+          className="w-[200px] h-[200px] mb-6 flex flex-col justify-center"
+          style={{ backgroundColor: thumbnailBgColor }}
         >
-          <p className={`${thumbnailTextColor} ml-4 text-sm`}>{name}</p>
-          <p className={`${thumbnailTextColor} ml-4 text-xl`}>{title}</p>
+          <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+            {name}
+          </p>
+          <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+            {title}
+          </p>
         </div>
         <button type="button" className="flex">
           <span className="flex w-[20px] h-[20px] mr-2">
