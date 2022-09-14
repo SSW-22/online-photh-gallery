@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
-import addDocument from "../../firebase/addDocument";
-import uploadFileProgress from "../../firebase/uploadFileProgress";
 
 // eslint-disable-next-line react/prop-types
 function UploadImages({ user }) {
+  const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
   const [images, setImages] = useState([]);
   const [imageData, setImageData] = useState({});
+
+  // const galleryData = useSelector((state) => state.gallery);
 
   // Handling the title, and description for the current user-selected image and save as an obj.
   const inputHandler = (e) => {
@@ -37,6 +40,13 @@ function UploadImages({ user }) {
     setImages((prev) => {
       return [...prev, imageData];
     });
+    dispatch(
+      galleryActions.addImage({
+        ...imageData,
+        imgUrl: URL.createObjectURL(imageData.imgUrl),
+        id: images.length + 1,
+      })
+    );
     setImageData({});
     e.target.reset();
   };
@@ -44,30 +54,7 @@ function UploadImages({ user }) {
   // upload to the firestore.
   const uploadHandler = (e) => {
     e.preventDefault();
-    // wait till all the images uploaded into firebase store and return all urls within single attempt.
-    Promise.all(
-      images.map(async (image) => {
-        const imageName = new Date().getTime() + image.title;
-        const url = await uploadFileProgress(
-          image.imgUrl,
-          `gallery/${user.uid}`,
-          imageName,
-          setProgress
-        );
-        return { ...image, imgUrl: url };
-      })
-    )
-      .then(async (data) => {
-        const galleryDoc = {
-          ...user,
-          images: data,
-        };
-        await addDocument("gallery", galleryDoc, user.uid);
-        console.log(data);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    console.log("clicked");
   };
 
   return (

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import recycleImg from "../asset/recycle-bin-sketch.png";
-import pencelImg from "../asset/pencil-tool.png";
+import pencilImg from "../asset/pencil-tool.png";
 
 function MyEventStatus({ userData }) {
   const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
@@ -12,7 +12,7 @@ function MyEventStatus({ userData }) {
         <div className="w-[200px] h-[200px] bg-[#D9D9D9] mb-6" />
         <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
-            <img src={pencelImg} alt="" className="w-full h-full" />
+            <img src={pencilImg} alt="" className="w-full h-full" />
           </span>
           Click to create your event
         </NavLink>
@@ -44,7 +44,7 @@ function MyEventStatus({ userData }) {
         </div>
         <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
-            <img src={pencelImg} alt="" className="w-full h-full" />
+            <img src={pencilImg} alt="" className="w-full h-full" />
           </span>
           Click to create your event
         </NavLink>
