@@ -1,10 +1,11 @@
 import UploadImages from "../components/editPage/UploadImages";
+import UploadThumbnail from "../components/editPage/UploadThumbnail";
 
 function Editor() {
   return (
-    <div>
-      <h1>Editor Mode</h1>
-      <UploadImages />
+    <div className="flex flex-col justify-center items-center">
+      {/* <UploadImages /> */}
+      <UploadThumbnail />
     </div>
   );
 }
