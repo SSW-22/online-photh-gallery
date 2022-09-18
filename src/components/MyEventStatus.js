@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import EventCard from "./EventCard";
 import recycleImg from "../asset/recycle-bin-sketch.png";
 import pencilImg from "../asset/pencil-tool.png";
 
@@ -31,18 +32,14 @@ function MyEventStatus({ userData }) {
     return (
       <>
         <p className="text-base mb-6">Your event is currently being built.</p>
-        <div
-          className="w-[200px] h-[200px] opacity-70 mb-6 flex flex-col justify-center"
-          style={{ backgroundColor: thumbnailBgColor }}
-        >
-          <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
-            {name}
-          </p>
-          <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
-            {title}
-          </p>
-        </div>
-        <NavLink to="/editor" className="flex">
+        <EventCard
+          status={status}
+          title={title}
+          name={name}
+          thumbnailBgColor={thumbnailBgColor}
+          thumbnailTextColor={thumbnailTextColor}
+        />
+        <NavLink to="/editor" className="flex mt-6">
           <span className="w-[20px] h-[20px] mr-2">
             <img src={pencilImg} alt="" className="w-full h-full" />
           </span>
@@ -75,18 +72,14 @@ function MyEventStatus({ userData }) {
         {/* <div
           className={`w-[200px] h-[200px] mb-6 flex flex-col justify-center ${thumbnailBgColor}`}
         > */}
-        <div
-          className="w-[200px] h-[200px] mb-6 flex flex-col justify-center"
-          style={{ backgroundColor: thumbnailBgColor }}
-        >
-          <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
-            {name}
-          </p>
-          <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
-            {title}
-          </p>
-        </div>
-        <button type="button" className="flex">
+        <EventCard
+          status={status}
+          title={title}
+          name={name}
+          thumbnailBgColor={thumbnailBgColor}
+          thumbnailTextColor={thumbnailTextColor}
+        />
+        <button type="button" className="flex mt-6">
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
           </span>

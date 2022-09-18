@@ -18,7 +18,6 @@ function App() {
 
   useEffect(() => {
     const authControl = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       if (currentUser) {
         const { displayName, email, uid } = currentUser;
         dispatch(authActions.login({ displayName, email, uid }));
