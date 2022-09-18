@@ -16,7 +16,15 @@ function MyEvent() {
   const userUid = useSelector((state) => state.auth.uid);
   const [userData, setUserData] = useState({});
   useEffect(() => {
-    checkUserGallery(userUid).then((data) => setUserData(data));
+    const getUserData = async () => {
+      try {
+        const data = await checkUserGallery(userUid);
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserData();
   }, [userUid]);
   return (
     <div className="container mx-auto h-full font-['average']">

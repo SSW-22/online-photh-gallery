@@ -7,6 +7,9 @@ module.exports = {
     //   padding: "4rem",
     // },
     extend: {
+      gridTemplateColumns: {
+        4: "repeat(auto-fit, minmax(200px, 1fr))",
+      },
       fontFamily: {
         average: ["average", "sans-serif"],
       },
