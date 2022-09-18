@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import EventCard from "./EventCard";
 import recycleImg from "../asset/recycle-bin-sketch.png";
 import pencilImg from "../asset/pencil-tool.png";
+import Thumbnail from "./Thumbnail";
 
 function MyEventStatus({ userData }) {
   const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
@@ -32,7 +32,7 @@ function MyEventStatus({ userData }) {
     return (
       <>
         <p className="text-base mb-6">Your event is currently being built.</p>
-        <EventCard
+        <Thumbnail
           status={status}
           title={title}
           name={name}
@@ -72,7 +72,7 @@ function MyEventStatus({ userData }) {
         {/* <div
           className={`w-[200px] h-[200px] mb-6 flex flex-col justify-center ${thumbnailBgColor}`}
         > */}
-        <EventCard
+        <Thumbnail
           status={status}
           title={title}
           name={name}

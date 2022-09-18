@@ -1,16 +1,45 @@
-function Thumbnail(props) {
-  const { title, name, thumbnailBgColor, thumbnailTextColor } = props;
-
-  return (
-    <div className="translate-y-[-5rem]">
-      <h1 className="mb-[1rem] text-[1.4rem]">Event thumnail preview</h1>
+function Thumbnail({
+  thumbnailBgColor,
+  thumbnailTextColor,
+  name,
+  title,
+  status,
+  mode,
+}) {
+  if (mode === "browse") {
+    return (
       <div
-        style={{ backgroundColor: thumbnailBgColor, color: thumbnailTextColor }}
-        className="w-[13rem] h-[13rem] flex flex-col justify-center p-[1.1rem] gap-[0.5rem]"
+        className={`w-[200px] h-[200px] flex flex-col justify-center relative 
+      ${status === "draft" && "opacity-70"}`}
+        style={{ backgroundColor: thumbnailBgColor }}
       >
-        <p className="text-[1.2rem]">{name}</p>
-        <p className="text-[1.5rem]">{title}</p>
+        <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+          {name}
+        </p>
+        <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+          {title}
+        </p>
+        <p
+          className="text-m self-center cursor-pointer absolute bottom-2 transition-all hover:scale-125"
+          style={{ color: thumbnailTextColor }}
+        >
+          Buy a Ticket
+        </p>
       </div>
+    );
+  }
+  return (
+    <div
+      className={`w-[200px] h-[200px] flex flex-col justify-center 
+      ${status === "draft" && "opacity-70"}`}
+      style={{ backgroundColor: thumbnailBgColor }}
+    >
+      <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+        {name}
+      </p>
+      <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+        {title}
+      </p>
     </div>
   );
 }

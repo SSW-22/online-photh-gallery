@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EventCard from "../components/EventCard";
+import Thumbnail from "../components/Thumbnail";
 import getAllGalleries from "../firebase/getAllGalleries";
 
 function BrowseEvents() {
@@ -17,7 +17,7 @@ function BrowseEvents() {
       <div className="grid grid-cols-4 grid-rows-3 gap-4 justify-items-center min-h-[80vh]">
         {galleries &&
           galleries.map((gallery) => (
-            <EventCard
+            <Thumbnail
               key={gallery.title}
               title={gallery.title}
               name={gallery.name}

@@ -44,7 +44,7 @@ function UploadThumbnail() {
     dispatch(galleryActions.addThumbnailTextColor(event.target.value));
   };
   return (
-    <div className="flex font-['average'] gap-[25rem] mt-[10rem]">
+    <div className="flex items-center font-['average'] gap-[25rem] mt-[10rem]">
       <div className="flex flex-col">
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
           <h1 className="text-[3rem]">Add Title</h1>
@@ -57,7 +57,7 @@ function UploadThumbnail() {
           />
         </label>
         <label htmlFor="name" className="flex flex-col mb-[2.5rem]">
-          <h1 className="text-[2rem]">Add Name</h1>
+          <h2 className="text-[2rem]">Add Name</h2>
           <input
             className="p-1 focus:outline-[#ddd]"
             id="name"
@@ -67,9 +67,9 @@ function UploadThumbnail() {
           />
         </label>
         <div className="flex flex-col mb-[3rem]">
-          <h1 className="text-[1.2rem] mb-[1rem]">
+          <h2 className="text-[1.2rem] mb-[1rem]">
             Choose a thumbnail background colour
-          </h1>
+          </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
               className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px]"
@@ -84,9 +84,9 @@ function UploadThumbnail() {
         </div>
 
         <div className="flex flex-col mb-[3rem]">
-          <h1 className="text-[1.2rem] mb-[1rem]">
+          <h2 className="text-[1.2rem] mb-[1rem]">
             Choose a thumbnail text colour
-          </h1>
+          </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
               className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px]"
@@ -98,7 +98,8 @@ function UploadThumbnail() {
           </div>
         </div>
       </div>
-      <div className="flex items-center">
+      <div className="flex flex-col">
+        <p className="text-[1.4rem]">Event thumnail preview</p>
         <Thumbnail
           title={title}
           name={name}
