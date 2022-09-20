@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 const checkUserGallery = async (userUid) => {
@@ -6,18 +6,12 @@ const checkUserGallery = async (userUid) => {
   const docSnap = await getDoc(docRef);
   const initialData = {
     status: "none",
-    thumbnailBgColor: "",
-    thumbnailTextColor: "",
-    title: "",
-    name: "",
-    images: [],
   };
+  const data = docSnap.exists() ? docSnap.data() : initialData;
 
-  if (docSnap.exists()) {
-    return docSnap.data();
-  }
-
-  return initialData;
+  return {
+    ...data,
+  };
 };
 
 export default checkUserGallery;
