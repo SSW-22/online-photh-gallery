@@ -8,10 +8,9 @@ const randomTxt = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
 function UploadThumbnail() {
   const { title, name, thumbnailBgColor, thumbnailTextColor } = useSelector(
-    (state) => state.gallery
+    (state) => state.gallery.gallery
   );
   const dispatch = useDispatch();
-
   useEffect(() => {
     const initialColor = () => {
       dispatch(galleryActions.addThumbnailBgColor(randomBg));

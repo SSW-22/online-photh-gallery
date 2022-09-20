@@ -5,7 +5,7 @@ const addDocument = (collectionName, documentObj, userId) => {
   const docRef = doc(collection(db, collectionName), userId);
   return setDoc(docRef, {
     ...documentObj,
-    timestamp: serverTimestamp(),
+    // timestamp: serverTimestamp(),
   });
 };
 

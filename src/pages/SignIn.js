@@ -1,17 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { signInWithGoogle } from "../firebase/googleAuth";
+import { checkGallery } from "../store/gallery-slice";
 
 function SignIn() {
   const navigate = useNavigate();
   const isAuth = useSelector((state) => state.auth.isAuth);
+  const uid = useSelector((state) => state.auth.uid);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isAuth) {
+      dispatch(checkGallery(uid));
       navigate("/myevent");
     }
-  }, [isAuth, navigate]);
+  }, [isAuth, navigate, dispatch, uid]);
 
   const signInHandler = async () => {
     try {
