@@ -12,6 +12,7 @@ import Landing from "./pages/Landing";
 import MyEvent from "./pages/MyEvent";
 import BrowseEvents from "./pages/BrowsEvents";
 import Protected from "./components/Protected";
+import { checkGallery } from "./store/gallery-slice";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
       if (currentUser) {
         const { displayName, email, uid } = currentUser;
         dispatch(authActions.login({ displayName, email, uid }));
+        dispatch(checkGallery(uid));
       } else {
         dispatch(authActions.logout());
       }
