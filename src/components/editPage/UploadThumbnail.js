@@ -43,12 +43,12 @@ function UploadThumbnail() {
     dispatch(galleryActions.addThumbnailTextColor(event.target.value));
   };
   return (
-    <div className="flex items-center font-['average'] gap-[25rem] mt-[10rem]">
+    <div className="flex items-center font-['average'] gap-[25rem] mt-[8rem]">
       <div className="flex flex-col">
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
-          <h1 className="text-[3rem]">Add Title</h1>
+          <h2 className="text-[1.5rem]">Event title</h2>
           <input
-            className="p-1 focus:outline-[#ddd]"
+            className="p-1 focus:outline-[#ddd] border-b border-black"
             id="title"
             placeholder="Add Title"
             value={title}
@@ -56,9 +56,9 @@ function UploadThumbnail() {
           />
         </label>
         <label htmlFor="name" className="flex flex-col mb-[2.5rem]">
-          <h2 className="text-[2rem]">Add Name</h2>
+          <h2 className="text-[1.5rem]">Name</h2>
           <input
-            className="p-1 focus:outline-[#ddd]"
+            className="p-1 focus:outline-[#ddd] border-b border-black"
             id="name"
             placeholder="Add Name"
             value={name}
