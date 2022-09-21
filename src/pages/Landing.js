@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux";
+import LandingBg from "../components/LandingBg";
 
 function Landing() {
-  const displayName = useSelector((state) => state.auth.displayName);
-
   return (
-    <div>
-      <h1>{displayName}</h1>
-      <h1>Landing Page</h1>
+    <div className="">
+      {/* <div className="font-[100] max-w-[1800px] top-[10rem] px-[7rem] inset-x-0 mx-auto fixed w-full h-[40%] flex flex-col justify-between font-['average'] ">
+        <h1 className="text-[6rem] flex justify-start">Welcome to</h1>
+        <h1 className="text-[6rem] flex justify-center">Online</h1>
+        <h1 className="text-[6rem] flex justify-end">Photo Gallery</h1>
+      </div> */}
+      <LandingBg />
     </div>
   );
 }
