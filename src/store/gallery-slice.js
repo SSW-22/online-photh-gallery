@@ -19,7 +19,7 @@ export const checkGallery = createAsyncThunk(
   async (uid) => {
     try {
       const response = await checkUserGallery(uid);
-      // console.log(response);
+      console.log(response);
       return response;
     } catch (error) {
       console.log(error.message);
@@ -59,6 +59,7 @@ const gallerySlice = createSlice({
           title: newImage.title,
           description: newImage.description,
           imgUrl: newImage.imgUrl,
+          date: newImage.date,
         });
       }
     },
