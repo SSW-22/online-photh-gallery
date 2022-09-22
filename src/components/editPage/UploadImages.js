@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDropzone } from "react-dropzone";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 
@@ -17,14 +18,30 @@ function UploadImages({ images, onImages }) {
     });
   };
 
+  // const imageHandler = (e) => {
+  //   // const newImg = e.target.files[0];
+  //   const newImg = acceptedFiles[0];
+  //   setImageData((prev) => {
+  //     return { ...prev, imgUrl: newImg };
+  //   });
+  // };
   // Grab current user-selected image and add into imageData.
-  const imageHandler = (e) => {
-    const newImg = e.target.files[0];
+  const onDrop = useCallback((acceptedFiles) => {
+    const newImg = acceptedFiles[0];
     setImageData((prev) => {
       return { ...prev, imgUrl: newImg };
     });
-  };
+  }, []);
 
+  const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
+    useDropzone({
+      onDrop,
+      accept: {
+        "image/jpeg": [],
+        "image/jpg": [],
+        "image/png": [],
+      },
+    });
   // push the current image with title, description and url into images array for preview and update to firestore.
   const submitHandler = (e) => {
     e.preventDefault();
@@ -52,18 +69,30 @@ function UploadImages({ images, onImages }) {
       <h2 className="text-[1.5rem]">Upload photos</h2>
       <p>Maximum 10 photos per event is supported</p>
       <div className="flex mt-5">
-        <div className="w-[250px] h-[250px] bg-[#D9D9D9] flex flex-col justify-center items-center">
-          {!imageData.imgUrl && (
-            <>
-              <p>
-                Drop your image here, or{" "}
-                <span className="text-[#007BED]">browse</span>
-              </p>
-              <p>Support jpeg, jpg, png</p>
-            </>
-          )}
-          {imageData.imgUrl && (
-            <img src={URL.createObjectURL(imageData.imgUrl)} alt="" />
+        <div>
+          <div className="w-[250px] h-[250px] bg-[#D9D9D9] flex flex-col justify-center items-center overflow-hidden">
+            <div {...getRootProps({ className: "dropzone" })}>
+              <input {...getInputProps()} />
+              {!imageData.imgUrl && (
+                <>
+                  <p className="cursor-pointer">
+                    Drop your image here, or{" "}
+                    <span className="text-[#007BED]">browse</span>
+                  </p>
+                  <p>Support jpeg, jpg, png</p>
+                </>
+              )}
+              {imageData.imgUrl && (
+                <img
+                  className="cursor-pointer"
+                  src={URL.createObjectURL(imageData.imgUrl)}
+                  alt=""
+                />
+              )}
+            </div>
+          </div>
+          {fileRejections[0]?.file && (
+            <p>Only *.jpeg and *.png images will be accepted</p>
           )}
         </div>
         <form onSubmit={submitHandler} className="flex flex-col ml-[2.5rem]">
@@ -96,12 +125,13 @@ function UploadImages({ images, onImages }) {
               onChange={inputHandler}
             />
           </label>
-          <input
+
+          {/* <input
             type="file"
             id="imageURL"
             accept="image/png, image/jpeg"
             onChange={imageHandler}
-          />
+          /> */}
           <button type="submit">Add to preview</button>
         </form>
       </div>
