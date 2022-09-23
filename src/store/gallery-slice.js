@@ -63,6 +63,13 @@ const gallerySlice = createSlice({
         });
       }
     },
+    removeImage(state, action) {
+      const selectedImageId = action.payload;
+      const previousData = state;
+      previousData.gallery.images = previousData.gallery.images.filter(
+        (item) => item.id !== selectedImageId
+      );
+    },
   },
   extraReducers(builder) {
     builder
