@@ -1,17 +1,22 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import arrowImg from "../asset/arrow.png";
 import addDocument from "../firebase/addDocument";
 import uploadFileProgress from "../firebase/uploadFileProgress";
 import UploadImages from "../components/editPage/UploadImages";
 import UploadThumbnail from "../components/editPage/UploadThumbnail";
+import deleteFile from "../firebase/deleteImageFile";
+import { checkGallery } from "../store/gallery-slice";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
-  const [images, setImages] = useState([]);
-  const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch();
   const uid = useSelector((state) => state.auth.uid);
   const galleryData = useSelector((state) => state.gallery.gallery);
+
+  const [deletedItem, setDeletedItem] = useState([]);
+  const [images, setImages] = useState([]);
+  const [progress, setProgress] = useState(0);
   const [page, setPage] = useState(0);
 
   const pageHandler = (e) => {
@@ -19,34 +24,68 @@ function Editor() {
     if (e.target.alt === "previous") setPage((prev) => prev - 1);
   };
 
-  // upload to the firestore.
-  const uploadHandler = (e) => {
+  // console.log("img files", images);
+  // console.log("deleted images", deletedItem);
+
+  /**  Create hash map for checking duplicate data and overwrite the map entries with current image array. */
+  const updateData = (newData) => {
+    const imagesHash = {};
+    galleryData.images.forEach((item) => {
+      imagesHash[item.id] = item;
+    });
+    newData.forEach((item) => {
+      imagesHash[item.id] = item;
+    });
+    const results = Object.values(imagesHash);
+
+    const galleryDoc = {
+      ...galleryData,
+      images: results,
+      status: "draft",
+    };
+
+    return galleryDoc;
+  };
+
+  /**  Upload to the firestore. Until this button is "clicked", all data is not saved in Firebase, but only in Gallery Redux. */
+  const uploadHandler = async (e) => {
     e.preventDefault();
-    // wait till all the images uploaded into firebase store and return all urls within single attempt.
-    Promise.all(
-      images.map(async (image) => {
-        const imageName = new Date().getTime() + image.title;
-        const url = await uploadFileProgress(
-          image.imgUrl,
-          `gallery/${uid}`,
-          imageName,
-          setProgress
-        );
-        return { ...image, imgUrl: url };
-      })
-    )
-      .then(async (imgArray) => {
-        const galleryDoc = {
-          ...galleryData,
-          images: imgArray,
-          status: "draft",
-        };
-        await addDocument("gallery", galleryDoc, uid);
-        console.log("uploaded");
-      })
-      .catch((error) => {
-        alert(error.message);
+    // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
+    if (deletedItem.length > 0) {
+      console.log("deleting");
+      // At this point, the data of image in gallery redux already deleted. Now the image has to be delete in firebase storage.
+      deletedItem.forEach(async (item) => {
+        // Check if the deleted image is in firebase storage by using image url address.
+        const fbAddress = "https://firebasestorage.googleapis.com/";
+        if (item.imgUrl.includes(fbAddress))
+          await deleteFile(`gallery/${uid}/${item.id}`);
       });
+    }
+    // wait till all the images uploaded into firebase storage and return all urls within single attempt.
+    try {
+      const newData = await Promise.all(
+        images.map(async (image) => {
+          const imageName = image.id;
+          const url = await uploadFileProgress(
+            image.imgUrl,
+            `gallery/${uid}`,
+            imageName,
+            setProgress
+          );
+          return { ...image, imgUrl: url };
+        })
+      );
+      const galleryDoc = updateData(newData);
+      // Now, new data will be updated
+      await addDocument("gallery", galleryDoc, uid);
+      // Reset the images file array and deletedItem array
+      dispatch(checkGallery(uid));
+      setImages([]);
+      setDeletedItem([]);
+      console.log("uploaded");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -54,7 +93,13 @@ function Editor() {
       <div className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>
         {page === 0 && <UploadThumbnail />}
-        {page === 1 && <UploadImages images={images} onImages={setImages} />}
+        {page === 1 && (
+          <UploadImages
+            images={images}
+            onImages={setImages}
+            setDeletedItem={setDeletedItem}
+          />
+        )}
         <button
           type="button"
           className="bg-[#D9D9D9] self-end px-4 py-2"

@@ -1,14 +1,15 @@
+import uuid from "react-uuid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 
-function UploadImages({ images, onImages }) {
+function UploadImages({ onImages, setDeletedItem }) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.gallery.gallery);
   const [imageData, setImageData] = useState({});
 
-  // Handling the title, and description for the current user-selected image and save as an obj.
+  /**  Handling the title, and description for the current user-selected image and save as an obj. */
   const inputHandler = (e) => {
     const { id, value } = e.target;
 
@@ -17,15 +18,15 @@ function UploadImages({ images, onImages }) {
     });
   };
 
-  // Grab current user-selected image and add into imageData.
+  /** Grab current user-selected image and add into imageData. */
   const imageHandler = (e) => {
     const newImg = e.target.files[0];
     setImageData((prev) => {
-      return { ...prev, imgUrl: newImg };
+      return { ...prev, imgUrl: newImg, id: uuid() };
     });
   };
 
-  // push the current image with title, description and url into images array for preview and update to firestore.
+  /** Update user image info into gallery redux. Those data will be updated to the firestore later */
   const submitHandler = (e) => {
     e.preventDefault();
     if (!imageData.title || !imageData.description || !imageData.imgUrl) {
@@ -36,11 +37,11 @@ function UploadImages({ images, onImages }) {
     onImages((prev) => {
       return [...prev, imageData];
     });
+    // update user gallery info with fake image url to gallery redux store due to display preview images.
     dispatch(
       galleryActions.addImage({
         ...imageData,
         imgUrl: URL.createObjectURL(imageData.imgUrl),
-        id: images.length + 1,
       })
     );
     setImageData({});
@@ -110,7 +111,11 @@ function UploadImages({ images, onImages }) {
         <p>Choose your theme: </p>
         <button type="button">View in gallery Mode</button>
       </div>
-      <PreviewSlide images={data.images} />
+      <PreviewSlide
+        images={data.images}
+        setDeletedItem={setDeletedItem}
+        onImages={onImages}
+      />
     </div>
   );
 }
