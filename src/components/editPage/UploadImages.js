@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import uuid from "react-uuid";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +8,13 @@ import PreviewSlide from "./PreviewSlide";
 function UploadImages({ onImages, setDeletedItem }) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.gallery.gallery);
-  const [imageData, setImageData] = useState({});
+  const [imageData, setImageData] = useState({
+    title: "",
+    date: "",
+    description: "",
+    imgUrl: "",
+  });
+  const [errorInput, setErrorInput] = useState(false);
 
   /**  Handling the title, and description for the current user-selected image and save as an obj. */
   const inputHandler = (e) => {
@@ -29,8 +36,9 @@ function UploadImages({ onImages, setDeletedItem }) {
   /** Update user image info into gallery redux. Those data will be updated to the firestore later */
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!imageData.title || !imageData.description || !imageData.imgUrl) {
+    if (!imageData.title || !imageData.imgUrl) {
       console.log("wrong info");
+      setErrorInput(true);
       return;
     }
     // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
@@ -44,13 +52,18 @@ function UploadImages({ onImages, setDeletedItem }) {
         imgUrl: URL.createObjectURL(imageData.imgUrl),
       })
     );
-    setImageData({});
+    // reset image data and error input handler
+    setImageData({
+      title: "",
+      date: "",
+      description: "",
+    });
+    setErrorInput(false);
     e.target.reset();
   };
 
   return (
     <div className="container mx-auto h-full font-['average']">
-      <h2 className="text-[1.5rem]">Upload photos</h2>
       <p>Maximum 10 photos per event is supported</p>
       <div className="flex mt-5">
         <div className="w-[250px] h-[250px] bg-[#D9D9D9] flex flex-col justify-center items-center">
@@ -66,24 +79,35 @@ function UploadImages({ onImages, setDeletedItem }) {
           {imageData.imgUrl && (
             <img src={URL.createObjectURL(imageData.imgUrl)} alt="" />
           )}
+
+          {errorInput && imageData.imgUrl.length <= 0 && (
+            <p className="text-red-500">Please select the image</p>
+          )}
         </div>
         <form onSubmit={submitHandler} className="flex flex-col ml-[2.5rem]">
-          <label htmlFor="title" className="flex flex-col mb-2">
+          <label htmlFor="title" className="flex flex-col h-[70px]">
             Title
             <input
-              className="border border-black"
+              className={`border-b 
+              ${
+                errorInput && imageData.title.length <= 0
+                  ? "border-red-500"
+                  : "border-black"
+              }`}
               id="title"
               type="text"
-              placeholder="title"
+              placeholder="My Youth..."
               onChange={inputHandler}
             />
+            {errorInput && imageData.title.length <= 0 && (
+              <p className="text-red-500">Please fill out this field</p>
+            )}
           </label>
-          <label htmlFor="date" className="flex flex-col mb-2">
+          <label htmlFor="date" className="flex flex-col h-[70px]">
             Date (YYYY.MM.DD)
             <input
-              className="border border-black"
+              className="border-b border-black"
               type="date"
-              placeholder="Date"
               id="date"
               onChange={inputHandler}
             />
