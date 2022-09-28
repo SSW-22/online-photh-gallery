@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+import uuid from "react-uuid";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { flushSync } from "react-dom";
@@ -7,10 +9,16 @@ import PreviewSlide from "./PreviewSlide";
 import getCroppedImg from "../crop/cropimage";
 import Crop from "../crop/Crop";
 
-function UploadImages({ images, onImages }) {
+function UploadImages({ onImages, setDeletedItem }) {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.gallery.gallery);
-  const [imageData, setImageData] = useState({});
+  const [imageData, setImageData] = useState({
+    title: "",
+    date: "",
+    description: "",
+    imgUrl: "",
+  });
+  const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
@@ -33,7 +41,6 @@ function UploadImages({ images, onImages }) {
         galleryActions.addImage({
           ...imageData,
           imgUrl: url,
-          id: images.length + 1,
         })
       );
     } catch (error) {
@@ -53,7 +60,7 @@ function UploadImages({ images, onImages }) {
   const onDrop = useCallback((acceptedFiles) => {
     const newImg = acceptedFiles[0];
     setImageData((prev) => {
-      return { ...prev, imgUrl: newImg };
+      return { ...prev, imgUrl: newImg, id: uuid() };
     });
   }, []);
 
@@ -69,22 +76,25 @@ function UploadImages({ images, onImages }) {
   // push the current image with title, description and url into images array for preview and update to firestore.
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!imageData.title || !imageData.description || !imageData.imgUrl) {
+    if (!imageData.title || !imageData.imgUrl) {
       console.log("wrong info");
+      setErrorInput(true);
       return;
     }
 
     cropImage();
     // re-render when image data is updated
-    flushSync(() => {
-      setImageData({});
+    setImageData({
+      title: "",
+      date: "",
+      description: "",
     });
+    setErrorInput(false);
     e.target.reset();
   };
 
   return (
     <div className="container mx-auto h-full font-['average']">
-      <h2 className="text-[1.5rem]">Upload photos</h2>
       <p>Maximum 10 photos per event is supported</p>
       <div className="flex mt-5">
         <div>
@@ -108,24 +118,35 @@ function UploadImages({ images, onImages }) {
           {fileRejections[0]?.file && (
             <p>Only *.jpeg and *.png images will be accepted</p>
           )}
+
+          {errorInput && imageData.imgUrl.length <= 0 && (
+            <p className="text-red-500">Please select the image</p>
+          )}
         </div>
         <form onSubmit={submitHandler} className="flex flex-col ml-[2.5rem]">
-          <label htmlFor="title" className="flex flex-col mb-2">
+          <label htmlFor="title" className="flex flex-col h-[70px]">
             Title
             <input
-              className="border border-black"
+              className={`border-b 
+              ${
+                errorInput && imageData.title.length <= 0
+                  ? "border-red-500"
+                  : "border-black"
+              }`}
               id="title"
               type="text"
-              placeholder="title"
+              placeholder="My Youth..."
               onChange={inputHandler}
             />
+            {errorInput && imageData.title.length <= 0 && (
+              <p className="text-red-500">Please fill out this field</p>
+            )}
           </label>
-          <label htmlFor="date" className="flex flex-col mb-2">
+          <label htmlFor="date" className="flex flex-col h-[70px]">
             Date (YYYY.MM.DD)
             <input
-              className="border border-black"
+              className="border-b border-black"
               type="date"
-              placeholder="Date"
               id="date"
               onChange={inputHandler}
             />
@@ -148,7 +169,11 @@ function UploadImages({ images, onImages }) {
         <p>Choose your theme: </p>
         <button type="button">View in gallery Mode</button>
       </div>
-      <PreviewSlide images={data.images} />
+      <PreviewSlide
+        images={data.images}
+        setDeletedItem={setDeletedItem}
+        onImages={onImages}
+      />
     </div>
   );
 }
