@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import uuid from "react-uuid";
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { flushSync } from "react-dom";
 import { useDropzone } from "react-dropzone";
+import uuid from "react-uuid";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 import getCroppedImg from "../crop/cropimage";

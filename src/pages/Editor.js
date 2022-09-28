@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import arrowImg from "../asset/arrow.png";
 import addDocument from "../firebase/addDocument";
 import uploadFileProgress from "../firebase/uploadFileProgress";
-import UploadImages from "../components/editPage/UploadImages";
 import UploadThumbnail from "../components/editPage/UploadThumbnail";
 import deleteFile from "../firebase/deleteImageFile";
 import { checkGallery } from "../store/gallery-slice";
+import UploadImages from "../components/editPage/UploadImages";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
