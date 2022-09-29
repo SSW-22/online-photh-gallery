@@ -10,6 +10,7 @@
     "dotenv": "^16.0.2",
     "firebase": "^9.9.4",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.2",
     "react-easy-crop": "^4.5.0",

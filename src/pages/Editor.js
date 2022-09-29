@@ -15,7 +15,7 @@ function Editor() {
   const galleryData = useSelector((state) => state.gallery.gallery);
 
   const [deletedItem, setDeletedItem] = useState([]);
-  const [images, setImages] = useState([]);
+  const [imageFiles, setImageFiles] = useState([]);
   const [progress, setProgress] = useState(0);
   const [page, setPage] = useState(0);
 
@@ -62,29 +62,36 @@ function Editor() {
       });
     }
     // wait till all the images uploaded into firebase storage and return all urls within single attempt.
-    try {
-      const newData = await Promise.all(
-        images.map(async (image) => {
-          const imageName = image.id;
-          const url = await uploadFileProgress(
-            image.imgUrl,
-            `gallery/${uid}`,
-            imageName,
-            setProgress
-          );
-          return { ...image, imgUrl: url };
-        })
-      );
-      const galleryDoc = updateData(newData);
-      // Now, new data will be updated
+    if (imageFiles.length > 0) {
+      try {
+        const newData = await Promise.all(
+          imageFiles.map(async (image) => {
+            const imageName = image.id;
+            const url = await uploadFileProgress(
+              image.imgUrl,
+              `gallery/${uid}`,
+              imageName,
+              setProgress
+            );
+            return { ...image, imgUrl: url };
+          })
+        );
+        const galleryDoc = updateData(newData);
+        // Now, new data will be updated
+        await addDocument("gallery", galleryDoc, uid);
+        // Reset the images file array and deletedItem array
+        dispatch(checkGallery(uid));
+        setImageFiles([]);
+        setDeletedItem([]);
+        console.log("uploaded");
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else {
+      const galleryDoc = { ...galleryData };
+      console.log(galleryDoc);
       await addDocument("gallery", galleryDoc, uid);
-      // Reset the images file array and deletedItem array
-      dispatch(checkGallery(uid));
-      setImages([]);
-      setDeletedItem([]);
-      console.log("uploaded");
-    } catch (error) {
-      console.log(error.message);
+      console.log("uploaded 2");
     }
   };
 
@@ -95,8 +102,8 @@ function Editor() {
         {page === 0 && <UploadThumbnail />}
         {page === 1 && (
           <UploadImages
-            images={images}
-            onImages={setImages}
+            images={imageFiles}
+            setImageFiles={setImageFiles}
             setDeletedItem={setDeletedItem}
           />
         )}
