@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 import uuid from "react-uuid";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 
-function UploadImages({ onImages, setDeletedItem }) {
+function UploadImages({ setImageFiles, setDeletedItem }) {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.gallery.gallery);
   const [imageData, setImageData] = useState({
     title: "",
     date: "",
@@ -42,7 +41,7 @@ function UploadImages({ onImages, setDeletedItem }) {
       return;
     }
     // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
-    onImages((prev) => {
+    setImageFiles((prev) => {
       return [...prev, imageData];
     });
     // update user gallery info with fake image url to gallery redux store due to display preview images.
@@ -136,9 +135,9 @@ function UploadImages({ onImages, setDeletedItem }) {
         <button type="button">View in gallery Mode</button>
       </div>
       <PreviewSlide
-        images={data.images}
+        // images={data.images}
         setDeletedItem={setDeletedItem}
-        onImages={onImages}
+        setImageFiles={setImageFiles}
       />
     </div>
   );

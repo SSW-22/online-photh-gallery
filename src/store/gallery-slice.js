@@ -70,6 +70,10 @@ const gallerySlice = createSlice({
         (item) => item.id !== selectedImageId
       );
     },
+    sortImages(state, action) {
+      const previousData = state.gallery;
+      previousData.images = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
