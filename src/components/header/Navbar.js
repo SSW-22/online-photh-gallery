@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signOutWithGoogle } from "../firebase/googleAuth";
-import { authActions } from "../store/auth";
+import { signOutWithGoogle } from "../../firebase/googleAuth";
+import { authActions } from "../../store/auth";
 
 function Navbar() {
   const dispatch = useDispatch();

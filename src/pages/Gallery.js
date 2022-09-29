@@ -1,7 +1,9 @@
+import GalleryThumbnail from "../components/galleryPage/GalleryThumbnail";
+
 function Gallery() {
   return (
     <div>
-      <h1>Gallery</h1>
+      <GalleryThumbnail />
     </div>
   );
 }

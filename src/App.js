@@ -5,14 +5,17 @@ import { useDispatch } from "react-redux";
 import { auth } from "./firebase/firebase";
 import { authActions } from "./store/auth";
 
+import Gallery from "./pages/Gallery";
 import Editor from "./pages/Editor";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/header/Navbar";
 import SignIn from "./pages/SignIn";
 import Landing from "./pages/Landing";
 import MyEvent from "./pages/MyEvent";
 import BrowseEvents from "./pages/BrowsEvents";
 import Protected from "./components/Protected";
 import { checkGallery } from "./store/gallery-slice";
+import WithNav from "./components/header/WithNav";
+import WithoutNav from "./components/header/WithoutNav";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,9 +37,8 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Navbar />
-      <Routes>
+    <Routes>
+      <Route element={<WithNav />}>
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />
         <Route
@@ -56,8 +58,11 @@ function App() {
           }
         />
         <Route path="/events" element={<BrowseEvents />} />
-      </Routes>
-    </>
+      </Route>
+      <Route element={<WithoutNav />}>
+        <Route path="/gallery" element={<Gallery />} />
+      </Route>
+    </Routes>
   );
 }
 
