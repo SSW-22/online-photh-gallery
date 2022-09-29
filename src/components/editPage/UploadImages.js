@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
-import uuid from "react-uuid";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { useDropzone } from "react-dropzone";
+import uuid from "react-uuid";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
+import getCroppedImg from "../crop/cropimage";
+import Crop from "../crop/Crop";
 
 function UploadImages({ setImageFiles, setDeletedItem }) {
   const dispatch = useDispatch();
@@ -14,8 +17,35 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
     imgUrl: "",
   });
   const [errorInput, setErrorInput] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  /**  Handling the title, and description for the current user-selected image and save as an obj. */
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
+
+  const cropImage = async () => {
+    try {
+      const { file, url } = await getCroppedImg(
+        URL.createObjectURL(imageData.imgUrl),
+        croppedAreaPixels
+      );
+
+      // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
+      setImageFiles((prev) => {
+        return [...prev, { ...imageData, imgUrl: file }];
+      });
+
+      dispatch(
+        galleryActions.addImage({
+          ...imageData,
+          imgUrl: url,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // Handling the title, and description for the current user-selected image and save as an obj.
   const inputHandler = (e) => {
     const { id, value } = e.target;
 
@@ -24,15 +54,24 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
     });
   };
 
-  /** Grab current user-selected image and add into imageData. */
-  const imageHandler = (e) => {
-    const newImg = e.target.files[0];
+  // Grab current user-selected image and add into imageData.
+  const onDrop = useCallback((acceptedFiles) => {
+    const newImg = acceptedFiles[0];
     setImageData((prev) => {
       return { ...prev, imgUrl: newImg, id: uuid() };
     });
-  };
+  }, []);
 
-  /** Update user image info into gallery redux. Those data will be updated to the firestore later */
+  const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
+    useDropzone({
+      onDrop,
+      accept: {
+        "image/jpeg": [],
+        "image/jpg": [],
+        "image/png": [],
+      },
+    });
+  // push the current image with title, description and url into images array for preview and update to firestore.
   const submitHandler = (e) => {
     e.preventDefault();
     if (!imageData.title || !imageData.imgUrl) {
@@ -40,18 +79,9 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
       setErrorInput(true);
       return;
     }
-    // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
-    setImageFiles((prev) => {
-      return [...prev, imageData];
-    });
-    // update user gallery info with fake image url to gallery redux store due to display preview images.
-    dispatch(
-      galleryActions.addImage({
-        ...imageData,
-        imgUrl: URL.createObjectURL(imageData.imgUrl),
-      })
-    );
-    // reset image data and error input handler
+
+    cropImage();
+    // re-render when image data is updated
     setImageData({
       title: "",
       date: "",
@@ -65,18 +95,26 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
     <div className="container mx-auto h-full font-['average']">
       <p>Maximum 10 photos per event is supported</p>
       <div className="flex mt-5">
-        <div className="w-[250px] h-[250px] bg-[#D9D9D9] flex flex-col justify-center items-center">
-          {!imageData.imgUrl && (
-            <>
-              <p>
-                Drop your image here, or{" "}
-                <span className="text-[#007BED]">browse</span>
-              </p>
-              <p>Support jpeg, jpg, png</p>
-            </>
-          )}
-          {imageData.imgUrl && (
-            <img src={URL.createObjectURL(imageData.imgUrl)} alt="" />
+        <div>
+          <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center ">
+            <div {...getRootProps({ className: "dropzone" })}>
+              <input {...getInputProps()} />
+              {!imageData.imgUrl && (
+                <>
+                  <p className="cursor-pointer">
+                    Drop your image here, or{" "}
+                    <span className="text-[#007BED]">browse</span>
+                  </p>
+                  <p>Support jpeg, jpg, png</p>
+                </>
+              )}
+            </div>
+            {imageData.imgUrl && (
+              <Crop imgUrl={imageData.imgUrl} onCropComplete={onCropComplete} />
+            )}
+          </div>
+          {fileRejections[0]?.file && (
+            <p>Only *.jpeg and *.png images will be accepted</p>
           )}
 
           {errorInput && imageData.imgUrl.length <= 0 && (
@@ -120,12 +158,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
               onChange={inputHandler}
             />
           </label>
-          <input
-            type="file"
-            id="imageURL"
-            accept="image/png, image/jpeg"
-            onChange={imageHandler}
-          />
+
           <button type="submit">Add to preview</button>
         </form>
       </div>
