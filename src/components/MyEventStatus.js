@@ -2,10 +2,17 @@ import { NavLink } from "react-router-dom";
 import recycleImg from "../asset/recycle-bin-sketch.png";
 import pencilImg from "../asset/pencil-tool.png";
 import Thumbnail from "./Thumbnail";
+import deleteDocument from "../firebase/deleteDocument";
 
 function MyEventStatus({ userData }) {
   const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
     userData;
+
+  const deleteBtnHandler = () => {
+    console.log("clicked");
+    deleteDocument("hg6XCR3JpoSCqOMux8VjMkX6Xw03");
+  };
+
   if (status === "none") {
     return (
       <>
@@ -45,7 +52,7 @@ function MyEventStatus({ userData }) {
           </span>
           Click to create your event
         </NavLink>
-        <button type="button" className="flex">
+        <button type="button" className="flex" onClick={deleteBtnHandler}>
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
           </span>
