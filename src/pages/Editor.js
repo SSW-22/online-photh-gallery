@@ -117,7 +117,7 @@ function Editor() {
       </div>
       {page !== 2 && (
         <button
-          className="absolute right-10 top-[50%]"
+          className="absolute right-10 top-[50%] hover:animate-bounceRight"
           type="button"
           id="nextPage"
           disabled={page === FormHeaders.length - 1}
@@ -130,7 +130,7 @@ function Editor() {
 
       {page !== 0 && (
         <button
-          className="absolute left-10 top-[50%]"
+          className="absolute left-10 top-[50%] hover:animate-bounceLeft"
           type="button"
           id="prevPage"
           disabled={page === 0}
