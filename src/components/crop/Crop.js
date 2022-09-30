@@ -20,6 +20,9 @@ function Crop({ imgUrl, onCropComplete }) {
 
   // save url to useMemo to not to re-render
   const url = useMemo(() => {
+    if (typeof imgUrl === "string") {
+      return imgUrl;
+    }
     return URL.createObjectURL(imgUrl);
   }, [imgUrl]);
 

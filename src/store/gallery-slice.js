@@ -61,6 +61,11 @@ const gallerySlice = createSlice({
           imgUrl: newImage.imgUrl,
           date: newImage.date,
         });
+      } else {
+        existImages.title = newImage.title;
+        existImages.description = newImage.description;
+        existImages.imgUrl = newImage.imgUrl;
+        existImages.date = newImage.date;
       }
     },
     removeImage(state, action) {

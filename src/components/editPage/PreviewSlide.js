@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { galleryActions } from "../../store/gallery-slice";
 
-function PreviewSlide({ setDeletedItem, setImageFiles }) {
+function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
   const images = useSelector((state) => state.gallery.gallery.images);
   const dispatch = useDispatch();
   const removeItem = (image) => {
@@ -30,6 +30,9 @@ function PreviewSlide({ setDeletedItem, setImageFiles }) {
     // Update with re-orderd images array into redux
     dispatch(galleryActions.sortImages(previousImages));
   };
+  const onImgClickHandler = (img) => {
+    setImageData(img);
+  };
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="galleries" direction="horizontal">
@@ -49,10 +52,8 @@ function PreviewSlide({ setDeletedItem, setImageFiles }) {
                 >
                   {(provided) => (
                     <li
-                      className="shrink-0 w-[180px] h-[130px] ml-6 relative"
-                      // eslint-disable-next-line react/jsx-props-no-spreading
+                      className="shrink-0 w-[180px] h-[130px] ml-6 relative "
                       {...provided.draggableProps}
-                      // eslint-disable-next-line react/jsx-props-no-spreading
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
                     >
@@ -63,7 +64,10 @@ function PreviewSlide({ setDeletedItem, setImageFiles }) {
                           width: "100%",
                           height: "100%",
                         }}
+                        onClick={() => onImgClickHandler(image)}
+                        role="presentation"
                       />
+
                       <button
                         className="absolute top-1.5 right-2 bg-[#D9D9D9] py-0.25 px-1.5 rounded-full"
                         type="button"

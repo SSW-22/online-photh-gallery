@@ -26,6 +26,7 @@
     "react/jsx-props-no-spreading": ["warn"],
     "no-shadow": "off",
     "no-unused-vars": "warn",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "jsx-a11y/click-events-have-key-events": 0
   }
 }
