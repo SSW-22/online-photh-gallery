@@ -109,10 +109,10 @@ function Editor() {
         )}
         <button
           type="button"
-          className="bg-[#D9D9D9] self-end px-4 py-2"
+          className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms]"
           onClick={uploadHandler}
         >
-          Save as draft
+          Save as a draft
         </button>
       </div>
       {page !== 2 && (
