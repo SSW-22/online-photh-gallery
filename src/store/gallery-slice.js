@@ -32,6 +32,10 @@ const gallerySlice = createSlice({
   name: "gallery",
   initialState: initialGalleryState,
   reducers: {
+    setInitial(state, action) {
+      const previousData = state;
+      previousData.gallery = action.payload;
+    },
     addTitle(state, action) {
       const previousData = state;
       previousData.gallery.title = action.payload;
