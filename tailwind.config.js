@@ -30,10 +30,16 @@ module.exports = {
             transform: "translateX(-10px)",
           },
         },
+        step: {
+          "0%": { transform: "translate(5px, 5px)" },
+          "50%": { transform: "translate(-5px, 0px)" },
+          "100%": { transform: "translate(5px, -5px)" },
+        },
       },
       animation: {
         bounceRight: "bounceRight 1s ease-in-out infinite",
         bounceLeft: "bounceLeft 1s ease-in-out infinite",
+        step: "step 2s linear infinite",
       },
     },
   },
