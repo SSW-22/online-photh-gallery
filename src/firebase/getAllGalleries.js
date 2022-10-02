@@ -5,8 +5,9 @@ const getAllGalleries = async () => {
   const galleries = [];
   const q = query(collection(db, "gallery"), where("status", "==", "hosted"));
   const docSnaps = await getDocs(q);
-  // const docSnaps = await getDocs(collection(db, "gallery"));
+
   docSnaps.forEach((item) => galleries.push(item.data()));
+
   return galleries;
 };
 

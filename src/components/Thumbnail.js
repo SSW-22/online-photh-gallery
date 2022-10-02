@@ -5,6 +5,7 @@ function Thumbnail({
   thumbnailTextColor,
   name,
   title,
+  images,
   status,
   mode,
 }) {
@@ -29,6 +30,7 @@ function Thumbnail({
             thumbnailTextColor,
             name,
             title,
+            images,
           }}
         >
           Buy a Ticket

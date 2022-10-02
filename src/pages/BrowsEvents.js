@@ -50,6 +50,7 @@ function BrowseEvents() {
                 name={gallery.name}
                 thumbnailBgColor={gallery.thumbnailBgColor}
                 thumbnailTextColor={gallery.thumbnailTextColor}
+                images={gallery.images}
                 mode="browse"
               />
             ))}
