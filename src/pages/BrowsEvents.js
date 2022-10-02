@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import Thumbnail from "../components/Thumbnail";
 import getAllGalleries from "../firebase/getAllGalleries";
-import DUMMY_DATA from "../asset/dummy";
 import arrowImg from "../asset/arrow.png";
 
-const DUMMY = DUMMY_DATA;
 const PAGE_PER_GALLERIES = 12;
 
 function BrowseEvents() {
@@ -18,6 +16,7 @@ function BrowseEvents() {
     const getGalleries = async () => {
       const data = await getAllGalleries();
       setGalleries(data);
+      // after get data from database, set max number of page by data length
       setMaxPage(Math.ceil(data.length / PAGE_PER_GALLERIES));
       setIsLoading(false);
     };
