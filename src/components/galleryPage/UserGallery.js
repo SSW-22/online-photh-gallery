@@ -4,28 +4,32 @@ import GalleryZoomedIn from "./GalleryZoomedIn";
 function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
   const [index, setIndex] = useState();
   const scrollRefs = useRef([]);
-
+  // initiate ref to save element for scrollintoview
   scrollRefs.current = images.map(() => createRef());
-
+  // function to move page to given imgage index
   const scrollSmoothHandler = (index) => {
     scrollRefs.current[index].current.scrollIntoView({
       inline: "center",
     });
   };
 
+  // next, prev btn handler
   const indexHandler = (e) => {
     e.preventDefault();
     if (
       (e.target.parentNode.title || e.target.parentNode.parentNode.title) ===
       "next"
     ) {
+      //  if next btn is clicked move background page to specific index
       scrollSmoothHandler(index + 1);
+      // set index++
       setIndex((prev) => prev + 1);
     }
     if (
       (e.target.parentNode.title || e.target.parentNode.parentNode.title) ===
       "previous"
     ) {
+      // same but deduct index
       scrollSmoothHandler(index - 1);
       setIndex((prev) => prev - 1);
     }
