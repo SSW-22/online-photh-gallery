@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import { IoFootstepsSharp } from "react-icons/io5";
+import { HiOutlineX } from "react-icons/hi";
 import ArcText from "../components/ArcText";
 import GalleryThumbnail from "../components/galleryPage/GalleryThumbnail";
 import UserGallery from "../components/galleryPage/UserGallery";
@@ -14,9 +15,9 @@ function Gallery() {
   const location = useLocation();
   const { title, name, thumbnailBgColor, thumbnailTextColor, images } =
     location.state;
-  console.log(images);
   const galleryRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
+  const [zoomed, setZoomed] = useState(false);
   useEffect(() => {
     /** Trigger observer when scrolling to the gallery section */
     const observer = new IntersectionObserver((entries) => {
@@ -38,25 +39,46 @@ function Gallery() {
         thumbnailBgColor={thumbnailBgColor}
         thumbnailTextColor={thumbnailTextColor}
       />
-      <UserGallery images={images || ""} galleryRef={galleryRef} />
+      <UserGallery
+        images={images || ""}
+        galleryRef={galleryRef}
+        setZoomed={setZoomed}
+        zoomed={zoomed}
+      />
       <NavLink
         to="/events"
         className="
-        absolute right-[3rem] top-[3rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] 
+        absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]
         "
       >
         <p className="text-[0.8rem]">Click to leave</p>
         <BsFillDoorOpenFill />
       </NavLink>
-      <div
-        style={{ borderColor: galleryVisible ? "black" : thumbnailTextColor }}
-        className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex items-center justify-center border rounded-full"
-      >
-        <ArcText text="Scroll to  Walk" arc={95} radius={70} />
-        <div className="absolute text-[3rem] animate-step">
-          <IoFootstepsSharp />
+      {!zoomed && (
+        <div
+          style={{ borderColor: galleryVisible ? "black" : thumbnailTextColor }}
+          className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex items-center justify-center border rounded-full z-[99]"
+        >
+          <ArcText text="Scroll to  Walk" arc={95} radius={70} />
+          <div className="absolute text-[3rem] animate-step">
+            <IoFootstepsSharp />
+          </div>
         </div>
-      </div>
+      )}
+      {zoomed && (
+        <button
+          type="button"
+          className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex flex-col items-center justify-center z-[99]"
+          onClick={(e) => {
+            setZoomed(false);
+          }}
+        >
+          <p className="text-[0.8rem] font-[100]">Back</p>
+          <div className="text-[4rem]">
+            <HiOutlineX />
+          </div>
+        </button>
+      )}
     </main>
   );
 }
