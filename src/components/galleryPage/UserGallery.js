@@ -1,8 +1,36 @@
-import { useState } from "react";
+import { useState, createRef, useRef } from "react";
 import GalleryZoomedIn from "./GalleryZoomedIn";
 
 function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
-  const [image, setImage] = useState();
+  const [index, setIndex] = useState();
+  const scrollRefs = useRef([]);
+
+  scrollRefs.current = images.map(() => createRef());
+
+  const scrollSmoothHandler = (index) => {
+    scrollRefs.current[index].current.scrollIntoView({
+      inline: "center",
+    });
+  };
+
+  const indexHandler = (e) => {
+    e.preventDefault();
+    if (
+      (e.target.parentNode.title || e.target.parentNode.parentNode.title) ===
+      "next"
+    ) {
+      scrollSmoothHandler(index + 1);
+      setIndex((prev) => prev + 1);
+    }
+    if (
+      (e.target.parentNode.title || e.target.parentNode.parentNode.title) ===
+      "previous"
+    ) {
+      scrollSmoothHandler(index - 1);
+      setIndex((prev) => prev - 1);
+    }
+  };
+
   return (
     <section
       ref={galleryRef}
@@ -14,6 +42,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
           id={i}
           key={image.id}
           className="flex flex-col mx-40 max-w-max 2xl:max-w-[650px]"
+          ref={scrollRefs.current[i]}
         >
           <div className="drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] max-w-max">
             <img
@@ -21,7 +50,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
               src={image.imgUrl}
               alt=""
               onClick={(e) => {
-                setImage(image);
+                setIndex(i);
                 setZoomed(true);
               }}
               role="presentation"
@@ -30,7 +59,14 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
           <h2 className="self-end mt-6 mr-4 text-black">{image.title}</h2>
         </div>
       ))}
-      {zoomed && <GalleryZoomedIn image={image} />}
+      {zoomed && (
+        <GalleryZoomedIn
+          images={images}
+          curImgIndex={index}
+          setIndex={indexHandler}
+          maxImgIndex={images.length - 1}
+        />
+      )}
     </section>
   );
 }
