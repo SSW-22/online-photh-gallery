@@ -1,25 +1,46 @@
-function GalleryZoomedIn({ image }) {
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import GalleryZoomedImage from "./GalleryZoomedImage";
+
+function GalleryZoomedIn({ images, curImgIndex, setIndex, maxImgIndex }) {
   return (
     <div className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center font-['average']">
-      <div className="flex flex-col gap-[2.5rem]">
-        <div className="drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] ">
-          <img
-            className="object-contain max-w-[900px] max-h-[700px]"
-            src={image.imgUrl}
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col gap-[0.4rem] drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] bg-gradient-to-br from-[#d9d9d9] to-[#ECECED] max-w-[10rem] py-[0.6rem] px-[1rem] self-end">
-          <p>{image.title}</p>
-          {image.date && (
-            <p className="font-[100] text-[0.7rem]">
-              {image.date.replaceAll("-", ".")}
-            </p>
-          )}
-          {image.description && (
-            <p className="font-[100] text-[0.7rem]">{image.description}</p>
-          )}
-        </div>
+      <GalleryZoomedImage image={images[curImgIndex]} />
+      <div className="w-[75%] absolute">
+        {curImgIndex !== maxImgIndex && (
+          <button
+            className="absolute right-0 top-[50%]"
+            type="button"
+            id="nextPage"
+            disabled={curImgIndex === maxImgIndex}
+            onClick={setIndex}
+          >
+            <span className="sr-only">next</span>
+            <div
+              className="text-[4rem] hover:opacity-50 duration-[300ms]"
+              title="next"
+            >
+              <BsChevronCompactRight />
+            </div>
+          </button>
+        )}
+
+        {curImgIndex !== 0 && (
+          <button
+            className="absolute left-0 top-[50%]"
+            type="button"
+            id="prevPage"
+            disabled={curImgIndex === 0}
+            onClick={setIndex}
+          >
+            <span className="sr-only">previous</span>
+            <div
+              className="text-[4rem] hover:opacity-50 duration-[300ms]"
+              title="previous"
+            >
+              <BsChevronCompactLeft />
+            </div>
+          </button>
+        )}
       </div>
     </div>
   );
