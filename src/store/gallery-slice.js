@@ -32,6 +32,10 @@ const gallerySlice = createSlice({
   name: "gallery",
   initialState: initialGalleryState,
   reducers: {
+    setInitial(state, action) {
+      const previousData = state;
+      previousData.gallery = action.payload;
+    },
     addTitle(state, action) {
       const previousData = state;
       previousData.gallery.title = action.payload;
@@ -61,6 +65,11 @@ const gallerySlice = createSlice({
           imgUrl: newImage.imgUrl,
           date: newImage.date,
         });
+      } else {
+        existImages.title = newImage.title;
+        existImages.description = newImage.description;
+        existImages.imgUrl = newImage.imgUrl;
+        existImages.date = newImage.date;
       }
     },
     removeImage(state, action) {

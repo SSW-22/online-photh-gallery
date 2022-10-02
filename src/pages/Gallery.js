@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
+import { BsFillDoorOpenFill } from "react-icons/bs";
+import { IoFootstepsSharp } from "react-icons/io5";
+import ArcText from "../components/ArcText";
 import GalleryThumbnail from "../components/galleryPage/GalleryThumbnail";
 import UserGallery from "../components/galleryPage/UserGallery";
 
@@ -11,6 +14,7 @@ function Gallery() {
   const location = useLocation();
   const { title, name, thumbnailBgColor, thumbnailTextColor, images } =
     location.state;
+  console.log(images);
   const galleryRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
   useEffect(() => {
@@ -26,7 +30,7 @@ function Gallery() {
   return (
     <main
       className="flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden"
-      style={{ color: thumbnailTextColor }}
+      style={{ color: galleryVisible ? "black" : thumbnailTextColor }}
     >
       <GalleryThumbnail
         title={title}
@@ -37,14 +41,21 @@ function Gallery() {
       <UserGallery images={images || ""} galleryRef={galleryRef} />
       <NavLink
         to="/events"
-        className={`fixed right-10 top-10 ${galleryVisible && "text-black"}`}
+        className="
+        absolute right-[3rem] top-[3rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] 
+        "
       >
-        Exit
+        <p className="text-[0.8rem]">Click to leave</p>
+        <BsFillDoorOpenFill />
       </NavLink>
       <div
-        className={`fixed bottom-10 right-10 ${galleryVisible && "text-black"}`}
+        style={{ borderColor: galleryVisible ? "black" : thumbnailTextColor }}
+        className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex items-center justify-center border rounded-full"
       >
-        Lotating
+        <ArcText text="Scroll to  Walk" arc={95} radius={70} />
+        <div className="absolute text-[3rem] animate-step">
+          <IoFootstepsSharp />
+        </div>
       </div>
     </main>
   );

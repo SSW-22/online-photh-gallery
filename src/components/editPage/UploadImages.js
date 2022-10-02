@@ -2,19 +2,21 @@
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
+import { ImCancelCircle } from "react-icons/im";
 import uuid from "react-uuid";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 import getCroppedImg from "../crop/cropimage";
 import Crop from "../crop/Crop";
 
-function UploadImages({ setImageFiles, setDeletedItem }) {
+function UploadImages({ images, setImageFiles, setDeletedItem }) {
   const dispatch = useDispatch();
   const [imageData, setImageData] = useState({
     title: "",
     date: "",
     description: "",
     imgUrl: "",
+    id: uuid(),
   });
   const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -25,22 +27,25 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
 
   const cropImage = async () => {
     try {
-      const { file, url } = await getCroppedImg(
-        URL.createObjectURL(imageData.imgUrl),
-        croppedAreaPixels
-      );
+      if (typeof imageData.imgUrl === "object") {
+        const { file, url } = await getCroppedImg(
+          URL.createObjectURL(imageData.imgUrl),
+          croppedAreaPixels
+        );
+        // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
+        setImageFiles((prev) => {
+          return [...prev, { ...imageData, imgUrl: file }];
+        });
 
-      // Save selected image files to seperate state since redux can not store non-serializable value which is image file.
-      setImageFiles((prev) => {
-        return [...prev, { ...imageData, imgUrl: file }];
-      });
-
-      dispatch(
-        galleryActions.addImage({
-          ...imageData,
-          imgUrl: url,
-        })
-      );
+        dispatch(
+          galleryActions.addImage({
+            ...imageData,
+            imgUrl: url,
+          })
+        );
+      } else {
+        dispatch(galleryActions.addImage(imageData));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +63,8 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
   const onDrop = useCallback((acceptedFiles) => {
     const newImg = acceptedFiles[0];
     setImageData((prev) => {
-      return { ...prev, imgUrl: newImg, id: uuid() };
+      // return { ...prev, imgUrl: newImg, id: uuid() };
+      return { ...prev, imgUrl: newImg };
     });
   }, []);
 
@@ -81,22 +87,46 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
     }
 
     cropImage();
-    // re-render when image data is updated
+
     setImageData({
       title: "",
       date: "",
       description: "",
+      imgUrl: "",
+      id: uuid(),
     });
     setErrorInput(false);
     e.target.reset();
   };
-
+  const cancelHandler = (e) => {
+    e.preventDefault();
+    setImageData({
+      title: "",
+      date: "",
+      description: "",
+      imgUrl: "",
+      id: uuid(),
+    });
+  };
   return (
     <div className="container mx-auto h-full font-['average']">
       <p>Maximum 10 photos per event is supported</p>
       <div className="flex mt-5">
         <div>
-          <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center ">
+          <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
+            {imageData.imgUrl && (
+              <button
+                className="absolute top-0 right-0 m-[1rem] z-[99]"
+                type="button"
+                onClick={(e) => {
+                  setImageData((prev) => {
+                    return { ...prev, imgUrl: "" };
+                  });
+                }}
+              >
+                <ImCancelCircle />
+              </button>
+            )}
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps()} />
               {!imageData.imgUrl && (
@@ -114,7 +144,9 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
             )}
           </div>
           {fileRejections[0]?.file && (
-            <p>Only *.jpeg and *.png images will be accepted</p>
+            <p className="text-red-500">
+              Only *.jpeg and *.png images will be accepted
+            </p>
           )}
 
           {errorInput && imageData.imgUrl.length <= 0 && (
@@ -134,6 +166,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
               id="title"
               type="text"
               placeholder="My Youth..."
+              value={imageData.title}
               onChange={inputHandler}
             />
             {errorInput && imageData.title.length <= 0 && (
@@ -146,6 +179,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
               className="border-b border-black"
               type="date"
               id="date"
+              value={imageData.date}
               onChange={inputHandler}
             />
           </label>
@@ -155,11 +189,15 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
               className="border border-black resize-none"
               placeholder="description"
               id="description"
+              value={imageData.description}
               onChange={inputHandler}
             />
           </label>
 
           <button type="submit">Add to preview</button>
+          <button type="button" onClick={cancelHandler}>
+            Cancel
+          </button>
         </form>
       </div>
 
@@ -171,6 +209,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
         // images={data.images}
         setDeletedItem={setDeletedItem}
         setImageFiles={setImageFiles}
+        setImageData={setImageData}
       />
     </div>
   );

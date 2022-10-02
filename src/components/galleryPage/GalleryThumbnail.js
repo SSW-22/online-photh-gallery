@@ -10,7 +10,7 @@ function GalleryThumbnail({
       className="w-[100vw] h-[100vh] flex flex-none items-center relative"
       style={{ backgroundColor: thumbnailBgColor, color: thumbnailTextColor }}
     >
-      <h1 className="flex flex-col ml-10">
+      <h1 className="flex flex-col ml-20">
         <span className="text-[40px]">{name}</span>
         <span className="text-[60px]">{title}</span>
       </h1>
