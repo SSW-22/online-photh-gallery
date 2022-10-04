@@ -20,9 +20,9 @@ function BrowseEvents() {
       setMaxPage(Math.ceil(data.length / PAGE_PER_GALLERIES));
       setIsLoading(false);
     };
-    return () => {
-      getGalleries();
-    };
+    getGalleries();
+    // return () => {
+    // };
   }, []);
 
   const pageLastIndex = curPage * PAGE_PER_GALLERIES;
