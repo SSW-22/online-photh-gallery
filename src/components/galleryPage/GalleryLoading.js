@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { useEffect, useState } from "react";
 
 function GalleryLoading({ images, setImgsLoaded }) {
@@ -6,7 +8,6 @@ function GalleryLoading({ images, setImgsLoaded }) {
 
   // The purpose of this event is to display the loading animation while waiting for the images to be fully downloaded. The progress bar and percentage will be shown.
   useEffect(() => {
-    console.log(counterValid);
     const timer =
       counterValid &&
       setInterval(() => {

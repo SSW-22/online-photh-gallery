@@ -82,7 +82,7 @@ function Gallery() {
             <button
               type="button"
               className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex flex-col items-center justify-center z-[99]"
-              onClick={(e) => {
+              onClick={() => {
                 setZoomed(false);
               }}
             >

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { deleteObject, ref } from "firebase/storage";
 import { storage } from "./firebase";
 
