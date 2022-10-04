@@ -3,7 +3,7 @@ import GalleryZoomedImage from "./GalleryZoomedImage";
 
 function GalleryZoomedIn({ images, curImgIndex, setIndex, maxImgIndex }) {
   return (
-    <div className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center font-['average']">
+    <div className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center">
       <GalleryZoomedImage image={images[curImgIndex]} />
       <div className="w-[75%] absolute">
         {curImgIndex !== maxImgIndex && (
