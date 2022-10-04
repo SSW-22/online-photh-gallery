@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import checkUserGallery from "../firebase/checkUserGallery";
 
