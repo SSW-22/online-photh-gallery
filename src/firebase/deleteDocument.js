@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase";
 

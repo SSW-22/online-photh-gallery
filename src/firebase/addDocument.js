@@ -1,4 +1,4 @@
-import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, collection, setDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 const addDocument = (collectionName, documentObj, userId) => {

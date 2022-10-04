@@ -53,7 +53,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
               className="cursor-pointer"
               src={image.imgUrl}
               alt=""
-              onClick={(e) => {
+              onClick={() => {
                 setIndex(i);
                 setZoomed(true);
               }}
