@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
+
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "./firebase";
 
-const uploadFileProgress = (file, subFolder, imageName, setProgress) => {
+const uploadFileProgress = (file, subFolder, imageName) => {
   return new Promise((resolve, reject) => {
     const storageRef = ref(storage, `${subFolder}/${imageName}`);
     const upload = uploadBytesResumable(storageRef, file);
@@ -10,7 +12,8 @@ const uploadFileProgress = (file, subFolder, imageName, setProgress) => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setProgress(progress);
+        console.log(progress);
+        // setProgress(progress);
       },
       (error) => {
         reject(error);

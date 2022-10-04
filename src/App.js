@@ -7,7 +7,6 @@ import { authActions } from "./store/auth";
 
 import Gallery from "./pages/Gallery";
 import Editor from "./pages/Editor";
-import Navbar from "./components/header/Navbar";
 import SignIn from "./pages/SignIn";
 import Landing from "./pages/Landing";
 import MyEvent from "./pages/MyEvent";

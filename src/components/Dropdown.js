@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { useRef, useEffect, useState } from "react";
 import { MdAspectRatio } from "react-icons/md";
 
@@ -43,12 +45,12 @@ function Dropdown({
             <div
               className={`${
                 ratio.text === selected ? "text-white" : "text-slate-300"
-              } w-full h-[1.7rem] flex border-white border-b border-slate-300 last:border-none`}
+              } w-full h-[1.7rem] flex border-b border-slate-300 last:border-none`}
               key={ratio.value}
             >
               <button
                 className="w-full"
-                onClick={(e) => {
+                onClick={() => {
                   onAspectChange(ratio);
                   setSelected(ratio.text);
                 }}

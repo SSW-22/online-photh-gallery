@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -90,5 +92,7 @@ export default async function getCroppedImg(
       newFile.name = "cropped.jpeg";
       resolve({ file: newFile, url: URL.createObjectURL(file) });
     }, "image/jpeg");
+    // ?????
+    console.log(reject);
   });
 }
