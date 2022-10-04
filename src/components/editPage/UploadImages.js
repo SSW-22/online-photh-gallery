@@ -1,4 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
+
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
@@ -9,7 +12,7 @@ import PreviewSlide from "./PreviewSlide";
 import getCroppedImg from "../crop/cropimage";
 import Crop from "../crop/Crop";
 
-function UploadImages({ images, setImageFiles, setDeletedItem }) {
+function UploadImages({ setImageFiles, setDeletedItem }) {
   const dispatch = useDispatch();
   const [imageData, setImageData] = useState({
     title: "",
@@ -68,15 +71,14 @@ function UploadImages({ images, setImageFiles, setDeletedItem }) {
     });
   }, []);
 
-  const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
-    useDropzone({
-      onDrop,
-      accept: {
-        "image/jpeg": [],
-        "image/jpg": [],
-        "image/png": [],
-      },
-    });
+  const { fileRejections, getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      "image/jpeg": [],
+      "image/jpg": [],
+      "image/png": [],
+    },
+  });
   // push the current image with title, description and url into images array for preview and update to firestore.
   const submitHandler = (e) => {
     e.preventDefault();
@@ -118,7 +120,7 @@ function UploadImages({ images, setImageFiles, setDeletedItem }) {
               <button
                 className="absolute top-0 right-0 m-[1rem] z-[99]"
                 type="button"
-                onClick={(e) => {
+                onClick={() => {
                   setImageData((prev) => {
                     return { ...prev, imgUrl: "" };
                   });
@@ -206,7 +208,6 @@ function UploadImages({ images, setImageFiles, setDeletedItem }) {
         <button type="button">View in gallery Mode</button>
       </div>
       <PreviewSlide
-        // images={data.images}
         setDeletedItem={setDeletedItem}
         setImageFiles={setImageFiles}
         setImageData={setImageData}
