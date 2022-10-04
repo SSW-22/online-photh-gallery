@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import arrowImg from "../asset/arrow.png";
@@ -16,7 +18,6 @@ function Editor() {
 
   const [deletedItem, setDeletedItem] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
-  const [progress, setProgress] = useState(0);
   const [page, setPage] = useState(0);
 
   const pageHandler = (e) => {
@@ -70,8 +71,8 @@ function Editor() {
             const url = await uploadFileProgress(
               image.imgUrl,
               `gallery/${uid}`,
-              imageName,
-              setProgress
+              imageName
+              // setProgress
             );
             return { ...image, imgUrl: url };
           })
@@ -102,7 +103,6 @@ function Editor() {
         {page === 0 && <UploadThumbnail />}
         {page === 1 && (
           <UploadImages
-            images={imageFiles}
             setImageFiles={setImageFiles}
             setDeletedItem={setDeletedItem}
           />

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { galleryActions } from "../../store/gallery-slice";
@@ -39,7 +41,6 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
         {(provided) => (
           <ul
             className="flex items-center bg-[#D9D9D9] overflow-x-auto w-[100%] h-[250px] scroll-auto"
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
