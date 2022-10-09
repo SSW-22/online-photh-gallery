@@ -1,9 +1,20 @@
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { motion } from "framer-motion";
 import GalleryZoomedImage from "./GalleryZoomedImage";
 
 function GalleryZoomedIn({ images, curImgIndex, setIndex, maxImgIndex }) {
   return (
-    <div className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center">
+    <motion.div
+      className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: {
+          delay: 1,
+          duration: 0.2,
+        },
+      }}
+    >
       <GalleryZoomedImage image={images[curImgIndex]} />
       <div className="w-[75%] absolute">
         {curImgIndex !== maxImgIndex && (
@@ -42,7 +53,7 @@ function GalleryZoomedIn({ images, curImgIndex, setIndex, maxImgIndex }) {
           </button>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
