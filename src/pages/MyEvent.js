@@ -8,11 +8,11 @@ function MyEvent() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="container mx-auto h-full font-['average'] max-w-[1000px]">
+    <main className="container mx-auto h-full font-['average'] max-w-[1000px] ">
       <h1 className="my-12 text-xl font-medium">My Event</h1>
       <h2 className="font-normal mb-8">Hello {displayName},</h2>
       {userGallery && <MyEventStatus userData={userGallery} />}
-    </div>
+    </main>
   );
 }
 

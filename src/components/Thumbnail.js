@@ -7,6 +7,7 @@ function Thumbnail({
   title,
   images,
   status,
+  email,
   mode,
 }) {
   if (mode === "browse") {
@@ -31,6 +32,7 @@ function Thumbnail({
             name,
             title,
             images,
+            email,
           }}
         >
           Buy a Ticket
