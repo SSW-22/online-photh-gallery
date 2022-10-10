@@ -9,11 +9,12 @@ import UploadThumbnail from "../components/editPage/UploadThumbnail";
 import deleteFile from "../firebase/deleteImageFile";
 import { checkGallery } from "../store/gallery-slice";
 import UploadImages from "../components/editPage/UploadImages";
+import Submission from "../components/editPage/Submission";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
   const dispatch = useDispatch();
-  const uid = useSelector((state) => state.auth.uid);
+  const { uid, email } = useSelector((state) => state.auth);
   const galleryData = useSelector((state) => state.gallery.gallery);
 
   const [deletedItem, setDeletedItem] = useState([]);
@@ -25,11 +26,8 @@ function Editor() {
     if (e.target.alt === "previous") setPage((prev) => prev - 1);
   };
 
-  // console.log("img files", images);
-  // console.log("deleted images", deletedItem);
-
   /**  Create hash map for checking duplicate data and overwrite the map entries with current image array. */
-  const updateData = (newData) => {
+  const updateData = (newData, status) => {
     const imagesHash = {};
     galleryData.images.forEach((item) => {
       imagesHash[item.id] = item;
@@ -41,8 +39,8 @@ function Editor() {
 
     const galleryDoc = {
       ...galleryData,
+      status,
       images: results,
-      status: "draft",
     };
 
     return galleryDoc;
@@ -51,6 +49,9 @@ function Editor() {
   /**  Upload to the firestore. Until this button is "clicked", all data is not saved in Firebase, but only in Gallery Redux. */
   const uploadHandler = async (e) => {
     e.preventDefault();
+    // ========
+    // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
+    const status = e.target.id;
     // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
     if (deletedItem.length > 0) {
       console.log("deleting");
@@ -77,28 +78,28 @@ function Editor() {
             return { ...image, imgUrl: url };
           })
         );
-        const galleryDoc = updateData(newData);
+        const galleryDoc = updateData(newData, status);
         // Now, new data will be updated
         await addDocument("gallery", galleryDoc, uid);
         // Reset the images file array and deletedItem array
         dispatch(checkGallery(uid));
         setImageFiles([]);
         setDeletedItem([]);
-        console.log("uploaded");
+        console.log("uploaded with new pics");
       } catch (error) {
         console.log(error.message);
       }
     } else {
-      const galleryDoc = { ...galleryData };
+      const galleryDoc = { ...galleryData, status };
       console.log(galleryDoc);
       await addDocument("gallery", galleryDoc, uid);
-      console.log("uploaded 2");
+      console.log("uploaded without new pics");
     }
   };
 
   return (
-    <div>
-      <div className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
+    <main>
+      <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>
         {page === 0 && <UploadThumbnail />}
         {page === 1 && (
@@ -107,14 +108,28 @@ function Editor() {
             setDeletedItem={setDeletedItem}
           />
         )}
-        <button
-          type="button"
-          className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms]"
-          onClick={uploadHandler}
-        >
-          Save as a draft
-        </button>
-      </div>
+        {page === 2 && <Submission userEmail={email} />}
+        <div className="flex justify-end mt-2">
+          <button
+            id="draft"
+            type="button"
+            className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+            onClick={uploadHandler}
+          >
+            Save as a draft
+          </button>
+          {page === 2 && (
+            <button
+              id="hosted"
+              type="button"
+              className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] ml-2 font-['average']"
+              onClick={uploadHandler}
+            >
+              Submit
+            </button>
+          )}
+        </div>
+      </section>
       {page !== 2 && (
         <button
           className="absolute right-10 top-[50%] hover:animate-bounceRight"
@@ -144,7 +159,7 @@ function Editor() {
           />
         </button>
       )}
-    </div>
+    </main>
   );
 }
 

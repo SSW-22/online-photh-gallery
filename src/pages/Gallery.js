@@ -14,7 +14,7 @@ const options = {
 
 function Gallery() {
   const location = useLocation();
-  const { title, name, thumbnailBgColor, thumbnailTextColor, images } =
+  const { title, name, thumbnailBgColor, thumbnailTextColor, images, email } =
     location.state;
   const galleryRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
@@ -49,6 +49,7 @@ function Gallery() {
             name={name}
             thumbnailBgColor={thumbnailBgColor}
             thumbnailTextColor={thumbnailTextColor}
+            email={email}
           />
           <UserGallery
             images={images || ""}

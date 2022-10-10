@@ -33,6 +33,7 @@ function MyEventStatus({ userData }) {
           images: [],
           thumbnailBgColor: "",
           thumbnailTextColor: "",
+          email: "",
           status: "none",
         })
       );
@@ -42,7 +43,7 @@ function MyEventStatus({ userData }) {
   if (status === "none") {
     return (
       <>
-        <p className="text-base mb-6">You dont have any events created.</p>
+        <p className="text-base mb-6 ">You dont have any events created.</p>
         <div className="w-[200px] h-[200px] bg-[#D9D9D9] mb-6" />
         <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
@@ -72,13 +73,17 @@ function MyEventStatus({ userData }) {
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />
-        <NavLink to="/editor" className="flex mt-6">
+        <NavLink to="/editor" className="flex mt-6 mb-2">
           <span className="w-[20px] h-[20px] mr-2">
             <img src={pencilImg} alt="" className="w-full h-full" />
           </span>
-          Click to create your event
+          Click to manage your event
         </NavLink>
-        <button type="button" className="flex" onClick={deleteBtnHandler}>
+        <button
+          type="button"
+          className="flex font-['average']"
+          onClick={deleteBtnHandler}
+        >
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
           </span>
@@ -112,7 +117,11 @@ function MyEventStatus({ userData }) {
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />
-        <button type="button" className="flex mt-6">
+        <button
+          type="button"
+          className="flex mt-6 font-['average']"
+          onClick={deleteBtnHandler}
+        >
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
           </span>
