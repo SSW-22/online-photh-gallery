@@ -51,6 +51,7 @@ function BrowseEvents() {
                 thumbnailBgColor={gallery.thumbnailBgColor}
                 thumbnailTextColor={gallery.thumbnailTextColor}
                 images={gallery.images}
+                lightMode={gallery.lightMode}
                 email={gallery.email}
                 mode="browse"
               />

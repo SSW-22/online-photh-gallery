@@ -7,6 +7,7 @@ const initialGalleryState = {
   gallery: {
     name: "",
     title: "",
+    lightMode: true,
     images: [],
     thumbnailBgColor: "",
     thumbnailTextColor: "",
@@ -47,6 +48,10 @@ const gallerySlice = createSlice({
     addName(state, action) {
       const previousData = state;
       previousData.gallery.name = action.payload;
+    },
+    addMode(state, action) {
+      const previousData = state;
+      previousData.gallery.lightMode = action.payload;
     },
     addThumbnailBgColor(state, action) {
       const previousData = state;
@@ -102,6 +107,7 @@ const gallerySlice = createSlice({
         const previousData = state;
         previousData.status = "succeeded";
         previousData.gallery.status = action.payload.status;
+        previousData.gallery.lightMode = action.payload.lightMode || true;
         previousData.gallery.images = action.payload.images || [];
         previousData.gallery.thumbnailBgColor =
           action.payload.thumbnailBgColor || "";

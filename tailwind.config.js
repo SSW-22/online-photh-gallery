@@ -7,6 +7,9 @@ module.exports = {
     //   padding: "4rem",
     // },
     extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
       gridTemplateColumns: {
         4: "repeat(auto-fit, minmax(200px, 1fr))",
       },
