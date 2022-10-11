@@ -11,6 +11,7 @@ const initialGalleryState = {
     images: [],
     thumbnailBgColor: "",
     thumbnailTextColor: "",
+    email: "",
     status: "", // none | draft | hosted
   },
   status: "idle", // "idle" | "loading" | "succeeded" | "failed"
@@ -23,6 +24,7 @@ export const checkGallery = createAsyncThunk(
     try {
       const response = await checkUserGallery(uid);
       // console.log(response);
+      console.log(response);
       return response;
     } catch (error) {
       console.log(error.message);
@@ -58,6 +60,10 @@ const gallerySlice = createSlice({
     addThumbnailTextColor(state, action) {
       const previousData = state;
       previousData.gallery.thumbnailTextColor = action.payload;
+    },
+    addEmail(state, action) {
+      const previousData = state;
+      previousData.gallery.email = action.payload;
     },
     addImage(state, action) {
       const newImage = action.payload;
@@ -109,6 +115,7 @@ const gallerySlice = createSlice({
           action.payload.thumbnailTextColor || "";
         previousData.gallery.title = action.payload.title || "";
         previousData.gallery.name = action.payload.name || "";
+        previousData.gallery.email = action.payload.email || "";
       })
       .addCase(checkGallery.rejected, (state, action) => {
         const previousData = state;

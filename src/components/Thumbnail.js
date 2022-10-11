@@ -7,6 +7,7 @@ function Thumbnail({
   title,
   images,
   status,
+  email,
   mode,
   lightMode,
 }) {
@@ -33,6 +34,7 @@ function Thumbnail({
             title,
             images,
             lightMode,
+            email,
           }}
         >
           Buy a Ticket

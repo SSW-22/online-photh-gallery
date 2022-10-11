@@ -36,6 +36,7 @@ function BrowseEvents() {
   };
 
   if (isLoading) return <div>Loading</div>;
+
   return (
     <div className="font-['average'] w-[90%] relative m-auto">
       <div className="my-0 max-w-[1000px] mx-auto flex flex-col">
@@ -51,6 +52,7 @@ function BrowseEvents() {
                 thumbnailTextColor={gallery.thumbnailTextColor}
                 images={gallery.images}
                 lightMode={gallery.lightMode}
+                email={gallery.email}
                 mode="browse"
               />
             ))}

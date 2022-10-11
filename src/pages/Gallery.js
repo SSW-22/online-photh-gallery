@@ -20,6 +20,7 @@ function Gallery() {
     thumbnailBgColor,
     thumbnailTextColor,
     images,
+    email,
     lightMode,
   } = location.state;
   const galleryRef = useRef();
@@ -62,6 +63,7 @@ function Gallery() {
             name={name}
             thumbnailBgColor={thumbnailBgColor}
             thumbnailTextColor={thumbnailTextColor}
+            email={email}
           />
           <UserGallery
             images={images || ""}
