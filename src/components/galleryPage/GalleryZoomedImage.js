@@ -8,7 +8,7 @@ function GalleryZoomedImage({ image }) {
           alt=""
         />
       </div>
-      <div className="flex flex-col gap-[0.4rem] drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] bg-gradient-to-br from-[#d9d9d9] to-[#ECECED] max-w-[10rem] py-[0.6rem] px-[1rem] self-end">
+      <div className="text-black flex flex-col gap-[0.4rem] drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] bg-gradient-to-br from-[#d9d9d9] to-[#ECECED] max-w-[10rem] py-[0.6rem] px-[1rem] self-end">
         <p>{image.title}</p>
         {image.date && (
           <p className="font-[100] text-[0.7rem]">

@@ -2,10 +2,20 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { motion } from "framer-motion";
 import GalleryZoomedImage from "./GalleryZoomedImage";
 
-function GalleryZoomedIn({ images, curImgIndex, setIndex, maxImgIndex }) {
+function GalleryZoomedIn({
+  images,
+  curImgIndex,
+  setIndex,
+  maxImgIndex,
+  lightMode,
+}) {
   return (
     <motion.div
-      className="fixed inset-0 w-screen bg-[#F0F0F0] flex items-center justify-center"
+      className={`${
+        lightMode
+          ? "bg-[#F0F0F0]"
+          : "bg-gradient-radial from-[#ffffff] to-[#484848]"
+      } fixed inset-0 w-screen flex items-center justify-center`}
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,

@@ -4,8 +4,8 @@ import GalleryZoomedIn from "./GalleryZoomedIn";
 
 const variants = {
   open: {
-    scale: 2,
-    y: -15,
+    scale: 1.6,
+    y: -17,
     transition: {
       delay: 0.5,
       duration: 0.5,
@@ -18,7 +18,7 @@ const variants = {
   },
 };
 
-function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
+function UserGallery({ images, galleryRef, setZoomed, zoomed, lightMode }) {
   const [index, setIndex] = useState();
   const scrollRefs = useRef([]);
   // initiate ref to save element for scrollintoview
@@ -68,7 +68,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
         >
           <div className="drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)]">
             <motion.img
-              className="cursor-pointer max-w-[450px] max-h-[350px] object-contain"
+              className="cursor-pointer max-w-[550px] max-h-[450px] object-contain"
               src={image.imgUrl}
               alt=""
               onClick={() => {
@@ -81,7 +81,13 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
               variants={variants}
             />
           </div>
-          <h2 className="self-end mt-6 mr-4 text-black">{image.title}</h2>
+          <h2
+            className={`${
+              lightMode ? "text-black" : "text-white"
+            } self-end mt-6 mr-4`}
+          >
+            {image.title}
+          </h2>
         </div>
       ))}
       {zoomed && (
@@ -90,6 +96,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
           curImgIndex={index}
           setIndex={indexHandler}
           maxImgIndex={images.length - 1}
+          lightMode={lightMode}
         />
       )}
     </section>
