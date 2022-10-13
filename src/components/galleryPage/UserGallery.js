@@ -1,7 +1,43 @@
+/* eslint-disable prettier/prettier */
 import { useState, createRef, useRef } from "react";
+import { motion } from "framer-motion";
 import GalleryZoomedIn from "./GalleryZoomedIn";
 
-function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
+const boxShadow = {
+  position: "absolute",
+  zIndex: 1,
+  top: 0,
+  left: "-1px",
+  width: "100%",
+  height: "95%",
+  backgroundColor: `rgba(48,64,80,.4)`,
+  filter: `blur(5px)`,
+};
+
+const variants = {
+  open: {
+    scale: 1.6,
+    y: -17,
+    transition: {
+      delay: 0.5,
+      duration: 0.5,
+    },
+  },
+  closed: {
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
+function UserGallery({
+  images,
+  galleryRef,
+  setZoomed,
+  zoomed,
+  lightMode,
+  scrX,
+}) {
   const [index, setIndex] = useState();
   const scrollRefs = useRef([]);
   // initiate ref to save element for scrollintoview
@@ -10,6 +46,7 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
   const scrollSmoothHandler = (index) => {
     scrollRefs.current[index].current.scrollIntoView({
       inline: "center",
+      behavior: "smooth",
     });
   };
 
@@ -39,36 +76,63 @@ function UserGallery({ images, galleryRef, setZoomed, zoomed }) {
     <section
       ref={galleryRef}
       id="gallery"
-      className="w-[300vw] h-[100vh] flex items-center flex-none"
+      className="h-[100vh] flex items-center flex-none justify-around mr-[20rem]"
     >
-      {images.map((image, i) => (
-        <div
-          id={i}
-          key={image.id}
-          className="flex flex-col mx-40 max-w-max 2xl:max-w-[650px]"
-          ref={scrollRefs.current[i]}
-        >
-          <div className="drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] max-w-max">
-            <img
-              className="cursor-pointer"
-              src={image.imgUrl}
-              alt=""
-              onClick={() => {
-                setIndex(i);
-                setZoomed(true);
+      <div
+        className="flex items-center"
+        style={{
+          perspective: "600px",
+          perspectiveOrigin: `${scrX}px 471px`,
+          transformStyle: `preserve-3d`,
+        }}
+      >
+        {images.map((image, i) => (
+          <div
+            id={i}
+            key={image.id}
+            className="flex flex-col mx-48 justify-center w-full h-full"
+            ref={scrollRefs.current[i]}
+            style={{ transformStyle: `preserve-3d` }}
+          >
+            <div style={boxShadow} />
+            <div
+              className="w-full h-full sideBox"
+              style={{
+                transformStyle: "preserve-3d",
+                transform: `translateZ(10px)`,
               }}
-              role="presentation"
-            />
+            >
+              <motion.img
+                className="cursor-pointer max-w-[550px] max-h-[450px] object-contain rounded-sm"
+                src={image.imgUrl}
+                alt=""
+                onClick={() => {
+                  setIndex(i);
+                  setZoomed(true);
+                  scrollSmoothHandler(i);
+                }}
+                role="presentation"
+                animate={zoomed && index === i ? "open" : "closed"}
+                variants={variants}
+              />
+            </div>
+            <h2
+              className={`${
+                lightMode ? "text-black" : "text-white"
+              } self-end mt-6 mr-4 h-4`}
+            >
+              {image.title}
+            </h2>
           </div>
-          <h2 className="self-end mt-6 mr-4 text-black">{image.title}</h2>
-        </div>
-      ))}
+        ))}
+      </div>
       {zoomed && (
         <GalleryZoomedIn
           images={images}
           curImgIndex={index}
           setIndex={indexHandler}
           maxImgIndex={images.length - 1}
+          lightMode={lightMode}
         />
       )}
     </section>

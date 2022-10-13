@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 
 import { useEffect, useState } from "react";
 
-function GalleryLoading({ images, setImgsLoaded }) {
+function GalleryLoading({ images, setImgsLoaded, lightMode }) {
   const [progress, setProgress] = useState(0);
   const counterValid = progress < 100;
 
@@ -12,7 +13,7 @@ function GalleryLoading({ images, setImgsLoaded }) {
       counterValid &&
       setInterval(() => {
         setProgress((prev) => prev + 1);
-      }, 50);
+      }, 10);
     return () => clearInterval(timer);
   }, [counterValid]);
 
@@ -23,9 +24,9 @@ function GalleryLoading({ images, setImgsLoaded }) {
         loadImg.src = image.imgUrl;
         // wait 2 seconds to simulate loading time
         loadImg.onload = () => {
-          setTimeout(() => {
-            resolve(image.imgUrl);
-          }, 2000);
+          // setTimeout(() => {
+          // }, 2000);
+          resolve(image.imgUrl);
         };
         loadImg.onerror = (err) => reject(err);
       });
@@ -37,13 +38,22 @@ function GalleryLoading({ images, setImgsLoaded }) {
   }, [images, setImgsLoaded, counterValid]);
 
   return (
-    <section className="relative flex justify-center items-center h-[100vh] w-[100vw] text-black">
+    <section
+      className={`${lightMode ? "text-black" : "text-white bg-[#484848]"}
+        relative flex justify-center items-center h-[100vh] w-[100vw]`}
+    >
       <h1>Checking your ticket...</h1>
       <div className="absolute bottom-20 w-[80%] flex flex-col">
         <p className="text-[50px] self-end">{progress}%</p>
-        <div className="relative h-[2px] w-[100%] bg-[#D9D9D9]">
+        <div
+          className={`${
+            lightMode ? "bg-[#D9D9D9]" : "bg-[#484848]"
+          } relative h-[2px] w-[100%]`}
+        >
           <div
-            className="bg-[black] h-[2px] absolute"
+            className={`${
+              lightMode ? "bg-[black]" : "bg-[white]"
+            } h-[2px] absolute`}
             style={{ width: `${progress}%` }}
           />
         </div>

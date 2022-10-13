@@ -7,9 +7,11 @@ const initialGalleryState = {
   gallery: {
     name: "",
     title: "",
+    lightMode: true,
     images: [],
     thumbnailBgColor: "",
     thumbnailTextColor: "",
+    email: "",
     status: "", // none | draft | hosted
   },
   status: "idle", // "idle" | "loading" | "succeeded" | "failed"
@@ -22,6 +24,7 @@ export const checkGallery = createAsyncThunk(
     try {
       const response = await checkUserGallery(uid);
       // console.log(response);
+      console.log(response);
       return response;
     } catch (error) {
       console.log(error.message);
@@ -46,6 +49,10 @@ const gallerySlice = createSlice({
       const previousData = state;
       previousData.gallery.name = action.payload;
     },
+    addMode(state, action) {
+      const previousData = state;
+      previousData.gallery.lightMode = action.payload;
+    },
     addThumbnailBgColor(state, action) {
       const previousData = state;
       previousData.gallery.thumbnailBgColor = action.payload;
@@ -53,6 +60,10 @@ const gallerySlice = createSlice({
     addThumbnailTextColor(state, action) {
       const previousData = state;
       previousData.gallery.thumbnailTextColor = action.payload;
+    },
+    addEmail(state, action) {
+      const previousData = state;
+      previousData.gallery.email = action.payload;
     },
     addImage(state, action) {
       const newImage = action.payload;
@@ -96,6 +107,7 @@ const gallerySlice = createSlice({
         const previousData = state;
         previousData.status = "succeeded";
         previousData.gallery.status = action.payload.status;
+        previousData.gallery.lightMode = action.payload.lightMode || true;
         previousData.gallery.images = action.payload.images || [];
         previousData.gallery.thumbnailBgColor =
           action.payload.thumbnailBgColor || "";
@@ -103,6 +115,7 @@ const gallerySlice = createSlice({
           action.payload.thumbnailTextColor || "";
         previousData.gallery.title = action.payload.title || "";
         previousData.gallery.name = action.payload.name || "";
+        previousData.gallery.email = action.payload.email || "";
       })
       .addCase(checkGallery.rejected, (state, action) => {
         const previousData = state;

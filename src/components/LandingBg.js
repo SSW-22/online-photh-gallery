@@ -1,45 +1,223 @@
+import { motion } from "framer-motion";
+import landing1 from "../asset/landing1.jpg";
+import landing2 from "../asset/landing2.jpg";
+import landing3 from "../asset/landing3.jpg";
+import landing4 from "../asset/landing4.jpg";
+import landing5 from "../asset/landing5.jpg";
+import landingmain from "../asset/landingmain.jpg";
+
+const heading1 = ["W", "e", "l", "c", "o", "m", "e", " ", "t", "o"];
+const heading2 = ["O", "n", "l", "i", "n", "e"];
+const heading3 = [
+  "P",
+  "h",
+  "o",
+  "t",
+  "o",
+  " ",
+  "G",
+  "a",
+  "l",
+  "l",
+  "e",
+  "r",
+  "y",
+];
+
+const container = {
+  hidden: { opacity: 1, scale: 1 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 2.5,
+      staggerChildren: 0.05,
+    },
+  },
+};
+const container2 = {
+  hidden: { opacity: 1, scale: 1 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 2.8,
+      staggerChildren: 0.05,
+    },
+  },
+};
+const container3 = {
+  hidden: { opacity: 1, scale: 1 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 3.1,
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 function LandingBg() {
   return (
-    <div className="flex mx-auto bg-white static max-w-[1800px] h-[calc(100vh-6rem)] pt-[14rem] gap-[8rem] px-[7rem]">
-      <div className="font-[100] text-white mix-blend-difference absolute max-w-[1800px] top-[10rem] px-[7rem] inset-x-0 mx-auto w-full h-[40%] flex flex-col justify-between font-['average'] ">
-        <h1 className="text-[6rem] flex justify-start">Welcome to</h1>
-        <h1 className="text-[6rem] flex justify-center">Online</h1>
-        <h1 className="text-[6rem] flex justify-end">Photo Gallery</h1>
+    <div className="font-['average'] flex mx-auto bg-white static max-w-[1800px] h-[calc(100vh-6rem)] pt-[14rem] gap-[3rem] px-[7rem]">
+      <div className="font-[100] absolute max-w-[1800px] top-[10rem] px-[7rem] inset-x-0 mx-auto w-full h-[40%] flex flex-col justify-between">
+        <motion.h1
+          className="text-[6rem] m-0 flex justify-start"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          {heading1.map((heading) => {
+            return heading === " " ? (
+              <motion.span variants={item}>&nbsp;</motion.span>
+            ) : (
+              <motion.span variants={item}>{heading}</motion.span>
+            );
+          })}
+        </motion.h1>
+        <motion.h1
+          className="text-[6rem] m-0 flex justify-center"
+          variants={container2}
+          initial="hidden"
+          animate="visible"
+        >
+          {heading2.map((heading) => {
+            return heading === " " ? (
+              <motion.span variants={item}>&nbsp;</motion.span>
+            ) : (
+              <motion.span variants={item}>{heading}</motion.span>
+            );
+          })}
+        </motion.h1>
+        <motion.h1
+          className="text-[6rem] m-0 flex justify-end"
+          variants={container3}
+          initial="hidden"
+          animate="visible"
+        >
+          {heading3.map((heading) => {
+            return heading === " " ? (
+              <motion.span variants={item}>&nbsp;</motion.span>
+            ) : (
+              <motion.span variants={item}>{heading}</motion.span>
+            );
+          })}
+        </motion.h1>
       </div>
-      <div className="flex flex-wrap w-full pb-[7rem]">
-        <img
+      <div className="flex flex-wrap w-full pb-[7rem] pt-[1rem]">
+        <motion.img
           className="w-[50%] h-[50%] object-cover p-[0.5rem]"
-          src="https://source.unsplash.com/random/&1"
+          // src="https://source.unsplash.com/UUBMDD7gESw"
+          src={landing1}
           alt="rendom img"
+          animate={{
+            y: [50, 0, -50, 50, 0],
+            scale: [1, 1, 1, 1, 1],
+            opacity: [0, 1, 0, 0, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0.45, 0.6, 0.7, 0.8, 1],
+          }}
         />
-        <img
+        <motion.img
           className="w-[50%] h-[50%] object-cover p-[0.5rem]"
-          src="https://source.unsplash.com/random/&2"
+          // src="https://source.unsplash.com/0gZ1JLxqdus"
+          src={landing2}
           alt="rendom img"
+          animate={{
+            y: [50, 0, -50, 50, 0],
+            scale: [1, 1, 1, 1, 1],
+            opacity: [0, 1, 0, 0, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0.3, 0.6, 0.7, 0.8, 1],
+          }}
         />
-        <img
+        <motion.img
           className="w-[100%] h-[50%] object-cover p-[0.5rem]"
-          src="https://source.unsplash.com/random/&3"
+          // src="https://source.unsplash.com/wc9avd2RaN0"
+          src={landing3}
           alt="rendom img"
+          animate={{
+            y: [50, 0, -50, 50, 0],
+            scale: [1, 1, 1, 1, 1],
+            opacity: [0, 1, 0, 0, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0, 0.6, 0.7, 0.8, 1],
+          }}
         />
       </div>
-      <div className="flex w-full h-full pt-[10rem]">
-        <img
+      <div className="flex w-full h-full pb-[6rem]">
+        {/* <motion.img
           className="w-full rounded-t-full"
           src="https://source.unsplash.com/ctXf1GVyf9A"
           alt="main img"
+        /> */}
+        <motion.img
+          className="w-full"
+          // src="https://source.unsplash.com/qPPWNeFVLFQ"
+          src={landingmain}
+          alt="main img"
+          animate={{
+            y: [-30, -50, 0],
+            scale: [1.2, 1.2, 1],
+            opacity: [0, 1, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0, 0.8, 1],
+          }}
         />
       </div>
-      <div className="flex flex-col w-full pb-[7rem]">
-        <img
+      <div className="flex flex-col w-full pb-[7rem] pt-[1rem]">
+        <motion.img
           className="h-[50%] object-cover p-[0.5rem]"
-          src="https://source.unsplash.com/random/&4"
+          // src="https://source.unsplash.com/MHNjEBeLTgw"
+          src={landing4}
           alt="rendom img"
+          animate={{
+            y: [50, 0, -50, 50, 0],
+            scale: [1, 1, 1, 1, 1],
+            opacity: [0, 1, 0, 0, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0.1, 0.6, 0.7, 0.8, 1],
+          }}
         />
-        <img
+        <motion.img
           className="h-[50%] object-cover p-[0.5rem]"
-          src="https://source.unsplash.com/random/&5"
+          // src="https://source.unsplash.com/WEQbe2jBg40"
+          src={landing5}
           alt="rendom img"
+          animate={{
+            y: [50, 0, -50, 50, 0],
+            scale: [1, 1, 1, 1, 1],
+            opacity: [0, 1, 0, 0, 1],
+          }}
+          transition={{
+            duration: 2.5,
+            type: "spring",
+            times: [0.3, 0.6, 0.7, 0.8, 1],
+          }}
         />
       </div>
       <div className="fixed inset-x-0 bottom-0 flex justify-center">

@@ -11,6 +11,7 @@ import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
 import getCroppedImg from "../crop/cropimage";
 import Crop from "../crop/Crop";
+import ModeSelector from "./ModeSelector";
 
 function UploadImages({ setImageFiles, setDeletedItem }) {
   const dispatch = useDispatch();
@@ -204,7 +205,10 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
       </div>
 
       <div className="flex justify-between mt-20">
-        <p>Choose your theme: </p>
+        <div className="flex mb-[1rem] items-center">
+          <p>Choose your theme: </p>
+          <ModeSelector />
+        </div>
         <button type="button">View in gallery Mode</button>
       </div>
       <PreviewSlide

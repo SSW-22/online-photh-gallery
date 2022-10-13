@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
@@ -14,13 +15,22 @@ const options = {
 
 function Gallery() {
   const location = useLocation();
-  const { title, name, thumbnailBgColor, thumbnailTextColor, images } =
-    location.state;
+  const {
+    title,
+    name,
+    thumbnailBgColor,
+    thumbnailTextColor,
+    images,
+    email,
+    lightMode,
+  } = location.state;
   const galleryRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
   const [zoomed, setZoomed] = useState(false);
   const [imgsLoaded, setImgsLoaded] = useState(false);
+  const [scrollX, setScrollX] = useState(0);
 
+  const textColor = lightMode ? "black" : "white";
   // Scroll event to change all icon's color when user move tha section from tumbnail to gallery
   useEffect(() => {
     if (imgsLoaded) {
@@ -36,11 +46,21 @@ function Gallery() {
 
   return (
     <main
-      className="flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']"
-      style={{ color: galleryVisible ? "black" : thumbnailTextColor }}
+      className={`${
+        !lightMode && "bg-gradient-radial from-[#646464] to-[#484848]"
+      } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']`}
+      style={{ color: galleryVisible ? textColor : thumbnailTextColor }}
+      onScroll={(e) => {
+        const x = e.currentTarget.scrollLeft;
+        setScrollX(x - 800);
+      }}
     >
       {!imgsLoaded && (
-        <GalleryLoading images={images} setImgsLoaded={setImgsLoaded} />
+        <GalleryLoading
+          images={images}
+          lightMode={lightMode}
+          setImgsLoaded={setImgsLoaded}
+        />
       )}
       {imgsLoaded && (
         <>
@@ -49,12 +69,15 @@ function Gallery() {
             name={name}
             thumbnailBgColor={thumbnailBgColor}
             thumbnailTextColor={thumbnailTextColor}
+            email={email}
           />
           <UserGallery
             images={images || ""}
             galleryRef={galleryRef}
             setZoomed={setZoomed}
             zoomed={zoomed}
+            lightMode={lightMode}
+            scrX={scrollX}
           />
           <NavLink
             to="/events"
@@ -68,12 +91,15 @@ function Gallery() {
           {!zoomed && (
             <div
               style={{
-                borderColor: galleryVisible ? "black" : thumbnailTextColor,
+                borderColor: galleryVisible ? textColor : thumbnailTextColor,
               }}
               className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex items-center justify-center border rounded-full z-[99]"
             >
               <ArcText text="Scroll to  Walk" arc={95} radius={70} />
-              <div className="absolute text-[3rem] animate-step">
+              <div
+                className="absolute text-[3rem]"
+                style={{ transform: `rotate(${scrollX / 10}deg)` }}
+              >
                 <IoFootstepsSharp />
               </div>
             </div>

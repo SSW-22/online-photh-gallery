@@ -3,6 +3,7 @@ function GalleryThumbnail({
   name,
   thumbnailBgColor,
   thumbnailTextColor,
+  email,
 }) {
   return (
     <section
@@ -14,6 +15,11 @@ function GalleryThumbnail({
         <span className="text-[40px]">{name}</span>
         <span className="text-[60px]">{title}</span>
       </h1>
+      {email && (
+        <p className="absolute bottom-20 left-20 text-[20px]">
+          Contact: {email}
+        </p>
+      )}
     </section>
   );
 }

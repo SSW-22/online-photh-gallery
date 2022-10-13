@@ -7,7 +7,9 @@ function Thumbnail({
   title,
   images,
   status,
+  email,
   mode,
+  lightMode,
 }) {
   if (mode === "browse") {
     return (
@@ -31,6 +33,8 @@ function Thumbnail({
             name,
             title,
             images,
+            lightMode,
+            email,
           }}
         >
           Buy a Ticket
