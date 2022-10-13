@@ -11,3 +11,34 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 *, *:before, *:after {box-sizing: inherit}
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
+
+.sideBox {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 2.5rem);
+    /* transform-style: preserve-3d; */
+}
+
+.sideBox::before,
+.sideBox::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background-color: #d3d9de;
+}
+
+.sideBox::before {
+    left: -5px;
+    transform-origin: 100% 50%;
+    transform: rotateY(-90deg);
+}
+
+.sideBox::after{
+    right: -5px;
+    transform-origin: 0 50%;
+    transform: rotateY(90deg);
+}

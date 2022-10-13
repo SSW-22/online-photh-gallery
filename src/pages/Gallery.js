@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
@@ -27,6 +28,7 @@ function Gallery() {
   const [galleryVisible, setGalleryVisible] = useState();
   const [zoomed, setZoomed] = useState(false);
   const [imgsLoaded, setImgsLoaded] = useState(false);
+  const [scrollX, setScrollX] = useState(0);
 
   const textColor = lightMode ? "black" : "white";
   // Scroll event to change all icon's color when user move tha section from tumbnail to gallery
@@ -48,6 +50,10 @@ function Gallery() {
         !lightMode && "bg-gradient-radial from-[#646464] to-[#484848]"
       } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']`}
       style={{ color: galleryVisible ? textColor : thumbnailTextColor }}
+      onScroll={(e) => {
+        const x = e.currentTarget.scrollLeft;
+        setScrollX(x - 800);
+      }}
     >
       {!imgsLoaded && (
         <GalleryLoading
@@ -71,6 +77,7 @@ function Gallery() {
             setZoomed={setZoomed}
             zoomed={zoomed}
             lightMode={lightMode}
+            scrX={scrollX}
           />
           <NavLink
             to="/events"
@@ -89,7 +96,10 @@ function Gallery() {
               className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex items-center justify-center border rounded-full z-[99]"
             >
               <ArcText text="Scroll to  Walk" arc={95} radius={70} />
-              <div className="absolute text-[3rem]">
+              <div
+                className="absolute text-[3rem]"
+                style={{ transform: `rotate(${scrollX / 10}deg)` }}
+              >
                 <IoFootstepsSharp />
               </div>
             </div>

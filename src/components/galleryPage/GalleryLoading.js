@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 
 import { useEffect, useState } from "react";
@@ -12,7 +13,7 @@ function GalleryLoading({ images, setImgsLoaded, lightMode }) {
       counterValid &&
       setInterval(() => {
         setProgress((prev) => prev + 1);
-      }, 50);
+      }, 10);
     return () => clearInterval(timer);
   }, [counterValid]);
 
@@ -23,9 +24,9 @@ function GalleryLoading({ images, setImgsLoaded, lightMode }) {
         loadImg.src = image.imgUrl;
         // wait 2 seconds to simulate loading time
         loadImg.onload = () => {
-          setTimeout(() => {
-            resolve(image.imgUrl);
-          }, 2000);
+          // setTimeout(() => {
+          // }, 2000);
+          resolve(image.imgUrl);
         };
         loadImg.onerror = (err) => reject(err);
       });
