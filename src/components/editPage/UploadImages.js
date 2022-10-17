@@ -113,7 +113,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
   };
   return (
     <div className="container mx-auto h-full font-['average']">
-      <p>Maximum 10 photos per event is supported</p>
+      <p>Maximum 10 photos per event are supported</p>
       <div className="flex mt-5">
         <div>
           <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
@@ -160,7 +160,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
           <label htmlFor="title" className="flex flex-col h-[70px]">
             Title
             <input
-              className={`border-b 
+              className={`border-b focus:outline-none
               ${
                 errorInput && imageData.title.length <= 0
                   ? "border-red-500"
@@ -168,7 +168,6 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
               }`}
               id="title"
               type="text"
-              placeholder="My Youth..."
               value={imageData.title}
               onChange={inputHandler}
             />
@@ -177,7 +176,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
             )}
           </label>
           <label htmlFor="date" className="flex flex-col h-[70px]">
-            Date (YYYY.MM.DD)
+            Date
             <input
               className="border-b border-black"
               type="date"
@@ -189,8 +188,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
           <label htmlFor="description" className="flex flex-col">
             Description
             <textarea
-              className="border border-black resize-none"
-              placeholder="description"
+              className="border border-black resize-none focus:outline-none"
               id="description"
               value={imageData.description}
               onChange={inputHandler}

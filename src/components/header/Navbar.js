@@ -41,7 +41,11 @@ function Navbar() {
           )}
           {isAuth && (
             <li>
-              <button onClick={signOutHandler} type="button" className="">
+              <button
+                onClick={signOutHandler}
+                type="button"
+                className="font-['average']"
+              >
                 Log out
               </button>
             </li>
