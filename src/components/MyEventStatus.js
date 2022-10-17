@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../store/gallery-slice";
 import recycleImg from "../asset/recycle-bin-sketch.png";
-import pencilImg from "../asset/pencil-tool.png";
+import pencilImg from "../asset/pencil.png";
 import Thumbnail from "./Thumbnail";
 import deleteDocument from "../firebase/deleteDocument";
 import deleteFile from "../firebase/deleteImageFile";
