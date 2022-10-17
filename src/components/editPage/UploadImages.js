@@ -202,7 +202,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
         </form>
       </div>
 
-      <div className="flex justify-between mt-20">
+      <div className="flex justify-between mt-[2rem]">
         <div className="flex mb-[1rem] items-center">
           <p>Choose your theme: </p>
           <ModeSelector />
