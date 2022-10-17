@@ -48,19 +48,17 @@ function UploadThumbnail() {
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
           <h2 className="text-[1.5rem]">Event title</h2>
           <input
-            className="p-1 focus:outline-[#ddd] border-b border-black"
+            className="p-1 focus:outline-none border-b border-black"
             id="title"
-            placeholder="Add Title"
             value={title}
             onChange={(e) => titleInputHandler(e)}
           />
         </label>
         <label htmlFor="name" className="flex flex-col mb-[2.5rem]">
-          <h2 className="text-[1.5rem]">Name</h2>
+          <h2 className="text-[1.5rem]">Event subtitle</h2>
           <input
-            className="p-1 focus:outline-[#ddd] border-b border-black"
+            className="p-1 focus:outline-none border-b border-black"
             id="name"
-            placeholder="Add Name"
             value={name}
             onChange={(e) => nameInputHandler(e)}
           />
