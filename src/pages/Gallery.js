@@ -25,6 +25,7 @@ function Gallery() {
     lightMode,
   } = location.state;
   const galleryRef = useRef();
+  const divRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
   const [zoomed, setZoomed] = useState(false);
   const [imgsLoaded, setImgsLoaded] = useState(false);
@@ -44,8 +45,23 @@ function Gallery() {
     }
   }, [imgsLoaded]);
 
+  const wheelHandler = (e) => {
+    e.preventDefault();
+    e.currentTarget.scrollLeft += e.deltaY;
+  };
+
+  useEffect(() => {
+    const ref = divRef.current;
+    ref.addEventListener("wheel", wheelHandler);
+
+    return () => {
+      ref.removeEventListener("wheel", wheelHandler);
+    };
+  }, []);
+
   return (
     <main
+      ref={divRef}
       className={`${
         !lightMode && "bg-gradient-radial from-[#646464] to-[#484848]"
       } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']`}
