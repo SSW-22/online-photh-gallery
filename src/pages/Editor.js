@@ -91,8 +91,8 @@ function Editor() {
       }
     } else {
       const galleryDoc = { ...galleryData, status };
-      console.log(galleryDoc);
       await addDocument("gallery", galleryDoc, uid);
+      dispatch(checkGallery(uid));
       console.log("uploaded without new pics");
     }
   };
