@@ -107,7 +107,7 @@ const gallerySlice = createSlice({
         const previousData = state;
         previousData.status = "succeeded";
         previousData.gallery.status = action.payload.status;
-        previousData.gallery.lightMode = action.payload.lightMode;
+        previousData.gallery.lightMode = action.payload.lightMode || false;
         previousData.gallery.images = action.payload.images || [];
         previousData.gallery.thumbnailBgColor =
           action.payload.thumbnailBgColor || "";
