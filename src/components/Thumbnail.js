@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { navActions } from "../store/nav-slice";
 
 function Thumbnail({
   thumbnailBgColor,
@@ -11,6 +13,11 @@ function Thumbnail({
   mode,
   lightMode,
 }) {
+  const dispatch = useDispatch();
+  const navHandler = () => {
+    dispatch(navActions.toggleNav());
+  };
+
   if (mode === "browse") {
     return (
       <div
@@ -36,6 +43,7 @@ function Thumbnail({
             lightMode,
             email,
           }}
+          onClick={navHandler}
         >
           Buy a Ticket
         </NavLink>

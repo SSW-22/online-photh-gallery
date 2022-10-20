@@ -4,7 +4,7 @@ import { modalActions } from "../../store/modalSlice";
 
 function Modal({ uploadHandler = null }) {
   const dispatch = useDispatch();
-  const { isOpen, modalTitle, isSubmit, modalText } = useSelector(
+  const { modalTitle, isSubmit, modalText } = useSelector(
     (state) => state.modal
   );
 

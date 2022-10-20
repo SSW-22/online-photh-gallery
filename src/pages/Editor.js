@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Gallery from "./Gallery";
 import arrowImg from "../asset/arrow.png";
 import addDocument from "../firebase/addDocument";
 import uploadFileProgress from "../firebase/uploadFileProgress";
@@ -13,12 +14,14 @@ import UploadImages from "../components/editPage/UploadImages";
 import Submission from "../components/editPage/Submission";
 import Modal from "../components/modal/Modal";
 import useNumber from "../hooks/use-number";
+import { navActions } from "../store/nav-slice";
 
 const maxNumbErrorMsg =
   "Please note that our gallery can accomodate up to 36 events and currently we are at full capacity. You will only be able to host your event when slots become available.";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
+  const [previewSlide, setPreviewSlide] = useState(false);
   const dispatch = useDispatch();
   const { uid, email } = useSelector((state) => state.auth);
   const galleryData = useSelector((state) => state.gallery.gallery);
@@ -115,6 +118,14 @@ function Editor() {
     }
   };
 
+  const previewHandler = () => {
+    setPreviewSlide((prev) => !prev);
+    dispatch(navActions.toggleNav());
+  };
+
+  if (previewSlide) {
+    return <Gallery previewData={galleryData} setClose={setPreviewSlide} />;
+  }
   return (
     <main>
       <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
@@ -125,6 +136,7 @@ function Editor() {
           <UploadImages
             setImageFiles={setImageFiles}
             setDeletedItem={setDeletedItem}
+            previewHandler={previewHandler}
           />
         )}
         {page === 2 && <Submission userEmail={email} />}
