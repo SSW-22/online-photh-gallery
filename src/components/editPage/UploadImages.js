@@ -13,7 +13,7 @@ import getCroppedImg from "../crop/cropimage";
 import Crop from "../crop/Crop";
 import ModeSelector from "./ModeSelector";
 
-function UploadImages({ setImageFiles, setDeletedItem }) {
+function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const dispatch = useDispatch();
   const [imageData, setImageData] = useState({
     title: "",
@@ -217,6 +217,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
         <button
           className="rounded-[5px] mb-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
           type="button"
+          onClick={previewHandler}
         >
           View in gallery Mode
         </button>
