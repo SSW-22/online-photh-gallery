@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 import Thumbnail from "../Thumbnail";
 
-const randomBg = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-const randomTxt = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+const randomBg = `#${Math.floor(Math.random() * 16777215)
+  .toString(16)
+  .padStart(6, "0")}`;
+const randomTxt = `#${Math.floor(Math.random() * 16777215)
+  .toString(16)
+  .padStart(6, "0")}`;
 
 function UploadThumbnail() {
   const { title, name, thumbnailBgColor, thumbnailTextColor } = useSelector(
@@ -17,11 +21,9 @@ function UploadThumbnail() {
       dispatch(galleryActions.addThumbnailTextColor(randomTxt));
     };
 
-    return () => {
-      if (!thumbnailBgColor || !thumbnailTextColor) {
-        initialColor();
-      }
-    };
+    if (!thumbnailBgColor || !thumbnailTextColor) {
+      initialColor();
+    }
   }, [dispatch, thumbnailBgColor, thumbnailTextColor]);
 
   const titleInputHandler = (event) => {
@@ -48,19 +50,17 @@ function UploadThumbnail() {
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
           <h2 className="text-[1.5rem]">Event title</h2>
           <input
-            className="p-1 focus:outline-[#ddd] border-b border-black"
+            className="p-1 focus:outline-none border-b border-black font-['average']"
             id="title"
-            placeholder="Add Title"
             value={title}
             onChange={(e) => titleInputHandler(e)}
           />
         </label>
         <label htmlFor="name" className="flex flex-col mb-[2.5rem]">
-          <h2 className="text-[1.5rem]">Name</h2>
+          <h2 className="text-[1.5rem]">Event subtitle</h2>
           <input
-            className="p-1 focus:outline-[#ddd] border-b border-black"
+            className="p-1 focus:outline-none border-b border-black font-['average']"
             id="name"
-            placeholder="Add Name"
             value={name}
             onChange={(e) => nameInputHandler(e)}
           />

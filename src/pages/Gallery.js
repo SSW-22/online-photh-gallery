@@ -4,6 +4,8 @@ import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import { IoFootstepsSharp } from "react-icons/io5";
 import { HiOutlineX } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { navActions } from "../store/nav-slice";
 import ArcText from "../components/ArcText";
 import GalleryThumbnail from "../components/galleryPage/GalleryThumbnail";
 import UserGallery from "../components/galleryPage/UserGallery";
@@ -13,7 +15,8 @@ const options = {
   threshold: 0.015,
 };
 
-function Gallery() {
+function Gallery({ previewData, setClose }) {
+  const dispatch = useDispatch();
   const location = useLocation();
   const {
     title,
@@ -23,8 +26,10 @@ function Gallery() {
     images,
     email,
     lightMode,
-  } = location.state;
+  } = location.state || previewData;
+
   const galleryRef = useRef();
+  const divRef = useRef();
   const [galleryVisible, setGalleryVisible] = useState();
   const [zoomed, setZoomed] = useState(false);
   const [imgsLoaded, setImgsLoaded] = useState(false);
@@ -44,8 +49,23 @@ function Gallery() {
     }
   }, [imgsLoaded]);
 
+  const wheelHandler = (e) => {
+    e.preventDefault();
+    e.currentTarget.scrollLeft += e.deltaY;
+  };
+
+  useEffect(() => {
+    const ref = divRef.current;
+    ref.addEventListener("wheel", wheelHandler);
+
+    return () => {
+      ref.removeEventListener("wheel", wheelHandler);
+    };
+  }, []);
+
   return (
     <main
+      ref={divRef}
       className={`${
         !lightMode && "bg-gradient-radial from-[#646464] to-[#484848]"
       } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']`}
@@ -64,6 +84,11 @@ function Gallery() {
       )}
       {imgsLoaded && (
         <>
+          {previewData && (
+            <h1 className="absolute z-10 left-12 top-12">
+              This is preview mode
+            </h1>
+          )}
           <GalleryThumbnail
             title={title}
             name={name}
@@ -79,15 +104,32 @@ function Gallery() {
             lightMode={lightMode}
             scrX={scrollX}
           />
-          <NavLink
-            to="/events"
-            className="
-        absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]
-        "
-          >
-            <p className="text-[0.8rem]">Click to leave</p>
-            <BsFillDoorOpenFill />
-          </NavLink>
+          {previewData && (
+            <button
+              type="button"
+              className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]"
+              onClick={() => {
+                setClose((prev) => !prev);
+                dispatch(navActions.toggleNav());
+              }}
+            >
+              <p className="text-[0.8rem]">Click to leave</p>
+              <BsFillDoorOpenFill />
+            </button>
+          )}
+          {!previewData && (
+            <NavLink
+              to="/events"
+              className="
+                    absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]
+                    "
+              onClick={() => dispatch(navActions.toggleNav())}
+            >
+              <p className="text-[0.8rem]">Click to leave</p>
+              <BsFillDoorOpenFill />
+            </NavLink>
+          )}
+
           {!zoomed && (
             <div
               style={{

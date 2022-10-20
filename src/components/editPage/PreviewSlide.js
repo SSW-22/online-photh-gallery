@@ -6,6 +6,7 @@ import { galleryActions } from "../../store/gallery-slice";
 
 function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
   const images = useSelector((state) => state.gallery.gallery.images);
+  const mode = useSelector((state) => state.gallery.gallery.lightMode);
   const dispatch = useDispatch();
   const removeItem = (image) => {
     // Now the image is deleted only in the gallery store, and the data still remains in Firebase. Only when "Save as draft" or "" is clicked, the data is finally erased and updated with new data.
@@ -40,7 +41,9 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
       <Droppable droppableId="galleries" direction="horizontal">
         {(provided) => (
           <ul
-            className="flex items-center bg-[#D9D9D9] overflow-x-auto w-[100%] h-[250px] scroll-auto"
+            className={`${
+              !mode && "bg-gradient-radial from-[#989898] to-[#484848]"
+            } flex items-center overflow-x-auto w-[100%] h-[250px] gap-[6rem] scroll-auto px-[6rem] border`}
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -53,7 +56,7 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
                 >
                   {(provided) => (
                     <li
-                      className="shrink-0 w-[180px] h-[130px] ml-6 relative "
+                      className="shrink-0 m-auto relative"
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
@@ -67,6 +70,8 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
                         }}
                         onClick={() => onImgClickHandler(image)}
                         role="presentation"
+                        className="max-w-[110px] max-h-[90px] object-contain shadow-xl"
+                        // className="max-w-[250px] max-h-[150px] object-contain"
                       />
 
                       <button

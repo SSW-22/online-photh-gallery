@@ -2,10 +2,11 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../store/gallery-slice";
 import recycleImg from "../asset/recycle-bin-sketch.png";
-import pencilImg from "../asset/pencil-tool.png";
+import pencilImg from "../asset/pencil.png";
 import Thumbnail from "./Thumbnail";
 import deleteDocument from "../firebase/deleteDocument";
 import deleteFile from "../firebase/deleteImageFile";
+import { modalActions } from "../store/modalSlice";
 
 function MyEventStatus({ userData }) {
   const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
@@ -38,6 +39,10 @@ function MyEventStatus({ userData }) {
         })
       );
     }
+    dispatch(modalActions.toggleModal(true));
+    dispatch(modalActions.toggleSubmit(false));
+    dispatch(modalActions.addModalTitle("Important"));
+    dispatch(modalActions.addModalText("Delete Complete"));
   };
 
   if (status === "none") {

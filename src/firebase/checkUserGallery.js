@@ -8,7 +8,6 @@ const checkUserGallery = async (userUid) => {
     status: "none",
   };
   const data = docSnap.exists() ? docSnap.data() : initialData;
-
   return {
     ...data,
   };

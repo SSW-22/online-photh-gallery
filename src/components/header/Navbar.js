@@ -7,9 +7,8 @@ import { authActions } from "../../store/auth";
 
 function Navbar() {
   const dispatch = useDispatch();
-
   const isAuth = useSelector((state) => state.auth.isAuth);
-
+  const galleryMode = useSelector((state) => state.nav.isOpen);
   const signOutHandler = async () => {
     try {
       await signOutWithGoogle();
@@ -20,7 +19,7 @@ function Navbar() {
   };
 
   return (
-    <div className="h-[6rem] flex item-center">
+    <div className={`h-[6rem] ${galleryMode ? "hidden" : "flex"} item-center`}>
       <ul className="flex justify-between w-[90%] self-center mx-auto text-[20px] font-['average']">
         <li>
           <NavLink to="/">OPG</NavLink>
@@ -41,7 +40,11 @@ function Navbar() {
           )}
           {isAuth && (
             <li>
-              <button onClick={signOutHandler} type="button" className="">
+              <button
+                onClick={signOutHandler}
+                type="button"
+                className="font-['average']"
+              >
                 Log out
               </button>
             </li>
