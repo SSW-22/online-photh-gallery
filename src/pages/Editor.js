@@ -113,7 +113,7 @@ function Editor() {
           <button
             id="draft"
             type="button"
-            className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+            className="rounded-[5px] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
             onClick={uploadHandler}
           >
             Save as a draft
@@ -122,7 +122,7 @@ function Editor() {
             <button
               id="hosted"
               type="button"
-              className="bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] ml-2 font-['average']"
+              className="rounded-[5px] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] ml-2 font-['average']"
               onClick={uploadHandler}
             >
               Submit
