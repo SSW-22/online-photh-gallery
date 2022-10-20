@@ -1,10 +1,16 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { galleryActions } from "../../store/gallery-slice";
 
-function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
+function PreviewSlide({
+  setDeletedItem,
+  setImageFiles,
+  setImageData,
+  addNewPic,
+}) {
   const images = useSelector((state) => state.gallery.gallery.images);
   const mode = useSelector((state) => state.gallery.gallery.lightMode);
   const dispatch = useDispatch();
@@ -43,7 +49,7 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
           <ul
             className={`${
               !mode && "bg-gradient-radial from-[#989898] to-[#484848]"
-            } flex items-center overflow-x-auto w-[100%] h-[250px] gap-[6rem] scroll-auto px-[6rem] border`}
+            } flex items-center overflow-x-auto  w-[100%] h-[250px] scroll-auto border`}
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -56,7 +62,7 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
                 >
                   {(provided) => (
                     <li
-                      className="shrink-0 m-auto relative"
+                      className="shrink-0 relative ml-20"
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
@@ -70,7 +76,7 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
                         }}
                         onClick={() => onImgClickHandler(image)}
                         role="presentation"
-                        className="max-w-[110px] max-h-[90px] object-contain shadow-xl"
+                        className="max-w-[220px] max-h-[120px] object-contain shadow-xl"
                         // className="max-w-[250px] max-h-[150px] object-contain"
                       />
 
@@ -86,6 +92,11 @@ function PreviewSlide({ setDeletedItem, setImageFiles, setImageData }) {
                 </Draggable>
               );
             })}
+            <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center ml-20 w-[80px] h-[80px] border border-black rounded-full">
+              <button type="button" onClick={addNewPic}>
+                +<span className="sr-only">Add new picture</span>
+              </button>
+            </li>
             {provided.placeholder}
           </ul>
         )}
