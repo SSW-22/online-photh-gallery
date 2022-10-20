@@ -8,14 +8,24 @@ import uploadFileProgress from "../firebase/uploadFileProgress";
 import UploadThumbnail from "../components/editPage/UploadThumbnail";
 import deleteFile from "../firebase/deleteImageFile";
 import { checkGallery } from "../store/gallery-slice";
+import { modalActions } from "../store/modalSlice";
 import UploadImages from "../components/editPage/UploadImages";
 import Submission from "../components/editPage/Submission";
+import Modal from "../components/modal/Modal";
+import useNumber from "../hooks/use-number";
+
+const maxNumbErrorMsg =
+  "Please note that our gallery can accomodate up to 36 events and currently we are at full capacity. You will only be able to host your event when slots become available.";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
   const dispatch = useDispatch();
   const { uid, email } = useSelector((state) => state.auth);
   const galleryData = useSelector((state) => state.gallery.gallery);
+  const modalData = useSelector((state) => state.modal);
+
+  const numbGalleries = useNumber();
+  // const numbGalleries = 36;
 
   const [deletedItem, setDeletedItem] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
@@ -52,6 +62,14 @@ function Editor() {
     // ========
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
+    if (status === "hosted" && numbGalleries > 35) {
+      dispatch(modalActions.toggleModal(true));
+      dispatch(modalActions.toggleSubmit(true));
+      dispatch(modalActions.addModalTitle("Important"));
+      dispatch(modalActions.addModalText(maxNumbErrorMsg));
+      return;
+    }
+
     // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
     if (deletedItem.length > 0) {
       console.log("deleting");
@@ -100,6 +118,7 @@ function Editor() {
   return (
     <main>
       <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
+        {modalData.isOpen && <Modal uploadHandler={uploadHandler} />}
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>
         {page === 0 && <UploadThumbnail />}
         {page === 1 && (
