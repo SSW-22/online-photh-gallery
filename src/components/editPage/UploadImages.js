@@ -102,16 +102,16 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
     e.target.reset();
   };
 
-  // const cancelHandler = (e) => {
-  //   e.preventDefault();
-  //   setImageData({
-  //     title: "",
-  //     date: "",
-  //     description: "",
-  //     imgUrl: "",
-  //     id: uuid(),
-  //   });
-  // };
+  const addNewPic = (e) => {
+    e.preventDefault();
+    setImageData({
+      title: "",
+      date: "",
+      description: "",
+      imgUrl: "",
+      id: uuid(),
+    });
+  };
 
   return (
     <div className="container mx-auto h-full font-['average']">
@@ -226,6 +226,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         setDeletedItem={setDeletedItem}
         setImageFiles={setImageFiles}
         setImageData={setImageData}
+        addNewPic={addNewPic}
       />
     </div>
   );
