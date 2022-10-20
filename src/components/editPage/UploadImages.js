@@ -101,16 +101,18 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
     setErrorInput(false);
     e.target.reset();
   };
-  const cancelHandler = (e) => {
-    e.preventDefault();
-    setImageData({
-      title: "",
-      date: "",
-      description: "",
-      imgUrl: "",
-      id: uuid(),
-    });
-  };
+
+  // const cancelHandler = (e) => {
+  //   e.preventDefault();
+  //   setImageData({
+  //     title: "",
+  //     date: "",
+  //     description: "",
+  //     imgUrl: "",
+  //     id: uuid(),
+  //   });
+  // };
+
   return (
     <div className="container mx-auto h-full font-['average']">
       <p>Maximum 10 photos per event are supported</p>
@@ -158,9 +160,9 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
         </div>
         <form onSubmit={submitHandler} className="flex flex-col ml-[2.5rem]">
           <label htmlFor="title" className="flex flex-col h-[70px]">
-            Title
+            Image title
             <input
-              className={`border-b focus:outline-none
+              className={`border-b focus:outline-none font-['average']
               ${
                 errorInput && imageData.title.length <= 0
                   ? "border-red-500"
@@ -178,7 +180,7 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
           <label htmlFor="date" className="flex flex-col h-[70px]">
             Date
             <input
-              className="border-b border-black"
+              className="border-b border-black font-['average']"
               type="date"
               id="date"
               value={imageData.date}
@@ -188,17 +190,22 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
           <label htmlFor="description" className="flex flex-col">
             Description
             <textarea
-              className="border border-black resize-none focus:outline-none"
+              className="border border-black resize-none focus:outline-none font-['average']"
               id="description"
               value={imageData.description}
               onChange={inputHandler}
             />
           </label>
 
-          <button type="submit">Add to preview</button>
-          <button type="button" onClick={cancelHandler}>
-            Cancel
+          <button
+            className="rounded-[5px] mt-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+            type="submit"
+          >
+            Add to preview
           </button>
+          {/* <button type="button" onClick={cancelHandler}>
+            Cancel
+          </button> */}
         </form>
       </div>
 
@@ -207,7 +214,12 @@ function UploadImages({ setImageFiles, setDeletedItem }) {
           <p>Choose your theme: </p>
           <ModeSelector />
         </div>
-        <button type="button">View in gallery Mode</button>
+        <button
+          className="rounded-[5px] mb-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+          type="button"
+        >
+          View in gallery Mode
+        </button>
       </div>
       <PreviewSlide
         setDeletedItem={setDeletedItem}
