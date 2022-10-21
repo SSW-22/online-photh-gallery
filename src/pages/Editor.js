@@ -67,7 +67,7 @@ function Editor() {
     const status = e.target.id;
     if (status === "hosted" && numbGalleries > 35) {
       dispatch(modalActions.toggleModal(true));
-      dispatch(modalActions.toggleSubmit(true));
+      dispatch(modalActions.addModalType("submit"));
       dispatch(modalActions.addModalTitle("Important"));
       dispatch(modalActions.addModalText(maxNumbErrorMsg));
       return;
@@ -129,7 +129,7 @@ function Editor() {
   return (
     <main>
       <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
-        {modalData.isOpen && <Modal uploadHandler={uploadHandler} />}
+        {modalData.isOpen && <Modal modalHandler={uploadHandler} />}
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>
         {page === 0 && <UploadThumbnail />}
         {page === 1 && (

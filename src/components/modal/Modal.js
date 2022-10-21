@@ -2,15 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineX } from "react-icons/hi";
 import { modalActions } from "../../store/modalSlice";
 
-function Modal({ uploadHandler = null }) {
+function Modal({ modalHandler = null }) {
   const dispatch = useDispatch();
-  const { modalTitle, isSubmit, modalText } = useSelector(
+  const { modalTitle, modalType, modalText } = useSelector(
     (state) => state.modal
   );
 
   const modalCloseHandler = () => {
     dispatch(modalActions.toggleModal(false));
-    dispatch(modalActions.toggleSubmit(false));
+    dispatch(modalActions.addModalType(""));
     dispatch(modalActions.addModalTitle(""));
     dispatch(modalActions.addModalText(""));
   };
@@ -37,17 +37,20 @@ function Modal({ uploadHandler = null }) {
           >
             Close
           </button>
-          {isSubmit && (
+          {modalType && (
             <button
-              className="cursor-pointer font-['average'] bg-[#0275D8] text-white text-[1.2rem] px-[1.7rem] py-[0.7rem] rounded-[5px]"
+              className={`${modalType === "delete" && "bg-[#DC3545]"} ${
+                modalType === "submit" && "bg-[#0275D8]"
+              } cursor-pointer font-['average'] text-white text-[1.2rem] px-[1.7rem] py-[0.7rem] rounded-[5px]`}
               id="draft"
               type="button"
               onClick={(e) => {
-                uploadHandler(e);
+                modalHandler(e);
                 modalCloseHandler();
               }}
             >
-              Save as a draft
+              {modalType === "delete" && "Delete"}
+              {modalType === "submit" && "Save as a draft"}
             </button>
           )}
         </div>
