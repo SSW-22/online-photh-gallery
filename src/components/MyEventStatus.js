@@ -7,13 +7,14 @@ import Thumbnail from "./Thumbnail";
 import deleteDocument from "../firebase/deleteDocument";
 import deleteFile from "../firebase/deleteImageFile";
 import { modalActions } from "../store/modalSlice";
+import Modal from "./modal/Modal";
 
 function MyEventStatus({ userData }) {
   const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
     userData;
   const gallery = useSelector((state) => state.gallery.gallery);
   const uid = useSelector((state) => state.auth.uid);
-
+  const modalData = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
   const deleteBtnHandler = () => {
@@ -39,10 +40,15 @@ function MyEventStatus({ userData }) {
         })
       );
     }
+  };
+
+  const deleteModalHandler = () => {
     dispatch(modalActions.toggleModal(true));
-    dispatch(modalActions.toggleSubmit(false));
-    dispatch(modalActions.addModalTitle("Important"));
-    dispatch(modalActions.addModalText("Delete Complete"));
+    dispatch(modalActions.addModalType("delete"));
+    dispatch(modalActions.addModalTitle("Confirm delete"));
+    dispatch(
+      modalActions.addModalText("Are you sure you want to delete your event?")
+    );
   };
 
   if (status === "none") {
@@ -70,6 +76,7 @@ function MyEventStatus({ userData }) {
   if (status === "draft") {
     return (
       <>
+        {modalData.isOpen && <Modal modalHandler={deleteBtnHandler} />}
         <p className="text-base mb-6">Your event is currently being built.</p>
         <Thumbnail
           status={status}
@@ -87,7 +94,8 @@ function MyEventStatus({ userData }) {
         <button
           type="button"
           className="flex font-['average']"
-          onClick={deleteBtnHandler}
+          // onClick={deleteBtnHandler}
+          onClick={deleteModalHandler}
         >
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
@@ -111,6 +119,7 @@ function MyEventStatus({ userData }) {
   if (status === "hosted") {
     return (
       <>
+        {modalData.isOpen && <Modal modalHandler={deleteBtnHandler} />}
         <p className="text-base mb-6">Your event is currently being hosted.</p>
         {/* <div
           className={`w-[200px] h-[200px] mb-6 flex flex-col justify-center ${thumbnailBgColor}`}
@@ -125,7 +134,7 @@ function MyEventStatus({ userData }) {
         <button
           type="button"
           className="flex mt-6 font-['average']"
-          onClick={deleteBtnHandler}
+          onClick={deleteModalHandler}
         >
           <span className="flex w-[20px] h-[20px] mr-2">
             <img src={recycleImg} alt="" className="w-full h-full" />
