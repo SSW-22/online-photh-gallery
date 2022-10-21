@@ -21,7 +21,6 @@ const maxNumbErrorMsg =
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
-  const [previewSlide, setPreviewSlide] = useState(false);
   const dispatch = useDispatch();
   const { uid, email } = useSelector((state) => state.auth);
   const galleryData = useSelector((state) => state.gallery.gallery);
@@ -30,6 +29,7 @@ function Editor() {
   const numbGalleries = useNumber();
   // const numbGalleries = 36;
 
+  const [previewSlide, setPreviewSlide] = useState(false);
   const [deletedItem, setDeletedItem] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [page, setPage] = useState(0);
