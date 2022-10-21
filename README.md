@@ -1,4 +1,6 @@
-# Online Photo Gallery (a.k.a. OPG)
+# Online Photo Gallery
+
+a.k.a. OPG
 
 ## Description
 
