@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Gallery from "./Gallery";
 import arrowImg from "../asset/arrow.png";
@@ -122,6 +122,16 @@ function Editor() {
     setPreviewSlide((prev) => !prev);
     dispatch(navActions.toggleNav());
   };
+
+  useEffect(() => {
+    const unmount = () => {
+      console.log("out");
+    };
+
+    return () => {
+      unmount();
+    };
+  }, []);
 
   if (previewSlide) {
     return <Gallery previewData={galleryData} setClose={setPreviewSlide} />;
