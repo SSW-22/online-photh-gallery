@@ -23,7 +23,7 @@ This project took 4 sprints (2-week cycle) to compelete. Below screenshots show 
 
 ### Sprint Retro
 
-Every end of each sprint, we gathered and spent time together to reflect back on how we did. This helped us to identify potential pitfalls at an early stage so that we could avoid having the same mistakes in the following sprints. 
+Every end of each sprint, we gathered and spent time together to reflect back on how we did. This helped us to identify potential pitfalls at an early stage so that we could avoid having the same mistakes in the following sprints (and to celebrate what we did well).
 
 <img width="573" alt="Screen Shot 2022-10-20 at 9 16 08 PM" src="https://user-images.githubusercontent.com/83075260/197088611-9a681fec-694f-463d-8dc8-197f4bc0a714.png">
 
