@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialModalState = {
   isOpen: false,
   modalTitle: "",
-  isSubmit: false,
+  modalType: "",
   modalText: "",
 };
 
@@ -23,9 +23,9 @@ const modalSlice = createSlice({
       const prevModal = state;
       prevModal.modalText = action.payload;
     },
-    toggleSubmit(state, action) {
+    addModalType(state, action) {
       const prevModal = state;
-      prevModal.isSubmit = action.payload;
+      prevModal.modalType = action.payload;
     },
   },
 });

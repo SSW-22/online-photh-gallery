@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import { FiAlertTriangle } from "react-icons/fi";
 import MyEventStatus from "../components/MyEventStatus";
 import useNumber from "../hooks/use-number";
-import Modal from "../components/modal/Modal";
+// import Modal from "../components/modal/Modal";
 
 function MyEvent() {
   const displayName = useSelector((state) => state.auth.displayName);
   const userGallery = useSelector((state) => state.gallery.gallery);
-  const modalData = useSelector((state) => state.modal);
+  // const modalData = useSelector((state) => state.modal);
 
   const numbGalleries = useNumber();
 
@@ -16,7 +16,6 @@ function MyEvent() {
   }
   return (
     <main className="container mx-auto h-full font-['average'] max-w-[1000px] ">
-      {modalData.isOpen && <Modal />}
       <h1 className="my-12 text-xl font-medium">My Event</h1>
       <h2 className="font-normal mb-8">Hello {displayName},</h2>
       {userGallery && <MyEventStatus userData={userGallery} />}
