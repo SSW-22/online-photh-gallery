@@ -32,6 +32,7 @@ Every end of each sprint, we gathered and sepnt time together to reflect back on
 
 * User management (guest vs. host)
 * Database management (create, read, update, delete)
+* Photo editing
 * Animation
 
 ## Authors
@@ -45,10 +46,3 @@ Every end of each sprint, we gathered and sepnt time together to reflect back on
 
 * Woong O
     * Front-end Developer
-
-## Version History
-
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
