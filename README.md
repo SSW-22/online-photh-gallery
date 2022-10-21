@@ -36,7 +36,7 @@ We've identified numerous bugs as shown below and continuously working to improv
 
 ### New Improvements
 
-We are planning to launch special theme animaiton for seaonal events (e.g. cherry blossom theme).
+We are planning to launch special theme animaiton for seaonal events (e.g. cherry blossom theme) so stay tuned for updates!
 
 
 ## Key Features and Functionalities
