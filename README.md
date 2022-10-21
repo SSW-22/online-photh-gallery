@@ -34,6 +34,10 @@ We've identified numerous bugs as shown below and continuously working to improv
 
 <img width="932" alt="Screen Shot 2022-10-20 at 10 29 19 PM" src="https://user-images.githubusercontent.com/83075260/197097234-94233a1e-e17e-4190-b337-ff9f70a37413.png">
 
+### New Improvements
+
+We are planning to launch special theme animaiton for seaonal events (e.g. cherry blossom theme).
+
 
 ## Key Features and Functionalities
 
