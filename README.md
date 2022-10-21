@@ -34,6 +34,9 @@ Every end of each sprint, we gathered and spent time together to reflect back on
 
 We are continuously working to improve OPG.
 
+<img width="932" alt="Screen Shot 2022-10-20 at 10 29 19 PM" src="https://user-images.githubusercontent.com/83075260/197097234-94233a1e-e17e-4190-b337-ff9f70a37413.png">
+
+
 ## Key Features and Functionalities
 
 * User management (guest vs. host)
