@@ -22,6 +22,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
     imgUrl: "",
     id: uuid(),
   });
+  const [selected, setSelected] = useState("");
   const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
@@ -79,8 +80,10 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       "image/jpg": [],
       "image/png": [],
     },
+    maxFiles: 1,
   });
-  // push the current image with title, description and url into images array for preview and update to firestore.
+
+  /** Update current image with data into redux. This function only update redux stroe. */
   const submitHandler = (e) => {
     e.preventDefault();
     if (!imageData.title || !imageData.imgUrl) {
@@ -104,6 +107,8 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
 
   const addNewPic = (e) => {
     e.preventDefault();
+    // Reset current selected image
+    setSelected(null);
     setImageData({
       title: "",
       date: "",
@@ -141,6 +146,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
                     <span className="text-[#007BED]">browse</span>
                   </p>
                   <p>Support jpeg, jpg, png</p>
+                  {/* <p>Only 1 file is the <br /> maximum number of files<br />you can drop here.</p> */}
                 </>
               )}
             </div>
@@ -150,7 +156,9 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           </div>
           {fileRejections[0]?.file && (
             <p className="text-red-500">
-              Only *.jpeg and *.png images will be accepted
+              {fileRejections[0].errors[0].code === "too-many-files" &&
+                "Please select one file in each"}
+              {/* Only *.jpeg and *.png images will be accepted */}
             </p>
           )}
 
@@ -227,6 +235,10 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         setImageFiles={setImageFiles}
         setImageData={setImageData}
         addNewPic={addNewPic}
+        setSelected={setSelected}
+        selected={selected}
+        getInputProps={getInputProps}
+        getRootProps={getRootProps}
       />
     </div>
   );
