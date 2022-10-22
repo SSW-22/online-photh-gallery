@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { ImCancelCircle } from "react-icons/im";
 import uuid from "react-uuid";
@@ -25,7 +25,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const [selected, setSelected] = useState("");
   const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
+  const currentImages = useSelector((state) => state.gallery.gallery.images);
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
@@ -93,7 +93,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
     }
 
     cropImage();
-
+    setSelected("");
     setImageData({
       title: "",
       date: "",
@@ -108,7 +108,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const addNewPic = (e) => {
     e.preventDefault();
     // Reset current selected image
-    setSelected(null);
+    setSelected("");
     setImageData({
       title: "",
       date: "",
@@ -116,6 +116,10 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       imgUrl: "",
       id: uuid(),
     });
+  };
+  /** If the user try to upload more than 10, it will prohibit to upload input. */
+  const imageLimitHandler = () => {
+    return currentImages.length >= 10 && selected.length === 0;
   };
 
   return (
@@ -138,14 +142,24 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
               </button>
             )}
             <div {...getRootProps({ className: "dropzone" })}>
-              <input {...getInputProps()} />
+              <input {...getInputProps()} disabled={imageLimitHandler()} />
               {!imageData.imgUrl && (
                 <>
-                  <p className="cursor-pointer">
-                    Drop your image here, or{" "}
-                    <span className="text-[#007BED]">browse</span>
-                  </p>
-                  <p>Support jpeg, jpg, png</p>
+                  {currentImages.length <= 10 && (
+                    <>
+                      <p className="cursor-pointer">
+                        Drop your image here, or{" "}
+                        <span className="text-[#007BED]">browse</span>
+                      </p>
+                      <p>Support jpeg, jpg, png</p>
+                    </>
+                  )}
+
+                  {currentImages.length >= 10 && !selected && (
+                    <p className="text-red-500 mt-5">
+                      All available space has been fulfilled. <br /> 10 / 10{" "}
+                    </p>
+                  )}
                   {/* <p>Only 1 file is the <br /> maximum number of files<br />you can drop here.</p> */}
                 </>
               )}
