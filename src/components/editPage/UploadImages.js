@@ -26,6 +26,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const currentImages = useSelector((state) => state.gallery.gallery.images);
+
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
@@ -81,6 +82,9 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       "image/png": [],
     },
     maxFiles: 1,
+    disabled: !!(
+      currentImages.length >= 10 && selected.length === 0
+    ) /** If the user try to upload more than 10, it will prohibit to upload input. */,
   });
 
   /** Update current image with data into redux. This function only update redux stroe. */
@@ -91,7 +95,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       setErrorInput(true);
       return;
     }
-
+    console.log(selected);
     cropImage();
     setSelected("");
     setImageData({
@@ -101,6 +105,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       imgUrl: "",
       id: uuid(),
     });
+    console.log(selected);
     setErrorInput(false);
     e.target.reset();
   };
@@ -116,10 +121,6 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       imgUrl: "",
       id: uuid(),
     });
-  };
-  /** If the user try to upload more than 10, it will prohibit to upload input. */
-  const imageLimitHandler = () => {
-    return currentImages.length >= 10 && selected.length === 0;
   };
 
   return (
@@ -142,19 +143,14 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
               </button>
             )}
             <div {...getRootProps({ className: "dropzone" })}>
-              <input {...getInputProps()} disabled={imageLimitHandler()} />
+              <input {...getInputProps()} />
               {!imageData.imgUrl && (
                 <>
-                  {currentImages.length <= 10 && (
-                    <>
-                      <p className="cursor-pointer">
-                        Drop your image here, or{" "}
-                        <span className="text-[#007BED]">browse</span>
-                      </p>
-                      <p>Support jpeg, jpg, png</p>
-                    </>
-                  )}
-
+                  <p className="cursor-pointer">
+                    Drop your image here, or{" "}
+                    <span className="text-[#007BED]">browse</span>
+                  </p>
+                  <p>Support jpeg, jpg, png</p>
                   {currentImages.length >= 10 && !selected && (
                     <p className="text-red-500 mt-5">
                       All available space has been fulfilled. <br /> 10 / 10{" "}
@@ -223,7 +219,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
             className="rounded-[5px] mt-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
             type="submit"
           >
-            Add to preview
+            {selected ? "Edit" : "Add to preview"}
           </button>
           {/* <button type="button" onClick={cancelHandler}>
             Cancel
