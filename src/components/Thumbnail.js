@@ -20,33 +20,36 @@ function Thumbnail({
 
   if (mode === "browse") {
     return (
-      <div
-        className="w-[200px] h-[200px] flex flex-col justify-center relative group"
-        style={{ backgroundColor: thumbnailBgColor }}
-      >
-        <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
-          {name}
-        </p>
-        <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
-          {title}
-        </p>
-        <NavLink
-          className="text-m self-center cursor-pointer absolute bottom-2 transition-all hover:scale-125 mb-[0.5rem] invisible group-hover:visible"
-          style={{ color: thumbnailTextColor }}
-          to="/gallery"
-          state={{
-            thumbnailBgColor,
-            thumbnailTextColor,
-            name,
-            title,
-            images,
-            lightMode,
-            email,
-          }}
-          onClick={navHandler}
+      <div className="relative group w-fit h-fit">
+        <div
+          className="w-[200px] h-[200px] flex flex-col justify-center"
+          style={{ backgroundColor: thumbnailBgColor }}
         >
-          Buy a Ticket
-        </NavLink>
+          <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+            {name}
+          </p>
+          <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+            {title}
+          </p>
+        </div>
+        <div className="border border-red-400 w-full h-full text-m cursor-pointer absolute top-0 left-0 invisible group-hover:visible backdrop-opacity-20 backdrop-invert bg-white/30 flex justify-center items-end pb-5">
+          <NavLink
+            className="text-m cursor-pointer transform transition duration-500 hover:scale-[1.2]"
+            to="/gallery"
+            state={{
+              thumbnailBgColor,
+              thumbnailTextColor,
+              name,
+              title,
+              images,
+              lightMode,
+              email,
+            }}
+            onClick={navHandler}
+          >
+            Buy a Ticket
+          </NavLink>
+        </div>
       </div>
     );
   }
