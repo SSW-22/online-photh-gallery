@@ -20,7 +20,7 @@ function PreviewSlide({
   const dispatch = useDispatch();
   const removeItem = (image) => {
     // Reset current selected image and initial data
-    setSelected(null);
+    setSelected("");
     setImageData({
       title: "",
       date: "",
@@ -60,7 +60,7 @@ function PreviewSlide({
   };
   /** If user select one of their images from preview slide, other images will be grayout */
   const conditionalClass = (imageId) => {
-    if (!selected || selected === imageId) {
+    if (selected.length === 0 || selected === null || selected === imageId) {
       return "";
     }
     return "opacity-30";
@@ -86,7 +86,7 @@ function PreviewSlide({
                 >
                   {(provided) => (
                     <li
-                      className={`shrink-0 relative ml-20 ${conditionalClass(
+                      className={`shrink-0 relative ml-20 last:mx-20 ${conditionalClass(
                         image.id
                       )}`}
                       {...provided.draggableProps}
@@ -119,12 +119,14 @@ function PreviewSlide({
                 </Draggable>
               );
             })}
-            <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center mx-20 w-[80px] h-[80px] border border-black rounded-full">
-              <div {...getRootProps({ onClick: addNewPic })}>
-                <input {...getInputProps()} />+
-                <span className="sr-only">Add new picture</span>
-              </div>
-            </li>
+            {images.length < 10 && (
+              <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center mx-20 w-[80px] h-[80px] border border-black rounded-full">
+                <div {...getRootProps({ onClick: addNewPic })}>
+                  <input {...getInputProps()} />+
+                  <span className="sr-only">Add new picture</span>
+                </div>
+              </li>
+            )}
             {provided.placeholder}
           </ul>
         )}

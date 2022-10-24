@@ -16,8 +16,18 @@ function Modal({ modalHandler = null }) {
   };
 
   return (
-    <div className="fixed flex inset-0 z-[10] bg-opacity-70 bg-[#000000]">
-      <div className="translate-y-[-5rem] m-auto flex flex-col justify-between bg-[#ffffff] w-[700px] h-[300px] border-[2px] border-black rounded-[7px]">
+    <div
+      onClick={modalCloseHandler}
+      role="button"
+      tabIndex="0"
+      className="fixed flex inset-0 z-[10] bg-opacity-70 bg-[#000000] cursor-default"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        role="button"
+        tabIndex="0"
+        className="cursor-default translate-y-[-5rem] m-auto flex flex-col justify-between bg-[#ffffff] w-[700px] h-[300px] border-[2px] border-black rounded-[7px]"
+      >
         <div className="flex justify-between pr-[1.5rem] pl-[2rem] pt-[1.5rem] pb-[0.5rem] border-b-2">
           <h2 className="font-['average'] text-[2rem]">{modalTitle}</h2>
           <button
