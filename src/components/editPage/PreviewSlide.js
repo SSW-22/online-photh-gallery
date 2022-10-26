@@ -94,7 +94,7 @@ function PreviewSlide({
               ref={scrollRef}
               className={`${
                 !mode && "bg-gradient-radial from-[#989898] to-[#484848]"
-              } flex items-center overflow-x-auto  w-[100%] h-[250px] scroll-auto border border-black`}
+              } flex items-center overflow-x-auto  w-[100%] h-[250px] border border-black`}
             >
               {images.map((image, index) => {
                 return (

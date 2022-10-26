@@ -45,7 +45,7 @@ const gallerySlice = createSlice({
       const previousData = state;
       previousData.gallery.title = action.payload;
     },
-    addName(state, action) {
+    addSubtitle(state, action) {
       const previousData = state;
       previousData.gallery.name = action.payload;
     },
