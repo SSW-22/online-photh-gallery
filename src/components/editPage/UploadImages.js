@@ -124,59 +124,60 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   };
 
   return (
-    <div className="container mx-auto h-full font-['average']">
+    <div className="container mx-auto h-full font-['average'] border border-black">
       <p>Maximum 10 photos per event are supported</p>
-      <div className="flex mt-5">
-        <div>
-          <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
-            {imageData.imgUrl && (
-              <button
-                className="absolute top-0 right-0 m-[1rem] z-[99]"
-                type="button"
-                onClick={() => {
-                  setImageData((prev) => {
-                    return { ...prev, imgUrl: "" };
-                  });
-                }}
-              >
-                <ImCancelCircle />
-              </button>
-            )}
-            <div {...getRootProps({ className: "dropzone" })}>
-              <input {...getInputProps()} />
-              {!imageData.imgUrl && (
-                <>
-                  <p className="cursor-pointer">
-                    Drop your image here, or{" "}
-                    <span className="text-[#007BED]">browse</span>
+      <div className="flex mt-5 flex-col items-center justify-center md:flex-row md:justify-start">
+        <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
+          {imageData.imgUrl && (
+            <button
+              className="absolute top-0 right-0 m-[1rem] z-[99]"
+              type="button"
+              onClick={() => {
+                setImageData((prev) => {
+                  return { ...prev, imgUrl: "" };
+                });
+              }}
+            >
+              <ImCancelCircle />
+            </button>
+          )}
+          <div {...getRootProps({ className: "dropzone" })}>
+            <input {...getInputProps()} />
+            {!imageData.imgUrl && (
+              <>
+                <p className="cursor-pointer">
+                  Drop your image here, or{" "}
+                  <span className="text-[#007BED]">browse</span>
+                </p>
+                <p>Support jpeg, jpg, png</p>
+                {currentImages.length >= 10 && !selected && (
+                  <p className="text-red-500 mt-5">
+                    All available space has been fulfilled. <br /> 10 / 10{" "}
                   </p>
-                  <p>Support jpeg, jpg, png</p>
-                  {currentImages.length >= 10 && !selected && (
-                    <p className="text-red-500 mt-5">
-                      All available space has been fulfilled. <br /> 10 / 10{" "}
-                    </p>
-                  )}
-                  {/* <p>Only 1 file is the <br /> maximum number of files<br />you can drop here.</p> */}
-                </>
-              )}
-            </div>
-            {imageData.imgUrl && (
-              <Crop imgUrl={imageData.imgUrl} onCropComplete={onCropComplete} />
+                )}
+                {/* <p>Only 1 file is the <br /> maximum number of files<br />you can drop here.</p> */}
+              </>
             )}
           </div>
-          {fileRejections[0]?.file && (
-            <p className="text-red-500">
-              {fileRejections[0].errors[0].code === "too-many-files" &&
-                "Please select one file in each"}
-              {/* Only *.jpeg and *.png images will be accepted */}
-            </p>
-          )}
-
-          {errorInput && imageData.imgUrl.length <= 0 && (
-            <p className="text-red-500">Please select the image</p>
+          {imageData.imgUrl && (
+            <Crop imgUrl={imageData.imgUrl} onCropComplete={onCropComplete} />
           )}
         </div>
-        <form onSubmit={submitHandler} className="flex flex-col ml-[2.5rem]">
+        {fileRejections[0]?.file && (
+          <p className="text-red-500">
+            {fileRejections[0].errors[0].code === "too-many-files" &&
+              "Please select one file in each"}
+            {/* Only *.jpeg and *.png images will be accepted */}
+          </p>
+        )}
+
+        {errorInput && imageData.imgUrl.length <= 0 && (
+          <p className="text-red-500">Please select the image</p>
+        )}
+        <form
+          onSubmit={submitHandler}
+          className="w-[300px] flex flex-col mt-[1rem] md:ml-[2rem] md:mt-0"
+        >
           <label htmlFor="title" className="flex flex-col h-[70px]">
             Image title
             <input
@@ -208,7 +209,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           <label htmlFor="description" className="flex flex-col">
             Description
             <textarea
-              className="border border-black resize-none focus:outline-none font-['average']"
+              className="border border-black resize-none focus:outline-none font-['average'] h-[90px]"
               id="description"
               value={imageData.description}
               onChange={inputHandler}

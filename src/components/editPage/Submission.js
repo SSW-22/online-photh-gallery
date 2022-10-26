@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 
-function Submission({ userEmail }) {
+function Submission({ userEmail, emailError }) {
   const userContactSharing = useSelector(
     (state) => state.gallery.gallery.email
   );
@@ -53,7 +53,7 @@ function Submission({ userEmail }) {
           No
         </label>
       </div>
-      {checkInitialValue() === null && (
+      {emailError && userContactSharing === "" && (
         <p className="text-red-400">Please select an option.</p>
       )}
     </div>

@@ -19,6 +19,8 @@ import { navActions } from "../store/nav-slice";
 const maxNumbErrorMsg =
   "Please note that our gallery can accomodate up to 36 events and currently we are at full capacity. You will only be able to host your event when slots become available.";
 
+const SubmitErrorMsg = "Please finish your thumbnail page form.";
+
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
   const dispatch = useDispatch();
@@ -29,11 +31,11 @@ function Editor() {
   const numbGalleries = useNumber();
   // const numbGalleries = 36;
 
+  const [emailError, setEmailError] = useState(false);
   const [previewSlide, setPreviewSlide] = useState(false);
   const [deletedItem, setDeletedItem] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [page, setPage] = useState(0);
-
   const pageHandler = (e) => {
     if (e.target.alt === "next") setPage((prev) => prev + 1);
     if (e.target.alt === "previous") setPage((prev) => prev - 1);
@@ -65,6 +67,8 @@ function Editor() {
     // ========
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
+    console.log(galleryData);
+
     if (status === "hosted" && numbGalleries > 35) {
       dispatch(modalActions.toggleModal(true));
       dispatch(modalActions.addModalType("submit"));
@@ -72,8 +76,24 @@ function Editor() {
       dispatch(modalActions.addModalText(maxNumbErrorMsg));
       return;
     }
+    if (status === "hosted" && galleryData.email === "") {
+      setEmailError(true);
+      return;
+    }
+
+    if (
+      (status === "hosted" && galleryData.title === "") ||
+      galleryData.subtitle === ""
+    ) {
+      dispatch(modalActions.toggleModal(true));
+      dispatch(modalActions.addModalType(false));
+      dispatch(modalActions.addModalTitle("Important"));
+      dispatch(modalActions.addModalText(SubmitErrorMsg));
+      return;
+    }
 
     // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
+
     if (deletedItem.length > 0) {
       console.log("deleting");
       // At this point, the data of image in gallery redux already deleted. Now the image has to be delete in firebase storage.
@@ -84,7 +104,9 @@ function Editor() {
           await deleteFile(`gallery/${uid}/${item.id}`);
       });
     }
+
     // wait till all the images uploaded into firebase storage and return all urls within single attempt.
+
     if (imageFiles.length > 0) {
       try {
         const newData = await Promise.all(
@@ -149,7 +171,7 @@ function Editor() {
             previewHandler={previewHandler}
           />
         )}
-        {page === 2 && <Submission userEmail={email} />}
+        {page === 2 && <Submission userEmail={email} emailError={emailError} />}
         <div className="flex justify-end mt-2">
           <button
             id="draft"
@@ -173,7 +195,7 @@ function Editor() {
       </section>
       {page !== 2 && (
         <button
-          className="absolute right-10 top-[50%] hover:animate-bounceRight"
+          className="absolute right-0 top-[50%] hover:animate-bounceRight md:right-10"
           type="button"
           id="nextPage"
           disabled={page === FormHeaders.length - 1}
@@ -186,7 +208,7 @@ function Editor() {
 
       {page !== 0 && (
         <button
-          className="absolute left-10 top-[50%] hover:animate-bounceLeft"
+          className="absolute left-0 top-[50%] hover:animate-bounceLeft md:left-10"
           type="button"
           id="prevPage"
           disabled={page === 0}
