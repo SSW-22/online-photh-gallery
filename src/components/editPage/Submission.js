@@ -11,12 +11,17 @@ function Submission({ userEmail, emailError }) {
   /** check if the user want to share their email. */
   const checkInitialValue = () => {
     if (userContactSharing === "") return null;
-    return userContactSharing;
+    if (userContactSharing === userEmail) return "yes";
+    return "no";
   };
 
   const radioHandler = (e) => {
     const sharingEmail = e.target.value;
-    dispatch(galleryActions.addEmail(sharingEmail));
+    if (sharingEmail === "yes") {
+      dispatch(galleryActions.addEmail(userEmail));
+    } else {
+      dispatch(galleryActions.addEmail("none"));
+    }
   };
 
   return (

@@ -90,9 +90,15 @@ function UserGallery({
           <div
             id={i}
             key={image.id}
-            className="flex flex-col mx-48 justify-center w-full h-full"
+            className="flex flex-col mx-48 justify-center w-full h-full cursor-pointer"
             ref={scrollRefs.current[i]}
             style={{ transformStyle: `preserve-3d` }}
+            onClick={() => {
+              setIndex(i);
+              setZoomed(true);
+              scrollSmoothHandler(i);
+            }}
+            role="presentation"
           >
             <div style={boxShadow} />
             <div
@@ -103,15 +109,9 @@ function UserGallery({
               }}
             >
               <motion.img
-                className="cursor-pointer max-w-[550px] max-h-[450px] object-contain rounded-sm"
+                className=" max-w-[550px] max-h-[450px] object-contain rounded-sm pointer-events-none"
                 src={image.imgUrl}
                 alt=""
-                onClick={() => {
-                  setIndex(i);
-                  setZoomed(true);
-                  scrollSmoothHandler(i);
-                }}
-                role="presentation"
                 animate={zoomed && index === i ? "open" : "closed"}
                 variants={variants}
               />

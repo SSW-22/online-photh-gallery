@@ -10,37 +10,44 @@ import UploadThumbnail from "../components/editPage/UploadThumbnail";
 import deleteFile from "../firebase/deleteImageFile";
 import { checkGallery } from "../store/gallery-slice";
 import { modalActions } from "../store/modalSlice";
+import { navActions } from "../store/nav-slice";
 import UploadImages from "../components/editPage/UploadImages";
 import Submission from "../components/editPage/Submission";
 import Modal from "../components/modal/Modal";
 import useNumber from "../hooks/use-number";
-import { navActions } from "../store/nav-slice";
+import ConfirmationModal from "../components/modal/ConfirmationModal";
+import useCallbackPrompt from "../hooks/useCallbackPrompt";
 
 const maxNumbErrorMsg =
   "Please note that our gallery can accomodate up to 36 events and currently we are at full capacity. You will only be able to host your event when slots become available.";
 
-const SubmitErrorMsg = "Please finish your thumbnail page form.";
+const SubmitErrorMsg = "Please coplete your thumbnail page form.";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
   const dispatch = useDispatch();
   const { uid, email } = useSelector((state) => state.auth);
   const galleryData = useSelector((state) => state.gallery.gallery);
+  const galleryUpdated = useSelector((state) => state.gallery.updated);
   const modalData = useSelector((state) => state.modal);
 
   const numbGalleries = useNumber();
   // const numbGalleries = 36;
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [showPrompt, confirmNavigation, cancelNavigation] =
+    useCallbackPrompt(showDialog);
 
   const [emailError, setEmailError] = useState(false);
   const [previewSlide, setPreviewSlide] = useState(false);
   const [deletedItem, setDeletedItem] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [page, setPage] = useState(0);
+
   const pageHandler = (e) => {
     if (e.target.alt === "next") setPage((prev) => prev + 1);
     if (e.target.alt === "previous") setPage((prev) => prev - 1);
   };
-
   /**  Create hash map for checking duplicate data and overwrite the map entries with current image array. */
   const updateData = (newData, status) => {
     const imagesHash = {};
@@ -67,7 +74,6 @@ function Editor() {
     // ========
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
-    console.log(galleryData);
 
     if (status === "hosted" && numbGalleries > 35) {
       dispatch(modalActions.toggleModal(true));
@@ -86,7 +92,7 @@ function Editor() {
       galleryData.subtitle === ""
     ) {
       dispatch(modalActions.toggleModal(true));
-      dispatch(modalActions.addModalType(false));
+      dispatch(modalActions.addModalType(""));
       dispatch(modalActions.addModalTitle("Important"));
       dispatch(modalActions.addModalText(SubmitErrorMsg));
       return;
@@ -138,6 +144,10 @@ function Editor() {
       dispatch(checkGallery(uid));
       console.log("uploaded without new pics");
     }
+    dispatch(modalActions.toggleModal(true));
+    dispatch(modalActions.addModalType("return/myevent"));
+    dispatch(modalActions.addModalTitle("Update success!"));
+    dispatch(modalActions.addModalText("111"));
   };
 
   const previewHandler = () => {
@@ -146,20 +156,24 @@ function Editor() {
   };
 
   useEffect(() => {
-    const unmount = () => {
-      console.log("out");
-    };
-
-    return () => {
-      unmount();
-    };
-  }, []);
+    console.log(galleryUpdated);
+    if (galleryUpdated) {
+      setShowDialog(true);
+    } else {
+      setShowDialog(false);
+    }
+  }, [galleryUpdated]);
 
   if (previewSlide) {
     return <Gallery previewData={galleryData} setClose={setPreviewSlide} />;
   }
   return (
     <main>
+      <ConfirmationModal
+        showModal={showPrompt}
+        confirmNavigation={confirmNavigation}
+        cancelNavigation={cancelNavigation}
+      />
       <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
         {modalData.isOpen && <Modal modalHandler={uploadHandler} />}
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>

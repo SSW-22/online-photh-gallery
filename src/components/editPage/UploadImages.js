@@ -15,6 +15,7 @@ import ModeSelector from "./ModeSelector";
 
 function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const dispatch = useDispatch();
+  const currentImages = useSelector((state) => state.gallery.gallery.images);
   const [imageData, setImageData] = useState({
     title: "",
     date: "",
@@ -25,7 +26,6 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
   const [selected, setSelected] = useState("");
   const [errorInput, setErrorInput] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const currentImages = useSelector((state) => state.gallery.gallery.images);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -95,7 +95,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       setErrorInput(true);
       return;
     }
-    console.log(selected);
+
     cropImage();
     setSelected("");
     setImageData({
@@ -105,12 +105,12 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
       imgUrl: "",
       id: uuid(),
     });
-    console.log(selected);
+
     setErrorInput(false);
     e.target.reset();
   };
 
-  const addNewPic = (e) => {
+  const addNewImage = (e) => {
     e.preventDefault();
     // Reset current selected image
     setSelected("");
@@ -123,8 +123,33 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
     });
   };
 
+  /** Removing image from redux store */
+  const deleteImage = (image) => {
+    // Reset current selected image and initial data
+    setSelected("");
+    setImageData({
+      title: "",
+      date: "",
+      description: "",
+      imgUrl: "",
+      id: uuid(),
+    });
+    // Now the image is deleted only in the gallery store, and the data still remains in Firebase. Only when "Save as draft" or "" is clicked, the data is finally erased and updated with new data.
+    const { id, imgUrl } = image;
+    // Save deleted image info separately due to check if the deleted image is current data or draft data. That info will be used when the final update occurs by clicking save as draft or post gallery.
+    setDeletedItem((prev) => {
+      return [...prev, { id, imgUrl }];
+    });
+    // deleting the image data from gallery redux store.
+    dispatch(galleryActions.removeImage(id));
+    // Deleting the file that stored in regular state for upload to firebase.
+    setImageFiles((prev) => {
+      return prev.filter((image) => image.id !== id);
+    });
+  };
+
   return (
-    <div className="container mx-auto h-full font-['average'] border border-black">
+    <div className="container mx-auto h-full font-['average']">
       <p>Maximum 10 photos per event are supported</p>
       <div className="flex mt-5 flex-col items-center justify-center md:flex-row md:justify-start">
         <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
@@ -162,18 +187,18 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           {imageData.imgUrl && (
             <Crop imgUrl={imageData.imgUrl} onCropComplete={onCropComplete} />
           )}
-        </div>
-        {fileRejections[0]?.file && (
-          <p className="text-red-500">
-            {fileRejections[0].errors[0].code === "too-many-files" &&
-              "Please select one file in each"}
-            {/* Only *.jpeg and *.png images will be accepted */}
-          </p>
-        )}
+          {fileRejections[0]?.file && (
+            <p className="text-red-500 mt-5">
+              {fileRejections[0].errors[0].code === "too-many-files" &&
+                "Only one file can be selected in each trial."}
+              {/* Only *.jpeg and *.png images will be accepted */}
+            </p>
+          )}
 
-        {errorInput && imageData.imgUrl.length <= 0 && (
-          <p className="text-red-500">Please select the image</p>
-        )}
+          {errorInput && imageData.imgUrl.length <= 0 && (
+            <p className="text-red-500 mt-5">Please select the image</p>
+          )}
+        </div>
         <form
           onSubmit={submitHandler}
           className="w-[300px] flex flex-col mt-[1rem] md:ml-[2rem] md:mt-0"
@@ -242,10 +267,9 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         </button>
       </div>
       <PreviewSlide
-        setDeletedItem={setDeletedItem}
-        setImageFiles={setImageFiles}
+        deleteImage={deleteImage}
         setImageData={setImageData}
-        addNewPic={addNewPic}
+        addNewImage={addNewImage}
         setSelected={setSelected}
         selected={selected}
         getInputProps={getInputProps}

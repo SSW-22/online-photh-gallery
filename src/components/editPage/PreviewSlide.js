@@ -3,14 +3,12 @@
 import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import uuid from "react-uuid";
 import { galleryActions } from "../../store/gallery-slice";
 
 function PreviewSlide({
-  setDeletedItem,
-  setImageFiles,
+  deleteImage,
   setImageData,
-  addNewPic,
+  addNewImage,
   setSelected,
   selected,
   getInputProps,
@@ -21,30 +19,6 @@ function PreviewSlide({
   const mode = useSelector((state) => state.gallery.gallery.lightMode);
   const dispatch = useDispatch();
 
-  /** Removing image from redux store */
-  const removeItem = (image) => {
-    // Reset current selected image and initial data
-    setSelected("");
-    setImageData({
-      title: "",
-      date: "",
-      description: "",
-      imgUrl: "",
-      id: uuid(),
-    });
-    // Now the image is deleted only in the gallery store, and the data still remains in Firebase. Only when "Save as draft" or "" is clicked, the data is finally erased and updated with new data.
-    const { id, imgUrl } = image;
-    // Save deleted image info separately due to check if the deleted image is current data or draft data. That info will be used when the final update occurs by clicking save as draft or post gallery.
-    setDeletedItem((prev) => {
-      return [...prev, { id, imgUrl }];
-    });
-    // deleting the image data from gallery redux store.
-    dispatch(galleryActions.removeImage(id));
-    // Deleting the file that stored in regular state for upload to firebase.
-    setImageFiles((prev) => {
-      return prev.filter((image) => image.id !== id);
-    });
-  };
   /**  Handling image order by draging image. */
   const handleOnDragEnd = (result) => {
     // Duplicate images
@@ -128,7 +102,7 @@ function PreviewSlide({
                           <button
                             className="absolute top-1.5 right-2 bg-[#D9D9D9] py-0.25 px-1.5 rounded-full"
                             type="button"
-                            onClick={removeItem.bind(this, image)}
+                            onClick={deleteImage.bind(this, image)}
                           >
                             <span className="sr-only">Remove this Item</span>X
                           </button>
@@ -140,7 +114,7 @@ function PreviewSlide({
               })}
               {images.length < 10 && (
                 <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center mx-20 w-[80px] h-[80px] border border-black rounded-full">
-                  <div {...getRootProps({ onClick: addNewPic })}>
+                  <div {...getRootProps({ onClick: addNewImage })}>
                     <input {...getInputProps()} />+
                     <span className="sr-only">Add new picture</span>
                   </div>

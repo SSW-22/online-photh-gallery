@@ -16,6 +16,7 @@ const initialGalleryState = {
   },
   status: "idle", // "idle" | "loading" | "succeeded" | "failed"
   error: null,
+  updated: false,
 };
 
 export const checkGallery = createAsyncThunk(
@@ -37,35 +38,42 @@ const gallerySlice = createSlice({
   name: "gallery",
   initialState: initialGalleryState,
   reducers: {
-    setInitial(state, action) {
+    setInitial(state) {
       const previousData = state;
-      previousData.gallery = action.payload;
+      previousData.gallery = { ...initialGalleryState.gallery, status: "none" };
     },
     addTitle(state, action) {
       const previousData = state;
       previousData.gallery.title = action.payload;
+      previousData.updated = true;
     },
     addSubtitle(state, action) {
       const previousData = state;
       previousData.gallery.name = action.payload;
+      previousData.updated = true;
     },
     addMode(state, action) {
       const previousData = state;
       previousData.gallery.lightMode = action.payload;
+      previousData.updated = true;
     },
     addThumbnailBgColor(state, action) {
       const previousData = state;
       previousData.gallery.thumbnailBgColor = action.payload;
+      previousData.updated = true;
     },
     addThumbnailTextColor(state, action) {
       const previousData = state;
       previousData.gallery.thumbnailTextColor = action.payload;
+      previousData.updated = true;
     },
     addEmail(state, action) {
       const previousData = state;
       previousData.gallery.email = action.payload;
+      previousData.updated = true;
     },
     addImage(state, action) {
+      const previousData = state;
       const newImage = action.payload;
       const existImages = state.gallery.images.find(
         (image) => image.id === newImage.id
@@ -84,6 +92,7 @@ const gallerySlice = createSlice({
         existImages.imgUrl = newImage.imgUrl;
         existImages.date = newImage.date;
       }
+      previousData.updated = true;
     },
     removeImage(state, action) {
       const selectedImageId = action.payload;
@@ -91,10 +100,12 @@ const gallerySlice = createSlice({
       previousData.gallery.images = previousData.gallery.images.filter(
         (item) => item.id !== selectedImageId
       );
+      previousData.updated = true;
     },
     sortImages(state, action) {
       const previousData = state.gallery;
       previousData.images = action.payload;
+      previousData.updated = true;
     },
   },
   extraReducers(builder) {
@@ -106,6 +117,7 @@ const gallerySlice = createSlice({
       .addCase(checkGallery.fulfilled, (state, action) => {
         const previousData = state;
         previousData.status = "succeeded";
+        previousData.updated = false;
         previousData.gallery.status = action.payload.status;
         previousData.gallery.lightMode = action.payload.lightMode || false;
         previousData.gallery.images = action.payload.images || [];
