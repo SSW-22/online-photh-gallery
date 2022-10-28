@@ -1,14 +1,20 @@
+/* eslint-disable prettier/prettier */
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineX } from "react-icons/hi";
 import { modalActions } from "../../store/modalSlice";
 
 function Modal({ modalHandler = null }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { modalTitle, modalType, modalText } = useSelector(
     (state) => state.modal
   );
 
   const modalCloseHandler = () => {
+    if (modalType === "return/myevent") {
+      navigate("/myevent");
+    }
     dispatch(modalActions.toggleModal(false));
     dispatch(modalActions.addModalType(""));
     dispatch(modalActions.addModalTitle(""));
@@ -47,10 +53,11 @@ function Modal({ modalHandler = null }) {
           >
             Close
           </button>
-          {modalType && (
+          {(modalType === "delete" || modalType === "submit") && (
             <button
               className={`${modalType === "delete" && "bg-[#DC3545]"} ${
-                modalType === "submit" && "bg-[#0275D8]"
+                (modalType === "submit" || modalType === "return") &&
+                "bg-[#0275D8]"
               } cursor-pointer font-['average'] text-white text-[1.2rem] px-[1.7rem] py-[0.7rem] rounded-[5px]`}
               id="draft"
               type="button"
