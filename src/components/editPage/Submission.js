@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 
-function Submission({ userEmail }) {
+function Submission({ userEmail, emailError }) {
   const userContactSharing = useSelector(
     (state) => state.gallery.gallery.email
   );
@@ -11,12 +11,17 @@ function Submission({ userEmail }) {
   /** check if the user want to share their email. */
   const checkInitialValue = () => {
     if (userContactSharing === "") return null;
-    return userContactSharing;
+    if (userContactSharing === userEmail) return "yes";
+    return "no";
   };
 
   const radioHandler = (e) => {
     const sharingEmail = e.target.value;
-    dispatch(galleryActions.addEmail(sharingEmail));
+    if (sharingEmail === "yes") {
+      dispatch(galleryActions.addEmail(userEmail));
+    } else {
+      dispatch(galleryActions.addEmail("none"));
+    }
   };
 
   return (
@@ -53,7 +58,7 @@ function Submission({ userEmail }) {
           No
         </label>
       </div>
-      {checkInitialValue() === null && (
+      {emailError && userContactSharing === "" && (
         <p className="text-red-400">Please select an option.</p>
       )}
     </div>

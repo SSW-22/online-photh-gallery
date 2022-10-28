@@ -28,17 +28,7 @@ function MyEventStatus({ userData }) {
     }
     if (gallery.status !== "none") {
       deleteDocument(uid);
-      dispatch(
-        galleryActions.setInitial({
-          name: "",
-          title: "",
-          images: [],
-          thumbnailBgColor: "",
-          thumbnailTextColor: "",
-          email: "",
-          status: "none",
-        })
-      );
+      dispatch(galleryActions.setInitial());
     }
   };
 

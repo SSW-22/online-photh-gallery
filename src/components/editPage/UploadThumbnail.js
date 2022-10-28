@@ -31,9 +31,9 @@ function UploadThumbnail() {
     dispatch(galleryActions.addTitle(event.target.value));
   };
 
-  const nameInputHandler = (event) => {
+  const subtitleInputHandler = (event) => {
     event.preventDefault();
-    dispatch(galleryActions.addName(event.target.value));
+    dispatch(galleryActions.addSubtitle(event.target.value));
   };
 
   const thumbnailColorHandler = (event) => {
@@ -62,7 +62,7 @@ function UploadThumbnail() {
             className="p-1 focus:outline-none border-b border-black font-['average']"
             id="name"
             value={name}
-            onChange={(e) => nameInputHandler(e)}
+            onChange={(e) => subtitleInputHandler(e)}
           />
         </label>
         <div className="flex flex-col mb-[3rem]">
