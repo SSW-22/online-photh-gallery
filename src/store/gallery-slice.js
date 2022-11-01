@@ -103,8 +103,8 @@ const gallerySlice = createSlice({
       previousData.updated = true;
     },
     sortImages(state, action) {
-      const previousData = state.gallery;
-      previousData.images = action.payload;
+      const previousData = state;
+      previousData.gallery.images = action.payload;
       previousData.updated = true;
     },
   },
