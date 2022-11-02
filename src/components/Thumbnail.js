@@ -32,7 +32,7 @@ function Thumbnail({
             {title}
           </p>
         </div>
-        <div className="border border-red-400 w-full h-full text-m cursor-pointer absolute top-0 left-0 invisible group-hover:visible backdrop-opacity-20 backdrop-invert bg-white/30 flex justify-center items-end pb-5">
+        <div className="w-full h-full text-m cursor-pointer absolute top-0 left-0 invisible group-hover:visible backdrop-opacity-20 backdrop-invert bg-white/30 flex justify-center items-end pb-5">
           <NavLink
             className="text-m cursor-pointer transform transition duration-500 hover:scale-[1.2]"
             to="/gallery"
