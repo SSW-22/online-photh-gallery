@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 import Thumbnail from "../Thumbnail";
@@ -14,17 +14,19 @@ function UploadThumbnail() {
   const { title, name, thumbnailBgColor, thumbnailTextColor } = useSelector(
     (state) => state.gallery.gallery
   );
+  const [inputError, setInputError] = useState();
+  console.log(inputError);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const initialColor = () => {
-      dispatch(galleryActions.addThumbnailBgColor(randomBg));
-      dispatch(galleryActions.addThumbnailTextColor(randomTxt));
-    };
+  // useEffect(() => {
+  //   const initialColor = () => {
+  //     dispatch(galleryActions.addThumbnailBgColor(randomBg));
+  //     dispatch(galleryActions.addThumbnailTextColor(randomTxt));
+  //   };
 
-    if (!thumbnailBgColor || !thumbnailTextColor) {
-      initialColor();
-    }
-  }, [dispatch, thumbnailBgColor, thumbnailTextColor]);
+  //   if (!thumbnailBgColor || !thumbnailTextColor) {
+  //     initialColor();
+  //   }
+  // }, [dispatch, thumbnailBgColor, thumbnailTextColor]);
 
   const titleInputHandler = (event) => {
     event.preventDefault();
@@ -71,10 +73,10 @@ function UploadThumbnail() {
           </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
-              className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px]"
+              className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px] cursor-pointer"
               type="color"
               id="Thumbnail-color"
-              value={thumbnailBgColor}
+              value={thumbnailBgColor || "#ffffff"}
               onChange={(e) => {
                 thumbnailColorHandler(e);
               }}
@@ -88,17 +90,17 @@ function UploadThumbnail() {
           </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
-              className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px]"
+              className="absolute w-[4rem] h-[4rem] rounded-full appearance-none outline-none top-[-10px] left-[-10px] cursor-pointer"
               type="color"
               id="Thumbnail-text-color"
-              value={thumbnailTextColor}
+              value={thumbnailTextColor || "#ffffff"}
               onChange={(e) => thumbnailTextColorHandler(e)}
             />
           </div>
         </div>
       </div>
       <div className="flex flex-col">
-        <p className="text-[1.4rem]">Event thumnail preview</p>
+        <p className="text-[1.4rem] mb-2">Event thumnail preview</p>
         <Thumbnail
           title={title}
           name={name}

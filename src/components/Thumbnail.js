@@ -57,12 +57,18 @@ function Thumbnail({
     <div
       className={`w-[200px] h-[200px] flex flex-col justify-center 
       ${status === "draft" && "opacity-60"}`}
-      style={{ backgroundColor: thumbnailBgColor }}
+      style={{ backgroundColor: thumbnailBgColor || "#ddd" }}
     >
-      <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
+      <p
+        className="ml-4 text-sm"
+        style={{ color: thumbnailTextColor || "#000000" }}
+      >
         {name}
       </p>
-      <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
+      <p
+        className="ml-4 text-xl"
+        style={{ color: thumbnailTextColor || "#000000" }}
+      >
         {title}
       </p>
     </div>

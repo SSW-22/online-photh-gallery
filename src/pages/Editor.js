@@ -75,27 +75,38 @@ function Editor() {
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
 
-    if (status === "hosted" && numbGalleries > 35) {
-      dispatch(modalActions.toggleModal(true));
-      dispatch(modalActions.addModalType("submit"));
-      dispatch(modalActions.addModalTitle("Important"));
-      dispatch(modalActions.addModalText(maxNumbErrorMsg));
-      return;
-    }
     if (status === "hosted" && galleryData.email === "") {
       setEmailError(true);
       return;
     }
 
-    if (
-      (status === "hosted" && galleryData.title === "") ||
-      galleryData.subtitle === ""
-    ) {
-      dispatch(modalActions.toggleModal(true));
-      dispatch(modalActions.addModalType(""));
-      dispatch(modalActions.addModalTitle("Important"));
-      dispatch(modalActions.addModalText(SubmitErrorMsg));
-      return;
+    if (status === "hosted") {
+      if (numbGalleries > 36) {
+        dispatch(modalActions.toggleModal(true));
+        dispatch(modalActions.addModalType("submit"));
+        dispatch(modalActions.addModalTitle("Important"));
+        dispatch(modalActions.addModalText(maxNumbErrorMsg));
+        return;
+      }
+      if (
+        galleryData.subtitle === "" ||
+        galleryData.thumbnailBgColor === "" ||
+        galleryData.thumbnailTextColor === ""
+      ) {
+        dispatch(modalActions.toggleModal(true));
+        dispatch(modalActions.addModalType(""));
+        dispatch(modalActions.addModalTitle("Important"));
+        dispatch(modalActions.addModalText(SubmitErrorMsg));
+        return;
+      }
+
+      if (galleryData.images.length === 0) {
+        dispatch(modalActions.toggleModal(true));
+        dispatch(modalActions.addModalType(""));
+        dispatch(modalActions.addModalTitle("Important"));
+        dispatch(modalActions.addModalText("Image Error"));
+        return;
+      }
     }
 
     // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
@@ -156,7 +167,6 @@ function Editor() {
   };
 
   useEffect(() => {
-    console.log(galleryUpdated);
     if (galleryUpdated) {
       setShowDialog(true);
     } else {
