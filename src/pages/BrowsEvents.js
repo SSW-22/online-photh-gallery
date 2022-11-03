@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 import Thumbnail from "../components/Thumbnail";
@@ -15,9 +16,11 @@ function BrowseEvents() {
   useEffect(() => {
     const getGalleries = async () => {
       const data = await getAllGalleries();
+
       setGalleries(data);
+
       // after get data from database, set max number of page by data length
-      setMaxPage(Math.ceil(data.length / PAGE_PER_GALLERIES));
+      setMaxPage(Math.ceil(36 / PAGE_PER_GALLERIES));
       setIsLoading(false);
     };
     getGalleries();
@@ -27,7 +30,7 @@ function BrowseEvents() {
 
   const pageLastIndex = curPage * PAGE_PER_GALLERIES;
   const pageFirstIndex = pageLastIndex - PAGE_PER_GALLERIES;
-  const pageGalleries = galleries.slice(pageFirstIndex, pageLastIndex);
+  // const pageGalleries = galleries.slice(pageFirstIndex, pageLastIndex);
 
   const pageHandler = (e) => {
     e.preventDefault();
@@ -40,28 +43,37 @@ function BrowseEvents() {
   return (
     <div className="font-['average'] w-[90%] relative m-auto">
       <div className="my-0 max-w-[1000px] mx-auto flex flex-col">
-        <h1 className="text-[1.3rem] h-[7vh]">Events</h1>
+        <h1 className="text-[1.3rem] h-[5vh]">Events</h1>
         <div
           className={`
           flex flex-wrap gap-[3.5rem] min-h-[70vh] 
-          ${pageGalleries.length >= 4 && "justify-center"}`}
+          ${galleries.length >= 4 && "justify-center"}`}
         >
-          {pageGalleries &&
-            pageGalleries.map((gallery) => (
-              <Thumbnail
-                key={uuid()}
-                title={gallery.title}
-                name={gallery.name}
-                thumbnailBgColor={gallery.thumbnailBgColor}
-                thumbnailTextColor={gallery.thumbnailTextColor}
-                images={gallery.images}
-                lightMode={gallery.lightMode}
-                email={gallery.email}
-                mode="browse"
-              />
-            ))}
+          {galleries
+            .concat(new Array(36 - galleries.length).fill(""))
+            .slice(pageFirstIndex, pageLastIndex)
+            .map((gallery) => {
+              return gallery === "" ? (
+                <div
+                  key={uuid()}
+                  className="w-[200px] h-[200px] bg-slate-400 opacity-60 rounded-md"
+                />
+              ) : (
+                <Thumbnail
+                  key={uuid()}
+                  title={gallery.title}
+                  name={gallery.name}
+                  thumbnailBgColor={gallery.thumbnailBgColor}
+                  thumbnailTextColor={gallery.thumbnailTextColor}
+                  images={gallery.images}
+                  lightMode={gallery.lightMode}
+                  email={gallery.email}
+                  mode="browse"
+                />
+              );
+            })}
         </div>
-        <p className="self-end h-[4vh] mr-[1.1rem]">
+        <p className="self-end mr-[1.1rem] mt-[1rem]">
           Page {curPage} / {maxPage}
         </p>
       </div>
@@ -84,7 +96,7 @@ function BrowseEvents() {
           className="absolute left-0 top-[50%] hover:animate-bounceLeft"
           type="button"
           id="prevPage"
-          disabled={curPage === 1}
+          disabled={curPage === 0}
           onClick={pageHandler}
         >
           <span className="sr-only">previous</span>
