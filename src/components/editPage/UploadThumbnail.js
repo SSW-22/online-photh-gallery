@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { galleryActions } from "../../store/gallery-slice";
 import Thumbnail from "../Thumbnail";
 
-const randomBg = `#${Math.floor(Math.random() * 16777215)
-  .toString(16)
-  .padStart(6, "0")}`;
-const randomTxt = `#${Math.floor(Math.random() * 16777215)
-  .toString(16)
-  .padStart(6, "0")}`;
+// const randomBg = `#${Math.floor(Math.random() * 16777215)
+//   .toString(16)
+//   .padStart(6, "0")}`;
+// const randomTxt = `#${Math.floor(Math.random() * 16777215)
+//   .toString(16)
+//   .padStart(6, "0")}`;
 
 function UploadThumbnail() {
   const { title, name, thumbnailBgColor, thumbnailTextColor } = useSelector(
     (state) => state.gallery.gallery
   );
-  const [inputError, setInputError] = useState();
-  console.log(inputError);
+  // const [inputError, setInputError] = useState();
+  // console.log(inputError);
   const dispatch = useDispatch();
   // useEffect(() => {
   //   const initialColor = () => {
