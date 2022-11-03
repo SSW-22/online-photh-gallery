@@ -40,8 +40,12 @@ function BrowseEvents() {
   return (
     <div className="font-['average'] w-[90%] relative m-auto">
       <div className="my-0 max-w-[1000px] mx-auto flex flex-col">
-        <h1 className="text-[1.3rem] h-[7vh] ml-[1.1rem]">Events</h1>
-        <div className="grid grid-cols-4 grid-rows-3 gap-4 justify-items-center min-h-[70vh]">
+        <h1 className="text-[1.3rem] h-[7vh]">Events</h1>
+        <div
+          className={`
+          flex flex-wrap gap-[3.5rem] min-h-[70vh] 
+          ${pageGalleries.length >= 4 && "justify-center"}`}
+        >
           {pageGalleries &&
             pageGalleries.map((gallery) => (
               <Thumbnail
