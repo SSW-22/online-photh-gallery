@@ -163,7 +163,7 @@ function Editor() {
 
   const previewHandler = () => {
     setPreviewSlide((prev) => !prev);
-    dispatch(navActions.toggleNav());
+    dispatch(navActions.toggleNav(false));
   };
 
   useEffect(() => {

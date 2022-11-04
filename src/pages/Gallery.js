@@ -72,7 +72,7 @@ function Gallery({ previewData, setClose }) {
       style={{ color: galleryVisible ? textColor : thumbnailTextColor }}
       onScroll={(e) => {
         const x = e.currentTarget.scrollLeft;
-        setScrollX(x - 800);
+        setScrollX(x);
       }}
     >
       {!imgsLoaded && (
@@ -110,7 +110,7 @@ function Gallery({ previewData, setClose }) {
               className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]"
               onClick={() => {
                 setClose((prev) => !prev);
-                dispatch(navActions.toggleNav());
+                dispatch(navActions.toggleNav(true));
               }}
             >
               <p className="text-[0.8rem]">Click to leave</p>
@@ -123,7 +123,7 @@ function Gallery({ previewData, setClose }) {
               className="
                     absolute right-[3rem] top-[3rem] w-[5rem] h-[5rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]
                     "
-              onClick={() => dispatch(navActions.toggleNav())}
+              onClick={() => dispatch(navActions.toggleNav(true))}
             >
               <p className="text-[0.8rem]">Click to leave</p>
               <BsFillDoorOpenFill />
@@ -140,7 +140,7 @@ function Gallery({ previewData, setClose }) {
               <ArcText text="Scroll to  Walk" arc={95} radius={70} />
               <div
                 className="absolute text-[3rem]"
-                style={{ transform: `rotate(${scrollX / 10}deg)` }}
+                style={{ transform: `rotate(${scrollX / 15}deg)` }}
               >
                 <IoFootstepsSharp />
               </div>

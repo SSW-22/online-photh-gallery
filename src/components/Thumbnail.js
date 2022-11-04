@@ -15,7 +15,7 @@ function Thumbnail({
 }) {
   const dispatch = useDispatch();
   const navHandler = () => {
-    dispatch(navActions.toggleNav());
+    dispatch(navActions.toggleNav(false));
   };
 
   if (mode === "browse") {
