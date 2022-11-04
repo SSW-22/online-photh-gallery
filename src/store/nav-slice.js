@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialNavState = {
-  isOpen: false,
+  isOpen: true,
 };
 
 const navSlice = createSlice({
   name: "nav",
   initialState: initialNavState,
   reducers: {
-    toggleNav(state) {
+    toggleNav(state, action) {
       const prevNav = state;
-      prevNav.isOpen = !prevNav.isOpen;
+      prevNav.isOpen = action.payload;
     },
   },
 });
