@@ -15,10 +15,11 @@ import BrowseEvents from "./pages/BrowsEvents";
 import Protected from "./components/Protected";
 import { checkGallery } from "./store/gallery-slice";
 import useMedia from "./hooks/useMedia";
+import Mobile from "./components/Mobile";
 
 function App() {
   const dispatch = useDispatch();
-  const isDesktop = useMedia("(min-width: 1360px)");
+  const isDesktop = useMedia("(min-width: 1000px)");
 
   useEffect(() => {
     const authControl = onAuthStateChanged(auth, (currentUser) => {
@@ -35,6 +36,10 @@ function App() {
       authControl();
     };
   }, [dispatch]);
+
+  if (!isDesktop) {
+    return <Mobile />;
+  }
 
   return (
     <>
