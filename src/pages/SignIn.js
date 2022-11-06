@@ -40,7 +40,7 @@ function SignIn() {
       <button
         onClick={signInHandler}
         type="button"
-        className="text-[1.1rem] bg-[#E1E1E1] h-[3rem] px-[3rem] rounded-full hover:text-[#ffffff] hover:bg-black duration-[500ms]"
+        className="font-['average'] text-[1.1rem] bg-[#E1E1E1] h-[3rem] px-[3rem] rounded-full hover:text-[#ffffff] hover:bg-black duration-[500ms]"
       >
         Sign in with your Google account
       </button>
