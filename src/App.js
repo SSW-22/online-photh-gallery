@@ -19,7 +19,7 @@ import Mobile from "./components/Mobile";
 
 function App() {
   const dispatch = useDispatch();
-  const isDesktop = useMedia("(min-width: 1000px)");
+  const isDesktop = useMedia("(min-width: 1350px)");
 
   useEffect(() => {
     const authControl = onAuthStateChanged(auth, (currentUser) => {
