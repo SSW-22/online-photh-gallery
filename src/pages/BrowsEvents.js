@@ -20,7 +20,7 @@ function BrowseEvents() {
       setGalleries(data);
 
       // after get data from database, set max number of page by data length
-      setMaxPage(Math.ceil(36 / PAGE_PER_GALLERIES));
+      setMaxPage(Math.ceil(data.length / PAGE_PER_GALLERIES));
       setIsLoading(false);
     };
     getGalleries();
@@ -50,13 +50,17 @@ function BrowseEvents() {
           ${galleries.length >= 4 && "justify-center"}`}
         >
           {galleries
-            .concat(new Array(36 - galleries.length).fill(""))
+            .concat(
+              new Array(PAGE_PER_GALLERIES * maxPage - galleries.length).fill(
+                ""
+              )
+            )
             .slice(pageFirstIndex, pageLastIndex)
             .map((gallery) => {
               return gallery === "" ? (
                 <div
                   key={uuid()}
-                  className="w-[200px] h-[200px] bg-slate-400 opacity-60 rounded-md"
+                  className="w-[200px] h-[200px] bg-slate-400 opacity-60"
                 />
               ) : (
                 <Thumbnail
