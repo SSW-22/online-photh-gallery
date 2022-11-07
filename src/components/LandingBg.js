@@ -114,9 +114,9 @@ function LandingBg() {
         </motion.h1>
       </div>
       <div className="flex h-full gap-4 pb-[3rem]">
-        <div className="grid grid-cols-2 w-full h-full gap-4 auto-cols-fr">
+        <div className="flex flex-wrap w-full pt-[1rem]">
           <motion.img
-            className="w-full h-full object-cover"
+            className="w-[50%] h-[50%] object-cover p-[0.5rem]"
             src={landing1}
             alt="rendom img"
             animate={{
@@ -131,7 +131,7 @@ function LandingBg() {
             }}
           />
           <motion.img
-            className="w-full h-full object-cover"
+            className="w-[50%] h-[50%] object-cover p-[0.5rem]"
             src={landing2}
             alt="rendom img"
             animate={{
@@ -146,7 +146,7 @@ function LandingBg() {
             }}
           />
           <motion.img
-            className="w-full h-full object-cover col-span-2"
+            className="w-[100%] h-[50%] object-cover p-[0.5rem]"
             src={landing3}
             alt="rendom img"
             animate={{
@@ -168,7 +168,7 @@ function LandingBg() {
           alt="main img"
         /> */}
           <motion.img
-            className="max-w-[400px] max-h-[450px]"
+            className="w-[85%] min-h-[500px] p-[0.5rem]"
             // src="https://source.unsplash.com/qPPWNeFVLFQ"
             src={landingmain}
             alt="main img"
@@ -184,9 +184,9 @@ function LandingBg() {
             }}
           />
         </div>
-        <div className="flex flex-col w-full h-full gap-4">
+        <div className="flex flex-col w-full h-full">
           <motion.img
-            className="h-[50%] object-cover"
+            className="h-[50%] object-cover p-[0.5rem]"
             // src="https://source.unsplash.com/MHNjEBeLTgw"
             src={landing4}
             alt="rendom img"
@@ -202,7 +202,7 @@ function LandingBg() {
             }}
           />
           <motion.img
-            className="h-[50%] object-cover"
+            className="h-[50%] object-cover p-[0.5rem]"
             // src="https://source.unsplash.com/WEQbe2jBg40"
             src={landing5}
             alt="rendom img"
