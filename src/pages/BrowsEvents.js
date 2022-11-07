@@ -4,6 +4,7 @@ import uuid from "react-uuid";
 import Thumbnail from "../components/Thumbnail";
 import getAllGalleries from "../firebase/getAllGalleries";
 import arrowImg from "../asset/arrow.png";
+import Loading from "../components/Loading";
 
 const PAGE_PER_GALLERIES = 12;
 
@@ -38,7 +39,12 @@ function BrowseEvents() {
     if (e.target.alt === "previous") setCurPage((prev) => prev - 1);
   };
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading)
+    return (
+      <div className="w-full min-h-[80vh] justify-center flex">
+        <Loading />
+      </div>
+    );
 
   return (
     <div className="font-['average'] w-[90%] relative m-auto">
@@ -46,7 +52,7 @@ function BrowseEvents() {
         <h1 className="text-[1.3rem] h-[5vh]">Events</h1>
         <div
           className={`
-          flex flex-wrap gap-[3.5rem] min-h-[70vh] 
+          flex flex-wrap gap-[3.5rem] min-h-[70vh]
           ${galleries.length >= 4 && "justify-center"}`}
         >
           {galleries
