@@ -5,7 +5,7 @@
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
-import { ImCancelCircle } from "react-icons/im";
+import { IoClose } from "react-icons/io5";
 import uuid from "react-uuid";
 import { galleryActions } from "../../store/gallery-slice";
 import PreviewSlide from "./PreviewSlide";
@@ -155,7 +155,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
           {imageData.imgUrl && (
             <button
-              className="absolute top-0 right-0 m-[1rem] z-[99]"
+              className="absolute top-0 right-0 m-[0.4rem] z-[99]"
               type="button"
               onClick={() => {
                 setImageData((prev) => {
@@ -163,7 +163,11 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
                 });
               }}
             >
-              <ImCancelCircle />
+              <div className="text-white w-[1.1rem] h-[1.1rem] bg-[#363636] flex items-center justify-center rounded-full">
+                <div className="text-[0.9rem]">
+                  <IoClose />
+                </div>
+              </div>
             </button>
           )}
           <div {...getRootProps({ className: "dropzone" })}>
@@ -204,7 +208,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           className="w-[300px] flex flex-col mt-[1rem] md:ml-[2rem] md:mt-0"
         >
           <label htmlFor="title" className="flex flex-col h-[70px]">
-            Image title
+            Image title *
             <input
               className={`border-b focus:outline-none font-['average']
               ${
