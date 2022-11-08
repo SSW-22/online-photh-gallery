@@ -86,7 +86,7 @@ function Gallery({ previewData, setClose }) {
         <>
           {previewData && (
             <h1 className="absolute z-10 left-12 top-12">
-              This is preview mode
+              This is a preview of your event
             </h1>
           )}
           <GalleryThumbnail
