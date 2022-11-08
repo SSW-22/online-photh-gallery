@@ -31,7 +31,7 @@ function Submission({ userEmail, emailError }) {
         to delete your event. No changes can be made to the event once
         submitted. Please be sure all the information is correct.
       </h2>
-      <p className="mt-10">Share your contact: {userEmail}</p>
+      <p className="mt-10">Share your contact: {userEmail} *</p>
       <div className="my-4">
         <label htmlFor="yes">
           <input

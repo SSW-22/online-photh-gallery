@@ -50,7 +50,10 @@ function UploadThumbnail() {
     <div className="flex items-center font-['average'] gap-[25rem] mt-[8rem]">
       <div className="flex flex-col">
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
-          <h2 className="text-[1.5rem]">Event title</h2>
+          <div className="flex">
+            <h2 className="text-[1.5rem]">Event title</h2>
+            <h2 className="text-[1.2rem]">&nbsp;*</h2>
+          </div>
           <input
             className="p-1 focus:outline-none border-b border-black font-['average']"
             id="title"
@@ -59,7 +62,10 @@ function UploadThumbnail() {
           />
         </label>
         <label htmlFor="name" className="flex flex-col mb-[2.5rem]">
-          <h2 className="text-[1.5rem]">Event subtitle</h2>
+          <div className="flex">
+            <h2 className="text-[1.5rem]">Event subtitle</h2>
+            <h2 className="text-[1.2rem]">&nbsp;*</h2>
+          </div>
           <input
             className="p-1 focus:outline-none border-b border-black font-['average']"
             id="name"
@@ -69,7 +75,7 @@ function UploadThumbnail() {
         </label>
         <div className="flex flex-col mb-[3rem]">
           <h2 className="text-[1.2rem] mb-[1rem]">
-            Choose a thumbnail background colour
+            Choose a thumbnail background colour *
           </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
@@ -86,7 +92,7 @@ function UploadThumbnail() {
 
         <div className="flex flex-col mb-[3rem]">
           <h2 className="text-[1.2rem] mb-[1rem]">
-            Choose a thumbnail text colour
+            Choose a thumbnail text colour *
           </h2>
           <div className="relative overflow-hidden w-[3rem] h-[3rem] rounded-full border-2 border-[#ddd]">
             <input
