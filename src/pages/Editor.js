@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  MdOutlineArrowForwardIos,
+  MdOutlineArrowBackIos,
+} from "react-icons/md";
 import Gallery from "./Gallery";
 import arrowImg from "../asset/arrow.png";
 import addDocument from "../firebase/addDocument";
@@ -45,8 +49,16 @@ function Editor() {
   const [page, setPage] = useState(0);
 
   const pageHandler = (e) => {
-    if (e.target.alt === "next") setPage((prev) => prev + 1);
-    if (e.target.alt === "previous") setPage((prev) => prev - 1);
+    if (
+      (e.target.parentNode.parentNode.title || e.target.parentNode.title) ===
+      "next"
+    )
+      setPage((prev) => prev + 1);
+    if (
+      (e.target.parentNode.parentNode.title || e.target.parentNode.title) ===
+      "previous"
+    )
+      setPage((prev) => prev - 1);
   };
   /**  Create hash map for checking duplicate data and overwrite the map entries with current image array. */
   const updateData = (newData, status) => {
@@ -219,31 +231,31 @@ function Editor() {
       </section>
       {page !== 2 && (
         <button
-          className="absolute right-0 top-[50%] hover:animate-bounceRight md:right-10"
+          className="absolute right-[1rem] top-[50%] hover:animate-bounceRight"
           type="button"
           id="nextPage"
           disabled={page === FormHeaders.length - 1}
           onClick={pageHandler}
         >
           <span className="sr-only">next</span>
-          <img className="w-[50px] h-[50px]" src={arrowImg} alt="next" />
+          <div className="text-[3rem]" title="next">
+            <MdOutlineArrowForwardIos />
+          </div>
         </button>
       )}
 
       {page !== 0 && (
         <button
-          className="absolute left-0 top-[50%] hover:animate-bounceLeft md:left-10"
+          className="absolute left-[1rem] top-[50%] hover:animate-bounceLeft"
           type="button"
           id="prevPage"
           disabled={page === 0}
           onClick={pageHandler}
         >
           <span className="sr-only">previous</span>
-          <img
-            className="w-[50px] h-[50px] rotate-180 "
-            src={arrowImg}
-            alt="previous"
-          />
+          <div className="text-[3rem]" title="previous">
+            <MdOutlineArrowBackIos />
+          </div>
         </button>
       )}
     </main>

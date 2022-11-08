@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { useEffect, useState } from "react";
+import {
+  MdOutlineArrowForwardIos,
+  MdOutlineArrowBackIos,
+} from "react-icons/md";
 import uuid from "react-uuid";
 import Thumbnail from "../components/Thumbnail";
 import getAllGalleries from "../firebase/getAllGalleries";
-import arrowImg from "../asset/arrow.png";
 import Loading from "../components/Loading";
 
 const PAGE_PER_GALLERIES = 12;
@@ -35,8 +38,16 @@ function BrowseEvents() {
 
   const pageHandler = (e) => {
     e.preventDefault();
-    if (e.target.alt === "next") setCurPage((prev) => prev + 1);
-    if (e.target.alt === "previous") setCurPage((prev) => prev - 1);
+    if (
+      (e.target.parentNode.parentNode.title || e.target.parentNode.title) ===
+      "next"
+    )
+      setCurPage((prev) => prev + 1);
+    if (
+      (e.target.parentNode.parentNode.title || e.target.parentNode.title) ===
+      "previous"
+    )
+      setCurPage((prev) => prev - 1);
   };
 
   if (isLoading)
@@ -97,7 +108,9 @@ function BrowseEvents() {
           onClick={pageHandler}
         >
           <span className="sr-only">next</span>
-          <img className="w-[50px] h-[50px]" src={arrowImg} alt="next" />
+          <div className="text-[3rem]" title="next">
+            <MdOutlineArrowForwardIos />
+          </div>
         </button>
       )}
 
@@ -110,11 +123,9 @@ function BrowseEvents() {
           onClick={pageHandler}
         >
           <span className="sr-only">previous</span>
-          <img
-            className="w-[50px] h-[50px] rotate-180 "
-            src={arrowImg}
-            alt="previous"
-          />
+          <div className="text-[3rem]" title="previous">
+            <MdOutlineArrowBackIos />
+          </div>
         </button>
       )}
     </div>

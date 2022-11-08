@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import { IoFootstepsSharp } from "react-icons/io5";
-import { HiOutlineX } from "react-icons/hi";
+import { MdOutlineClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { navActions } from "../store/nav-slice";
 import ArcText from "../components/ArcText";
@@ -156,7 +156,7 @@ function Gallery({ previewData, setClose }) {
             >
               <p className="text-[0.8rem] font-[100]">Back</p>
               <div className="text-[4rem]">
-                <HiOutlineX />
+                <MdOutlineClose />
               </div>
             </button>
           )}
