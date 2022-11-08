@@ -11,7 +11,7 @@ import { modalActions } from "../store/modalSlice";
 import Modal from "./modal/Modal";
 
 function MyEventStatus({ userData }) {
-  const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
+  const { status, thumbnailBgColor, thumbnailTextColor, title, subtitle } =
     userData;
   const gallery = useSelector((state) => state.gallery.gallery);
   const uid = useSelector((state) => state.auth.uid);
@@ -75,7 +75,7 @@ function MyEventStatus({ userData }) {
         <Thumbnail
           status={status}
           title={title}
-          name={name}
+          subtitle={subtitle}
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />
@@ -127,7 +127,7 @@ function MyEventStatus({ userData }) {
         <Thumbnail
           status={status}
           title={title}
-          name={name}
+          subtitle={subtitle}
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />

@@ -20,7 +20,7 @@ function Gallery({ previewData, setClose }) {
   const location = useLocation();
   const {
     title,
-    name,
+    subtitle,
     thumbnailBgColor,
     thumbnailTextColor,
     images,
@@ -91,7 +91,7 @@ function Gallery({ previewData, setClose }) {
           )}
           <GalleryThumbnail
             title={title}
-            name={name}
+            subtitle={subtitle}
             thumbnailBgColor={thumbnailBgColor}
             thumbnailTextColor={thumbnailTextColor}
             email={email}

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,11 +20,7 @@ import Modal from "../components/modal/Modal";
 import useNumber from "../hooks/use-number";
 import ConfirmationModal from "../components/modal/ConfirmationModal";
 import useCallbackPrompt from "../hooks/useCallbackPrompt";
-
-const maxNumbErrorMsg =
-  "Please note that our gallery can accomodate up to 36 events and currently we are at full capacity. You will only be able to host your event when slots become available.";
-
-const SubmitErrorMsg = "Please coplete your thumbnail page form.";
+import modalMessages from "../components/modal/modal-messages";
 
 function Editor() {
   const FormHeaders = ["Create your event", "Upload photos", "Submission"];
@@ -35,9 +30,10 @@ function Editor() {
   const galleryUpdated = useSelector((state) => state.gallery.updated);
   const modalData = useSelector((state) => state.modal);
 
-  const numbGalleries = useNumber();
-  // const numbGalleries = 36;
+  const [showStatus, setShowStatus] = useState(false);
+  const [disableBtn, setDisableBtn] = useState("saved");
 
+  const numbGalleries = useNumber();
   const [showDialog, setShowDialog] = useState(false);
   const [showPrompt, confirmNavigation, cancelNavigation] =
     useCallbackPrompt(showDialog);
@@ -83,32 +79,33 @@ function Editor() {
   /**  Upload to the firestore. Until this button is "clicked", all data is not saved in Firebase, but only in Gallery Redux. */
   const uploadHandler = async (e) => {
     e.preventDefault();
+    setDisableBtn("loading");
     // ========
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
 
-    if (status === "hosted" && galleryData.email === "") {
-      setEmailError(true);
-      return;
-    }
-
     if (status === "hosted") {
+      if (galleryData.email === "") {
+        setEmailError(true);
+        return;
+      }
       if (numbGalleries > 36) {
         dispatch(modalActions.toggleModal(true));
         dispatch(modalActions.addModalType("submit"));
-        dispatch(modalActions.addModalTitle("Important"));
-        dispatch(modalActions.addModalText(maxNumbErrorMsg));
+        dispatch(modalActions.addModalTitle(modalMessages[4].title));
+        dispatch(modalActions.addModalText(modalMessages[4].message));
         return;
       }
       if (
+        galleryData.title === "" ||
         galleryData.subtitle === "" ||
         galleryData.thumbnailBgColor === "" ||
         galleryData.thumbnailTextColor === ""
       ) {
         dispatch(modalActions.toggleModal(true));
         dispatch(modalActions.addModalType(""));
-        dispatch(modalActions.addModalTitle("Important"));
-        dispatch(modalActions.addModalText(SubmitErrorMsg));
+        dispatch(modalActions.addModalTitle(modalMessages[3].title));
+        dispatch(modalActions.addModalText(modalMessages[3].message));
         return;
       }
 
@@ -121,10 +118,8 @@ function Editor() {
       }
     }
 
-    // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section.
-
+    // Since both, the draft image previously saved by the user and the newly added image is in one place which is gallery redux, only the previously saved draft images are deleted here. Newly added images (not updated to firebase yet) will be deleted from the Redux Store when the user clicks the delete button in preview slide section. (Deleting)
     if (deletedItem.length > 0) {
-      console.log("deleting");
       // At this point, the data of image in gallery redux already deleted. Now the image has to be delete in firebase storage.
       deletedItem.forEach(async (item) => {
         // Check if the deleted image is in firebase storage by using image url address.
@@ -132,11 +127,13 @@ function Editor() {
         if (item.imgUrl.includes(fbAddress))
           await deleteFile(`gallery/${uid}/${item.id}`);
       });
+      // Reset deleted items array
+      setDeletedItem([]);
     }
 
     // wait till all the images uploaded into firebase storage and return all urls within single attempt.
-
     if (imageFiles.length > 0) {
+      // (uploaded with new pics)
       try {
         const newData = await Promise.all(
           imageFiles.map(async (image) => {
@@ -151,26 +148,32 @@ function Editor() {
           })
         );
         const galleryDoc = updateData(newData, status);
-        // Now, new data will be updated
+        // Now, new data will be updated into firebase and redux store
         await addDocument("gallery", galleryDoc, uid);
-        // Reset the images file array and deletedItem array
         dispatch(checkGallery(uid));
+        // Reset the images file array
         setImageFiles([]);
-        setDeletedItem([]);
-        console.log("uploaded with new pics");
       } catch (error) {
         console.log(error.message);
       }
     } else {
+      // (Uploaded without new pictures)
       const galleryDoc = { ...galleryData, status };
       await addDocument("gallery", galleryDoc, uid);
       dispatch(checkGallery(uid));
-      console.log("uploaded without new pics");
     }
-    dispatch(modalActions.toggleModal(true));
-    dispatch(modalActions.addModalType("return/myevent"));
-    dispatch(modalActions.addModalTitle("Update success!"));
-    dispatch(modalActions.addModalText("111"));
+
+    if (status === "hosted") {
+      dispatch(modalActions.toggleModal(true));
+      dispatch(modalActions.addModalType("return/myevent"));
+      dispatch(modalActions.addModalTitle(modalMessages[2].title));
+      dispatch(modalActions.addModalText(modalMessages[2].message));
+    }
+    setDisableBtn("saved");
+    setShowStatus(true);
+    setTimeout(() => {
+      setShowStatus(false);
+    }, 3000);
   };
 
   const previewHandler = () => {
@@ -180,6 +183,7 @@ function Editor() {
 
   useEffect(() => {
     if (galleryUpdated) {
+      setDisableBtn("idle");
       setShowDialog(true);
     } else {
       setShowDialog(false);
@@ -208,14 +212,45 @@ function Editor() {
           />
         )}
         {page === 2 && <Submission userEmail={email} emailError={emailError} />}
-        <div className="flex justify-end mt-2">
+        <div className="flex justify-end items-center mt-2">
+          {showStatus && <p className="mr-5">Saved!</p>}
           <button
             id="draft"
             type="button"
-            className="rounded-[5px] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+            className="rounded-[5px] w-[200px] flex justify-center bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average'] cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
             onClick={uploadHandler}
+            disabled={disableBtn === "saved" || disableBtn === "loading"}
           >
-            Save as a draft
+            {disableBtn === "loading" ? (
+              <svg
+                className="animate-spin"
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 8.4142 1.16421 8.75 0.75 8.75C0.33579 8.75 0 8.4142 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C7.58579 16 7.25 15.6642 7.25 15.25C7.25 14.8358 7.58579 14.5 8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5Z"
+                  fill="url(#paint0_linear_1_3)"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_1_3"
+                    x1="3.67484e-07"
+                    y1="13"
+                    x2="8"
+                    y2="15.5"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#212121" stopOpacity="0.03" />
+                    <stop offset="1" stopColor="#212121" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            ) : (
+              "Save as a draft"
+            )}
           </button>
           {page === 2 && (
             <button
