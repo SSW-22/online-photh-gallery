@@ -31,8 +31,8 @@ function ModeSelector() {
         <div
           className={`${
             isLightMode
-              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] flex items-center justify-center rounded-full bg-[#d9d9d9] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
-              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] flex items-center justify-center rounded-full bg-[#d9d9d9]"
+              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] text-white flex items-center justify-center rounded-full bg-[#363636] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
+              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] text-white flex items-center justify-center rounded-full bg-[#363636]"
           }`}
         >
           <div>
@@ -55,8 +55,8 @@ function ModeSelector() {
         <div
           className={`${
             !isLightMode
-              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] text-white bg-black rotate-[30deg] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
-              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] text-white bg-black rotate-[30deg] flex items-center justify-center rounded-full"
+              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] text-white bg-[#363636] rotate-[30deg] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
+              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] text-white bg-[#363636] rotate-[30deg] flex items-center justify-center rounded-full"
           }`}
         >
           <div className="translate-y-[-1px] translate-x-[1px]">

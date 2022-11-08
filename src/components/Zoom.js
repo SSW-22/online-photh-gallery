@@ -19,8 +19,8 @@ function Zoom({ onZoomChange, zoom, zoomOpen, setRatioOpen, setZoomOpen }) {
     <div ref={wrapperRef} className="relative">
       <button
         className={`${
-          zoomOpen ? "bg-[#ffffff]" : "bg-[#969696] text-white"
-        } text-[0.9rem] w-[25px] h-[25px] flex items-center justify-center rounded-full`}
+          zoomOpen ? "bg-[#969696]" : "bg-[#363636]"
+        } text-[0.9rem] w-[25px] h-[25px] flex items-center justify-center rounded-full text-white`}
         onClick={() => {
           setZoomOpen(!zoomOpen);
           setRatioOpen(false);

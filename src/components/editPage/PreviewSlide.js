@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { IoClose } from "react-icons/io5";
 import { galleryActions } from "../../store/gallery-slice";
 
 function PreviewSlide({
@@ -100,11 +101,16 @@ function PreviewSlide({
                         />
                         {selected === image.id && (
                           <button
-                            className="absolute top-1.5 right-2 bg-[#D9D9D9] py-0.25 px-1.5 rounded-full"
+                            className="absolute top-0 right-0 m-[0.2rem]"
                             type="button"
                             onClick={deleteImage.bind(this, image)}
                           >
-                            <span className="sr-only">Remove this Item</span>X
+                            <span className="sr-only">Remove this Item</span>
+                            <div className="text-white w-[1.1rem] h-[1.1rem] bg-[#363636] flex items-center justify-center rounded-full">
+                              <div className="text-[0.9rem]">
+                                <IoClose />
+                              </div>
+                            </div>
                           </button>
                         )}
                       </li>
