@@ -11,7 +11,7 @@ import Thumbnail from "../Thumbnail";
 //   .padStart(6, "0")}`;
 
 function UploadThumbnail() {
-  const { title, name, thumbnailBgColor, thumbnailTextColor } = useSelector(
+  const { title, subtitle, thumbnailBgColor, thumbnailTextColor } = useSelector(
     (state) => state.gallery.gallery
   );
   // const [inputError, setInputError] = useState();
@@ -63,7 +63,7 @@ function UploadThumbnail() {
           <input
             className="p-1 focus:outline-none border-b border-black font-['average']"
             id="name"
-            value={name}
+            value={subtitle}
             onChange={(e) => subtitleInputHandler(e)}
           />
         </label>
@@ -103,7 +103,7 @@ function UploadThumbnail() {
         <p className="text-[1.4rem] mb-2">Event thumnail preview</p>
         <Thumbnail
           title={title}
-          name={name}
+          subtitle={subtitle}
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />

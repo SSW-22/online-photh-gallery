@@ -82,7 +82,7 @@ function UserGallery({
         className="flex items-center"
         style={{
           perspective: "600px",
-          perspectiveOrigin: `${scrX}px 471px`,
+          perspectiveOrigin: `${scrX - 800}px 471px`,
           transformStyle: `preserve-3d`,
         }}
       >

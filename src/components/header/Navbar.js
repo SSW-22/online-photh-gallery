@@ -20,6 +20,9 @@ function Navbar() {
     }
   };
 
+  console.log(location);
+  console.log(isNavOpen);
+
   return (
     <div
       className={`
