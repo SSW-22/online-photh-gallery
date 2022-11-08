@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { BsMoon, BsSun } from "react-icons/bs";
+import { HiOutlineSun } from "react-icons/hi";
+import { MdOutlineNightlight } from "react-icons/md";
 import { galleryActions } from "../../store/gallery-slice";
 
 function ModeSelector() {
@@ -31,12 +33,12 @@ function ModeSelector() {
         <div
           className={`${
             isLightMode
-              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] text-white flex items-center justify-center rounded-full bg-[#363636] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
-              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] text-white flex items-center justify-center rounded-full bg-[#363636]"
+              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-white flex items-center justify-center rounded-full bg-[#363636] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
+              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-white flex items-center justify-center rounded-full bg-[#363636]"
           }`}
         >
           <div>
-            <BsSun />
+            <HiOutlineSun />
           </div>
         </div>
       </label>
@@ -55,12 +57,12 @@ function ModeSelector() {
         <div
           className={`${
             !isLightMode
-              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[0.8rem] text-white bg-[#363636] rotate-[30deg] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
-              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1rem] text-white bg-[#363636] rotate-[30deg] flex items-center justify-center rounded-full"
+              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-white bg-[#363636] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
+              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-white bg-[#363636] flex items-center justify-center rounded-full"
           }`}
         >
-          <div className="translate-y-[-1px] translate-x-[1px]">
-            <BsMoon />
+          <div className="">
+            <MdOutlineNightlight />
           </div>
         </div>
       </label>

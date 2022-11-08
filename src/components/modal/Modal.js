@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { HiOutlineX } from "react-icons/hi";
+import { MdOutlineClose } from "react-icons/md";
 import { modalActions } from "../../store/modalSlice";
 
 function Modal({ modalHandler = null }) {
@@ -41,7 +41,7 @@ function Modal({ modalHandler = null }) {
             type="button"
             className="text-[2rem] cursor-pointer"
           >
-            <HiOutlineX />
+            <MdOutlineClose />
           </button>
         </div>
         <p className="font-['average'] text-[1.3rem] px-[2rem]">{modalText}</p>
