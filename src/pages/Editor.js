@@ -6,7 +6,6 @@ import {
   MdOutlineArrowBackIos,
 } from "react-icons/md";
 import Gallery from "./Gallery";
-import arrowImg from "../asset/arrow.png";
 import addDocument from "../firebase/addDocument";
 import uploadFileProgress from "../firebase/uploadFileProgress";
 import UploadThumbnail from "../components/editPage/UploadThumbnail";
@@ -103,7 +102,7 @@ function Editor() {
         galleryData.thumbnailTextColor === ""
       ) {
         dispatch(modalActions.toggleModal(true));
-        dispatch(modalActions.addModalType(""));
+        dispatch(modalActions.addModalType("emptySubmit"));
         dispatch(modalActions.addModalTitle(modalMessages[3].title));
         dispatch(modalActions.addModalText(modalMessages[3].message));
         return;
@@ -113,7 +112,11 @@ function Editor() {
         dispatch(modalActions.toggleModal(true));
         dispatch(modalActions.addModalType(""));
         dispatch(modalActions.addModalTitle("Important"));
-        dispatch(modalActions.addModalText("Image Error"));
+        dispatch(
+          modalActions.addModalText(
+            "At least one image file is needed for submit"
+          )
+        );
         return;
       }
     }

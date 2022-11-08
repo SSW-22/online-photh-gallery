@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { BsMoon, BsSun } from "react-icons/bs";
 import { HiOutlineSun } from "react-icons/hi";
 import { MdOutlineNightlight } from "react-icons/md";
 import { galleryActions } from "../../store/gallery-slice";
