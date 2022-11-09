@@ -83,7 +83,7 @@ function BrowseEvents() {
                 <Thumbnail
                   key={uuid()}
                   title={gallery.title}
-                  name={gallery.name}
+                  subtitle={gallery.subtitle}
                   thumbnailBgColor={gallery.thumbnailBgColor}
                   thumbnailTextColor={gallery.thumbnailTextColor}
                   images={gallery.images}
