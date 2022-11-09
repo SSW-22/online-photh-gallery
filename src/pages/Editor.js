@@ -78,10 +78,11 @@ function Editor() {
   /**  Upload to the firestore. Until this button is "clicked", all data is not saved in Firebase, but only in Gallery Redux. */
   const uploadHandler = async (e) => {
     e.preventDefault();
-    setDisableBtn("loading");
     // ========
     // ERROR: need error handling that 10 images must be uploaded and checked contact info before hosting ==========.
     const status = e.target.id;
+
+    if (status === "draft") setDisableBtn("loading");
 
     if (status === "hosted") {
       if (galleryData.email === "") {
@@ -171,6 +172,7 @@ function Editor() {
       dispatch(modalActions.addModalType("return/myevent"));
       dispatch(modalActions.addModalTitle(modalMessages[2].title));
       dispatch(modalActions.addModalText(modalMessages[2].message));
+      return;
     }
     setDisableBtn("saved");
     setShowStatus(true);
