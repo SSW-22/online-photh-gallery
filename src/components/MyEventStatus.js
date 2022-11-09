@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { TiPencil } from "react-icons/ti";
+import { IoTrashOutline } from "react-icons/io5";
 import { galleryActions } from "../store/gallery-slice";
-import recycleImg from "../asset/recycle-bin-sketch.png";
-import pencilImg from "../asset/pencil.png";
+// import recycleImg from "../asset/recycle-bin-sketch.png";
 import Thumbnail from "./Thumbnail";
 import deleteDocument from "../firebase/deleteDocument";
 import deleteFile from "../firebase/deleteImageFile";
@@ -10,7 +11,7 @@ import { modalActions } from "../store/modalSlice";
 import Modal from "./modal/Modal";
 
 function MyEventStatus({ userData }) {
-  const { status, thumbnailBgColor, thumbnailTextColor, title, name } =
+  const { status, thumbnailBgColor, thumbnailTextColor, title, subtitle } =
     userData;
   const gallery = useSelector((state) => state.gallery.gallery);
   const uid = useSelector((state) => state.auth.uid);
@@ -48,7 +49,10 @@ function MyEventStatus({ userData }) {
         <div className="w-[200px] h-[200px] bg-[#D9D9D9] mb-6" />
         <NavLink to="/editor" className="flex">
           <span className="w-[20px] h-[20px] mr-2">
-            <img src={pencilImg} alt="" className="w-full h-full" />
+            {/* <img src={pencilImg} alt="" className="w-full h-full" /> */}
+            <div className="text-[1.4rem]">
+              <TiPencil />
+            </div>
           </span>
           Click to create your event
         </NavLink>
@@ -71,13 +75,16 @@ function MyEventStatus({ userData }) {
         <Thumbnail
           status={status}
           title={title}
-          name={name}
+          subtitle={subtitle}
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />
         <NavLink to="/editor" className="flex mt-6 mb-2">
           <span className="w-[20px] h-[20px] mr-2">
-            <img src={pencilImg} alt="" className="w-full h-full" />
+            {/* <img src={pencilImg} alt="" className="w-full h-full" /> */}
+            <div className="text-[1.4rem]">
+              <TiPencil />
+            </div>
           </span>
           Click to manage your event
         </NavLink>
@@ -88,7 +95,10 @@ function MyEventStatus({ userData }) {
           onClick={deleteModalHandler}
         >
           <span className="flex w-[20px] h-[20px] mr-2">
-            <img src={recycleImg} alt="" className="w-full h-full" />
+            {/* <img src={recycleImg} alt="" className="w-full h-full" /> */}
+            <div className="text-[1.2rem]">
+              <IoTrashOutline />
+            </div>
           </span>
           Click to delete your event. The action you make cannot be undone.
         </button>
@@ -117,7 +127,7 @@ function MyEventStatus({ userData }) {
         <Thumbnail
           status={status}
           title={title}
-          name={name}
+          subtitle={subtitle}
           thumbnailBgColor={thumbnailBgColor}
           thumbnailTextColor={thumbnailTextColor}
         />
@@ -127,7 +137,10 @@ function MyEventStatus({ userData }) {
           onClick={deleteModalHandler}
         >
           <span className="flex w-[20px] h-[20px] mr-2">
-            <img src={recycleImg} alt="" className="w-full h-full" />
+            {/* <img src={recycleImg} alt="" className="w-full h-full" /> */}
+            <div className="text-[1.2rem]">
+              <IoTrashOutline />
+            </div>
           </span>
           Click to delete your event. The action you make cannot be undone.
         </button>

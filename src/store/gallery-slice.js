@@ -5,7 +5,7 @@ import checkUserGallery from "../firebase/checkUserGallery";
 
 const initialGalleryState = {
   gallery: {
-    name: "",
+    subtitle: "",
     title: "",
     lightMode: true,
     images: [],
@@ -48,7 +48,7 @@ const gallerySlice = createSlice({
     },
     addSubtitle(state, action) {
       const previousData = state;
-      previousData.gallery.name = action.payload;
+      previousData.gallery.subtitle = action.payload;
       previousData.updated = true;
     },
     addMode(state, action) {
@@ -118,14 +118,14 @@ const gallerySlice = createSlice({
         previousData.status = "succeeded";
         previousData.updated = false;
         previousData.gallery.status = action.payload.status;
-        previousData.gallery.lightMode = action.payload.lightMode || false;
+        previousData.gallery.lightMode = action.payload.lightMode;
         previousData.gallery.images = action.payload.images || [];
         previousData.gallery.thumbnailBgColor =
           action.payload.thumbnailBgColor || "";
         previousData.gallery.thumbnailTextColor =
           action.payload.thumbnailTextColor || "";
         previousData.gallery.title = action.payload.title || "";
-        previousData.gallery.name = action.payload.name || "";
+        previousData.gallery.subtitle = action.payload.subtitle || "";
         previousData.gallery.email = action.payload.email || "";
       })
       .addCase(checkGallery.rejected, (state, action) => {

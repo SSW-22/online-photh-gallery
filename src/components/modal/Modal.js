@@ -1,12 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { HiOutlineX } from "react-icons/hi";
+import { MdOutlineClose } from "react-icons/md";
 import { modalActions } from "../../store/modalSlice";
 
 function Modal({ modalHandler = null }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { subtitle, thumbnailBgColor, thumbnailTextColor, title } = useSelector(
+    (state) => state.gallery.gallery
+  );
   const { modalTitle, modalType, modalText } = useSelector(
     (state) => state.modal
   );
@@ -41,10 +44,24 @@ function Modal({ modalHandler = null }) {
             type="button"
             className="text-[2rem] cursor-pointer"
           >
-            <HiOutlineX />
+            <MdOutlineClose />
           </button>
         </div>
-        <p className="font-['average'] text-[1.3rem] px-[2rem]">{modalText}</p>
+        <div className="flex flex-col">
+          <p className="font-['average'] text-[1.3rem] px-[2rem]">
+            {modalText}
+          </p>
+          {modalType === "emptySubmit" && (
+            <div className="mt-[0.2rem] px-[3.5rem]">
+              <ul className="list-disc flex flex-col text-[1.1rem]">
+                {title ? "" : <li>Event title</li>}
+                {subtitle ? "" : <li>Event subtitle</li>}
+                {thumbnailBgColor ? "" : <li>Thumbnail background colour</li>}
+                {thumbnailTextColor ? "" : <li>Thumbnail text colour</li>}
+              </ul>
+            </div>
+          )}
+        </div>
         <div className="flex justify-end gap-[2rem] pb-[1.2rem] pt-[1rem] pr-[2rem] border-t-2">
           <button
             className="cursor-pointer font-['average'] border-[1.5px] border-[#989898] text-[1.2rem] px-[1.7rem] py-[0.7rem] rounded-[5px]"

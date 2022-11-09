@@ -1,6 +1,6 @@
 function GalleryThumbnail({
   title,
-  name,
+  subtitle,
   thumbnailBgColor,
   thumbnailTextColor,
   email,
@@ -12,7 +12,7 @@ function GalleryThumbnail({
       style={{ backgroundColor: thumbnailBgColor, color: thumbnailTextColor }}
     >
       <h1 className="flex flex-col ml-20">
-        <span className="text-[40px]">{name}</span>
+        <span className="text-[40px]">{subtitle}</span>
         <span className="text-[60px]">{title}</span>
       </h1>
       {email !== "none" && email !== "" && (

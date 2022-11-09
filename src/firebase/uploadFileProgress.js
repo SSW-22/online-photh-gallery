@@ -9,10 +9,7 @@ const uploadFileProgress = (file, subFolder, imageName) => {
     const upload = uploadBytesResumable(storageRef, file);
     upload.on(
       "state_change",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
+      () => {
         // setProgress(progress);
       },
       (error) => {

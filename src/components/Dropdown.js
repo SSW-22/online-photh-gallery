@@ -29,8 +29,8 @@ function Dropdown({
     <div ref={wrapperRef} className="relative">
       <button
         className={`${
-          ratioOpen ? "bg-[#ffffff]" : "bg-[#969696] text-white"
-        } text-[0.9rem] w-[25px] h-[25px] flex items-center justify-center rounded-full`}
+          ratioOpen ? "bg-[#969696]" : "bg-[#363636]"
+        } text-[0.9rem] w-[25px] h-[25px] flex items-center justify-center rounded-full text-white`}
         onClick={() => {
           setRatioOpen(!ratioOpen);
           setZoomOpen(false);

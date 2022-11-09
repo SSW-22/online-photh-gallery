@@ -1,4 +1,7 @@
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import {
+  MdOutlineArrowForwardIos,
+  MdOutlineArrowBackIos,
+} from "react-icons/md";
 import { motion } from "framer-motion";
 import GalleryZoomedImage from "./GalleryZoomedImage";
 
@@ -40,7 +43,7 @@ function GalleryZoomedIn({
               className="text-[4rem] hover:opacity-50 duration-[300ms]"
               title="next"
             >
-              <BsChevronCompactRight />
+              <MdOutlineArrowForwardIos />
             </div>
           </button>
         )}
@@ -58,7 +61,7 @@ function GalleryZoomedIn({
               className="text-[4rem] hover:opacity-50 duration-[300ms]"
               title="previous"
             >
-              <BsChevronCompactLeft />
+              <MdOutlineArrowBackIos />
             </div>
           </button>
         )}

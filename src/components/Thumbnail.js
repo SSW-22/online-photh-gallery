@@ -5,7 +5,7 @@ import { navActions } from "../store/nav-slice";
 function Thumbnail({
   thumbnailBgColor,
   thumbnailTextColor,
-  name,
+  subtitle,
   title,
   images,
   status,
@@ -26,7 +26,7 @@ function Thumbnail({
           style={{ backgroundColor: thumbnailBgColor }}
         >
           <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
-            {name}
+            {subtitle}
           </p>
           <p className="ml-4 text-xl" style={{ color: thumbnailTextColor }}>
             {title}
@@ -39,7 +39,7 @@ function Thumbnail({
             state={{
               thumbnailBgColor,
               thumbnailTextColor,
-              name,
+              subtitle,
               title,
               images,
               lightMode,
@@ -63,7 +63,7 @@ function Thumbnail({
         className="ml-4 text-sm"
         style={{ color: thumbnailTextColor || "#000000" }}
       >
-        {name}
+        {subtitle}
       </p>
       <p
         className="ml-4 text-xl"

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import { IoFootstepsSharp } from "react-icons/io5";
-import { HiOutlineX } from "react-icons/hi";
+import { MdOutlineClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { navActions } from "../store/nav-slice";
 import ArcText from "../components/ArcText";
@@ -20,7 +20,7 @@ function Gallery({ previewData, setClose }) {
   const location = useLocation();
   const {
     title,
-    name,
+    subtitle,
     thumbnailBgColor,
     thumbnailTextColor,
     images,
@@ -86,12 +86,12 @@ function Gallery({ previewData, setClose }) {
         <>
           {previewData && (
             <h1 className="absolute z-10 left-12 top-12">
-              This is preview mode
+              This is a preview of your event
             </h1>
           )}
           <GalleryThumbnail
             title={title}
-            name={name}
+            subtitle={subtitle}
             thumbnailBgColor={thumbnailBgColor}
             thumbnailTextColor={thumbnailTextColor}
             email={email}
@@ -156,7 +156,7 @@ function Gallery({ previewData, setClose }) {
             >
               <p className="text-[0.8rem] font-[100]">Back</p>
               <div className="text-[4rem]">
-                <HiOutlineX />
+                <MdOutlineClose />
               </div>
             </button>
           )}
