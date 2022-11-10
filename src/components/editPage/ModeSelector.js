@@ -10,9 +10,9 @@ function ModeSelector() {
 
   const modeHandler = (e) => {
     if (e.currentTarget.value === "true") {
-      dispatch(galleryActions.addMode(true));
+      dispatch(galleryActions.addMode("true"));
     } else {
-      dispatch(galleryActions.addMode(false));
+      dispatch(galleryActions.addMode("false"));
     }
   };
   return (
@@ -31,9 +31,9 @@ function ModeSelector() {
         />
         <div
           className={`${
-            isLightMode
-              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-white flex items-center justify-center rounded-full bg-[#363636] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
-              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-white flex items-center justify-center rounded-full bg-[#363636]"
+            isLightMode === "true"
+              ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-black flex items-center justify-center rounded-full bg-[#D9D9D9] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
+              : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-black flex items-center justify-center rounded-full bg-[#D9D9D9]"
           }`}
         >
           <div>
@@ -55,7 +55,7 @@ function ModeSelector() {
         />
         <div
           className={`${
-            !isLightMode
+            isLightMode === "false"
               ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-white bg-[#363636] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
               : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-white bg-[#363636] flex items-center justify-center rounded-full"
           }`}
