@@ -119,7 +119,7 @@ function PreviewSlide({
                   </Draggable>
                 );
               })}
-              {images.length < 10 && (
+              {images.length < 10 && images.length !== 0 && (
                 <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center mx-20 w-[80px] h-[80px] border border-black rounded-full">
                   <div {...getRootProps({ onClick: addNewImage })}>
                     <input {...getInputProps()} />+

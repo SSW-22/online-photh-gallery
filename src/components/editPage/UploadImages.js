@@ -249,7 +249,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
             className="rounded-[5px] mt-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
             type="submit"
           >
-            {selected ? "Edit" : "Add to preview"}
+            {selected ? "Save" : "Add to preview"}
           </button>
           {/* <button type="button" onClick={cancelHandler}>
             Cancel
