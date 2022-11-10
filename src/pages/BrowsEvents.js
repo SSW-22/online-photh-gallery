@@ -58,14 +58,10 @@ function BrowseEvents() {
     );
 
   return (
-    <div className="font-['average'] w-[90%] relative m-auto">
-      <div className="my-0 max-w-[1000px] mx-auto flex flex-col">
-        <h1 className="text-[1.3rem] h-[5vh]">Events</h1>
-        <div
-          className={`
-          flex flex-wrap gap-[3.5rem] min-h-[70vh]
-          ${galleries.length >= 4 && "justify-center"}`}
-        >
+    <div className="font-['average'] relative flex justify-center 2xl:py-[2rem]">
+      <div className="my-0 max-w-[816px] 2xl:max-w-[876px] flex flex-col">
+        <h1 className="text-[1.3rem]">Events</h1>
+        <div className="flex flex-wrap min-h-[70vh] gap-[1.5rem]">
           {galleries
             .concat(
               new Array(PAGE_PER_GALLERIES * maxPage - galleries.length).fill(
@@ -77,7 +73,7 @@ function BrowseEvents() {
               return gallery === "" ? (
                 <div
                   key={uuid()}
-                  className="w-[200px] h-[200px] bg-slate-400 opacity-60"
+                  className="w-[185px] h-[180px] 2xl:w-[200px] 2xl:h-[200px] bg-slate-400 opacity-60"
                 />
               ) : (
                 <Thumbnail
