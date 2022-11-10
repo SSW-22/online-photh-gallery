@@ -70,7 +70,7 @@ function PreviewSlide({
               className={`${
                 mode === "dark" &&
                 "bg-gradient-radial from-[#989898] to-[#484848]"
-              } flex items-center overflow-x-auto  w-[100%] h-[250px] border border-black`}
+              } flex items-center overflow-x-auto  w-[100%] h-[200px] border border-black`}
             >
               {images.map((image, index) => {
                 return (
@@ -98,7 +98,6 @@ function PreviewSlide({
                           onClick={() => onImgClickHandler(image)}
                           role="presentation"
                           className="max-w-[220px] max-h-[120px] object-contain shadow-xl"
-                          // className="max-w-[250px] max-h-[150px] object-contain"
                         />
                         {selected === image.id && (
                           <button

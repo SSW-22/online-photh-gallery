@@ -31,7 +31,7 @@ function Navbar() {
   return (
     <div
       className={`
-      h-[6rem] ${
+      h-[5rem] ${
         isNavOpen && location.pathname !== "/gallery" ? "flex" : "hidden"
       } item-center`}
     >

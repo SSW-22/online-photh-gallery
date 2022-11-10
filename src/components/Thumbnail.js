@@ -15,7 +15,7 @@ function Thumbnail({
     return (
       <div className="relative group w-fit h-fit">
         <div
-          className="w-[200px] h-[200px] flex flex-col justify-center"
+          className="w-[185px] h-[180px] 2xl:w-[200px] 2xl:h-[200px] flex flex-col justify-center"
           style={{ backgroundColor: thumbnailBgColor }}
         >
           <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
