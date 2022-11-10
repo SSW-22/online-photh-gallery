@@ -6,13 +6,13 @@ import { galleryActions } from "../../store/gallery-slice";
 function ModeSelector() {
   const dispatch = useDispatch();
 
-  const isLightMode = useSelector((state) => state.gallery.gallery.lightMode);
+  const lightMode = useSelector((state) => state.gallery.gallery.lightMode);
 
   const modeHandler = (e) => {
     if (e.currentTarget.value === "true") {
-      dispatch(galleryActions.addMode("true"));
+      dispatch(galleryActions.addMode("light"));
     } else {
-      dispatch(galleryActions.addMode("false"));
+      dispatch(galleryActions.addMode("dark"));
     }
   };
   return (
@@ -31,7 +31,7 @@ function ModeSelector() {
         />
         <div
           className={`${
-            isLightMode === "true"
+            lightMode === "light"
               ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-black flex items-center justify-center rounded-full bg-[#D9D9D9] outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
               : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-black flex items-center justify-center rounded-full bg-[#D9D9D9]"
           }`}
@@ -55,7 +55,7 @@ function ModeSelector() {
         />
         <div
           className={`${
-            isLightMode === "false"
+            lightMode === "dark"
               ? "cursor-pointer w-[1.3rem] h-[1.3rem] text-[1rem] text-white bg-[#363636] flex items-center justify-center rounded-full outline-[2px] outline-[#000000] outline outline-offset-[1.7px]"
               : "cursor-pointer w-[1.7rem] h-[1.7rem] text-[1.2rem] text-white bg-[#363636] flex items-center justify-center rounded-full"
           }`}

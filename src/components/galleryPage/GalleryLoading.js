@@ -40,7 +40,7 @@ function GalleryLoading({ images, setImgsLoaded, lightMode }) {
   return (
     <section
       className={`${
-        lightMode === "true" ? "text-black" : "text-white bg-[#484848]"
+        lightMode === "light" ? "text-black" : "text-white bg-[#484848]"
       }
         relative flex justify-center items-center h-[100vh] w-[100vw]`}
     >
@@ -49,12 +49,12 @@ function GalleryLoading({ images, setImgsLoaded, lightMode }) {
         <p className="text-[50px] self-end">{progress}%</p>
         <div
           className={`${
-            lightMode === "true" ? "bg-[#D9D9D9]" : "bg-[#484848]"
+            lightMode === "light" ? "bg-[#D9D9D9]" : "bg-[#484848]"
           } relative h-[2px] w-[100%]`}
         >
           <div
             className={`${
-              lightMode === "true" ? "bg-[black]" : "bg-[white]"
+              lightMode === "light" ? "bg-[black]" : "bg-[white]"
             } h-[2px] absolute`}
             style={{ width: `${progress}%` }}
           />
