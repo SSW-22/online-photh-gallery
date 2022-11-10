@@ -35,7 +35,8 @@ function Gallery({ previewData, setClose }) {
   const [imgsLoaded, setImgsLoaded] = useState(false);
   const [scrollX, setScrollX] = useState(0);
 
-  const textColor = lightMode ? "black" : "white";
+  const textColor = lightMode === "light" ? "black" : "white";
+
   // Scroll event to change all icon's color when user move tha section from tumbnail to gallery
   useEffect(() => {
     if (imgsLoaded) {
@@ -67,8 +68,8 @@ function Gallery({ previewData, setClose }) {
     <main
       ref={divRef}
       className={`${
-        !lightMode && "bg-gradient-radial from-[#646464] to-[#484848]"
-      } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average']`}
+        lightMode === "dark" && "bg-gradient-radial from-[#646464] to-[#484848]"
+      } flex overflow-x-scroll w-full h-[100vh] overflow-y-hidden font-['average'] hideScrollBar`}
       style={{ color: galleryVisible ? textColor : thumbnailTextColor }}
       onScroll={(e) => {
         const x = e.currentTarget.scrollLeft;

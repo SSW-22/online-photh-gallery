@@ -15,7 +15,7 @@ function GalleryZoomedIn({
   return (
     <motion.div
       className={`${
-        lightMode
+        lightMode === "light"
           ? "bg-[#F0F0F0]"
           : "bg-gradient-radial from-[#ffffff] to-[#484848]"
       } fixed inset-0 w-screen flex items-center justify-center`}

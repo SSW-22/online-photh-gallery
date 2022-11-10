@@ -47,7 +47,7 @@ function UploadThumbnail() {
     dispatch(galleryActions.addThumbnailTextColor(event.target.value));
   };
   return (
-    <div className="flex items-center font-['average'] gap-[25rem] mt-[8rem]">
+    <div className="flex items-center font-['average'] gap-[25rem] 2xl:h-[600px]">
       <div className="flex flex-col">
         <label htmlFor="title" className="flex flex-col mb-[2.5rem]">
           <div className="flex">

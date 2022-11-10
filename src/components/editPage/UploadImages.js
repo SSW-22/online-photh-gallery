@@ -50,6 +50,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           })
         );
       } else {
+        console.log("already");
         dispatch(galleryActions.addImage(imageData));
       }
     } catch (error) {
@@ -205,7 +206,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         </div>
         <form
           onSubmit={submitHandler}
-          className="w-[300px] flex flex-col mt-[1rem] md:ml-[2rem] md:mt-0"
+          className="w-[300px] h-[300px] flex flex-col mt-[1rem] md:ml-[2rem] md:mt-0"
         >
           <label htmlFor="title" className="flex flex-col h-[70px]">
             Image title *
@@ -249,7 +250,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
             className="rounded-[5px] mt-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
             type="submit"
           >
-            {selected ? "Edit" : "Add to preview"}
+            {selected ? "Save" : "Add to preview"}
           </button>
           {/* <button type="button" onClick={cancelHandler}>
             Cancel
@@ -263,7 +264,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
           <ModeSelector />
         </div>
         <button
-          className="rounded-[5px] mb-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
+          className="w-[172px] rounded-[5px] mb-[1rem] bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average']"
           type="button"
           onClick={previewHandler}
         >

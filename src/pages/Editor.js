@@ -112,7 +112,7 @@ function Editor() {
       if (galleryData.images.length === 0) {
         dispatch(modalActions.toggleModal(true));
         dispatch(modalActions.addModalType(""));
-        dispatch(modalActions.addModalTitle("Important"));
+        dispatch(modalActions.addModalTitle("Missing image"));
         dispatch(
           modalActions.addModalText(
             "At least one image file is needed for submit"
@@ -199,13 +199,13 @@ function Editor() {
     return <Gallery previewData={galleryData} setClose={setPreviewSlide} />;
   }
   return (
-    <main>
+    <main className="max-w-[1200px] relative mx-auto w-full h-full">
       <ConfirmationModal
         showModal={showPrompt}
         confirmNavigation={confirmNavigation}
         cancelNavigation={cancelNavigation}
       />
-      <section className="max-w-[1000px] my-0 mx-auto flex flex-col font-['average'] relative">
+      <section className="max-w-[1000px] h-full mx-auto flex flex-col font-['average']">
         {modalData.isOpen && <Modal modalHandler={uploadHandler} />}
         <h1 className="text-[3rem]">{FormHeaders[page]}</h1>
         {page === 0 && <UploadThumbnail />}
@@ -217,12 +217,12 @@ function Editor() {
           />
         )}
         {page === 2 && <Submission userEmail={email} emailError={emailError} />}
-        <div className="flex justify-end items-center mt-2">
+        <div className="flex justify-end items-center my-[1rem]">
           {showStatus && <p className="mr-5">Saved!</p>}
           <button
             id="draft"
             type="button"
-            className="rounded-[5px] w-[200px] flex justify-center bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average'] cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+            className="rounded-[5px] w-[172px] flex justify-center bg-[#D9D9D9] self-end px-4 py-2 hover:bg-black hover:text-[#ffffff] duration-[500ms] font-['average'] cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
             onClick={uploadHandler}
             disabled={disableBtn === "saved" || disableBtn === "loading"}
           >
@@ -271,7 +271,7 @@ function Editor() {
       </section>
       {page !== 2 && (
         <button
-          className="absolute right-[1rem] top-[50%] hover:animate-bounceRight"
+          className="absolute right-[-3rem] top-[50%] hover:animate-bounceRight"
           type="button"
           id="nextPage"
           disabled={page === FormHeaders.length - 1}
@@ -286,7 +286,7 @@ function Editor() {
 
       {page !== 0 && (
         <button
-          className="absolute left-[1rem] top-[50%] hover:animate-bounceLeft"
+          className="absolute left-[-3rem] top-[50%] hover:animate-bounceLeft"
           type="button"
           id="prevPage"
           disabled={page === 0}

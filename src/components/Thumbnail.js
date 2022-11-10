@@ -1,6 +1,4 @@
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { navActions } from "../store/nav-slice";
 
 function Thumbnail({
   thumbnailBgColor,
@@ -13,16 +11,11 @@ function Thumbnail({
   mode,
   lightMode,
 }) {
-  const dispatch = useDispatch();
-  const navHandler = () => {
-    dispatch(navActions.toggleNav(false));
-  };
-
   if (mode === "browse") {
     return (
       <div className="relative group w-fit h-fit">
         <div
-          className="w-[200px] h-[200px] flex flex-col justify-center"
+          className="w-[185px] h-[180px] 2xl:w-[200px] 2xl:h-[200px] flex flex-col justify-center"
           style={{ backgroundColor: thumbnailBgColor }}
         >
           <p className="ml-4 text-sm" style={{ color: thumbnailTextColor }}>
@@ -45,7 +38,6 @@ function Thumbnail({
               lightMode,
               email,
             }}
-            onClick={navHandler}
           >
             Buy a Ticket
           </NavLink>

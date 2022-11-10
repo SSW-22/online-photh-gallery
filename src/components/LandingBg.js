@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import uuid from "react-uuid";
 import landing1 from "../asset/landing1.jpg";
 import landing2 from "../asset/landing2.jpg";
 import landing3 from "../asset/landing3.jpg";
@@ -78,9 +79,13 @@ function LandingBg() {
         >
           {heading1.map((heading) => {
             return heading === " " ? (
-              <motion.span variants={item}>&nbsp;</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                &nbsp;
+              </motion.span>
             ) : (
-              <motion.span variants={item}>{heading}</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                {heading}
+              </motion.span>
             );
           })}
         </motion.h1>
@@ -92,9 +97,13 @@ function LandingBg() {
         >
           {heading2.map((heading) => {
             return heading === " " ? (
-              <motion.span variants={item}>&nbsp;</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                &nbsp;
+              </motion.span>
             ) : (
-              <motion.span variants={item}>{heading}</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                {heading}
+              </motion.span>
             );
           })}
         </motion.h1>
@@ -106,9 +115,13 @@ function LandingBg() {
         >
           {heading3.map((heading) => {
             return heading === " " ? (
-              <motion.span variants={item}>&nbsp;</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                &nbsp;
+              </motion.span>
             ) : (
-              <motion.span variants={item}>{heading}</motion.span>
+              <motion.span key={uuid()} variants={item}>
+                {heading}
+              </motion.span>
             );
           })}
         </motion.h1>

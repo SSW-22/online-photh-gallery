@@ -118,7 +118,7 @@ function UserGallery({
             </div>
             <h2
               className={`${
-                lightMode ? "text-black" : "text-white"
+                lightMode === "light" ? "text-black" : "text-white"
               } self-end mt-6 mr-4 h-4`}
             >
               {image.title}

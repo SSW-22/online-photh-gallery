@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-console */
 
+import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutWithGoogle } from "../../firebase/googleAuth";
 import { authActions } from "../../store/auth";
+import { navActions } from "../../store/nav-slice";
 
 function Navbar() {
   const location = useLocation();
@@ -20,13 +22,16 @@ function Navbar() {
     }
   };
 
-  // console.log(location);
-  // console.log(isNavOpen);
+  useEffect(() => {
+    if (location.pathname !== "/gallery") {
+      dispatch(navActions.toggleNav(true));
+    }
+  }, [dispatch, location]);
 
   return (
     <div
       className={`
-      h-[6rem] ${
+      h-[5rem] ${
         isNavOpen && location.pathname !== "/gallery" ? "flex" : "hidden"
       } item-center`}
     >

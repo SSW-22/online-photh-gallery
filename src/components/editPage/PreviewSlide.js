@@ -68,8 +68,9 @@ function PreviewSlide({
             <ul
               ref={scrollRef}
               className={`${
-                !mode && "bg-gradient-radial from-[#989898] to-[#484848]"
-              } flex items-center overflow-x-auto  w-[100%] h-[250px] border border-black`}
+                mode === "dark" &&
+                "bg-gradient-radial from-[#989898] to-[#484848]"
+              } flex items-center overflow-x-auto  w-[100%] h-[200px] border border-black`}
             >
               {images.map((image, index) => {
                 return (
@@ -97,7 +98,6 @@ function PreviewSlide({
                           onClick={() => onImgClickHandler(image)}
                           role="presentation"
                           className="max-w-[220px] max-h-[120px] object-contain shadow-xl"
-                          // className="max-w-[250px] max-h-[150px] object-contain"
                         />
                         {selected === image.id && (
                           <button
@@ -118,7 +118,7 @@ function PreviewSlide({
                   </Draggable>
                 );
               })}
-              {images.length < 10 && (
+              {images.length < 10 && images.length !== 0 && (
                 <li className="cursor-pointer text-[50px] shrink-0 relative flex justify-center items-center mx-20 w-[80px] h-[80px] border border-black rounded-full">
                   <div {...getRootProps({ onClick: addNewImage })}>
                     <input {...getInputProps()} />+
