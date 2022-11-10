@@ -112,7 +112,7 @@ function Editor() {
       if (galleryData.images.length === 0) {
         dispatch(modalActions.toggleModal(true));
         dispatch(modalActions.addModalType(""));
-        dispatch(modalActions.addModalTitle("Important"));
+        dispatch(modalActions.addModalTitle("Missing image"));
         dispatch(
           modalActions.addModalText(
             "At least one image file is needed for submit"
