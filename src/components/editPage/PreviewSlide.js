@@ -68,7 +68,7 @@ function PreviewSlide({
             <ul
               ref={scrollRef}
               className={`${
-                mode === "false" &&
+                mode === "dark" &&
                 "bg-gradient-radial from-[#989898] to-[#484848]"
               } flex items-center overflow-x-auto  w-[100%] h-[250px] border border-black`}
             >
