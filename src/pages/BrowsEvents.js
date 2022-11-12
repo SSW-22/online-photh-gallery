@@ -97,7 +97,7 @@ function BrowseEvents() {
 
       {curPage !== maxPage && (
         <button
-          className="absolute right-0 top-[50%] hover:animate-bounceRight"
+          className="absolute right-0 top-[50%] hover:opacity-50 duration-[300ms]"
           type="button"
           id="nextPage"
           disabled={curPage === maxPage}
@@ -112,7 +112,7 @@ function BrowseEvents() {
 
       {curPage !== 1 && (
         <button
-          className="absolute left-0 top-[50%] hover:animate-bounceLeft"
+          className="absolute left-0 top-[50%] hover:opacity-50 duration-[300ms]"
           type="button"
           id="prevPage"
           disabled={curPage === 0}
