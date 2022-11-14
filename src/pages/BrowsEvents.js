@@ -20,18 +20,18 @@ function BrowseEvents() {
   useEffect(() => {
     const getGalleries = async () => {
       const data = await getAllGalleries();
+      const length = !data.length ? 1 : data.length;
 
       setGalleries(data);
 
       // after get data from database, set max number of page by data length
-      setMaxPage(Math.ceil(data.length / PAGE_PER_GALLERIES));
+      setMaxPage(Math.ceil(length / PAGE_PER_GALLERIES));
       setIsLoading(false);
     };
     getGalleries();
     // return () => {
     // };
   }, []);
-
   const pageLastIndex = curPage * PAGE_PER_GALLERIES;
   const pageFirstIndex = pageLastIndex - PAGE_PER_GALLERIES;
   // const pageGalleries = galleries.slice(pageFirstIndex, pageLastIndex);
