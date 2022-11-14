@@ -271,7 +271,7 @@ function Editor() {
       </section>
       {page !== 2 && (
         <button
-          className="absolute right-[-3rem] top-[50%] hover:animate-bounceRight"
+          className="absolute right-[-3rem] top-[50%] hover:opacity-50 duration-[300ms]"
           type="button"
           id="nextPage"
           disabled={page === FormHeaders.length - 1}
@@ -286,7 +286,7 @@ function Editor() {
 
       {page !== 0 && (
         <button
-          className="absolute left-[-3rem] top-[50%] hover:animate-bounceLeft"
+          className="absolute left-[-3rem] top-[50%] hover:opacity-50 duration-[300ms]"
           type="button"
           id="prevPage"
           disabled={page === 0}

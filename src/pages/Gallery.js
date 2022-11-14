@@ -156,7 +156,7 @@ function Gallery({ previewData, setClose }) {
               }}
             >
               <p className="text-[0.8rem] font-[100]">Back</p>
-              <div className="text-[4rem]">
+              <div className="text-[4rem] hover:opacity-50 duration-[300ms]">
                 <MdOutlineClose />
               </div>
             </button>
