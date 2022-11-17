@@ -43,7 +43,17 @@ You can upload up to 10 photos and rearrange the order of the photos using drag 
 Feel free to save your event as a draft at anytime so that you can come back later to finish your work. Your event will be visible to a global audience only when you submit your event.
 
 ### Guest
-If you choose to browse events at OPG, 
+If you choose to browse events at OPG, you can see all the events that is currently being hosted under Browse Events page. Make sure to buy a ticket to enter the event you would like to view.
+
+<img width="1409" alt="Screen Shot 2022-11-17 at 4 37 31 PM" src="https://user-images.githubusercontent.com/83075260/202565381-03fcde40-cb29-4cc0-9e05-6987004dba5b.png">
+
+
+Once entered, you can use a vertical scroll to navigate. Feel free to click on the photo to see more details in a close-up view.
+
+<img width="1401" alt="Screen Shot 2022-11-17 at 4 37 57 PM" src="https://user-images.githubusercontent.com/83075260/202565351-d00feda4-7d65-4557-b5ab-1931c6d3e131.png">
+
+You can leave at anytime of the event but please note that you will have to buy a ticket again to enter again once you leave.
+
 
 ### Other Technical Features and Functionalities
 * User management (guest vs. host)
