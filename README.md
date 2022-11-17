@@ -30,7 +30,8 @@ Every end of each sprint, we gathered and spent time together to reflect back on
 
 ## Key Features and Functionalities
 
-If you choose to host your event at OPG, you can sign in with your existing Google account which will eventually direct you to the event creation page shown below.
+### Host
+If you choose to become a host at OPG, you can sign in with your existing Google account which will eventually direct you to the event creation page shown below.
 
 <img width="1353" alt="Screen Shot 2022-11-17 at 4 30 11 PM" src="https://user-images.githubusercontent.com/83075260/202563861-3953d280-9aae-4194-ba81-b4339f13f710.png">
 
@@ -39,13 +40,14 @@ You can upload up to 10 photos and rearrange the order of the photos using drag 
 
 <img width="1317" alt="Screen Shot 2022-11-17 at 4 30 23 PM" src="https://user-images.githubusercontent.com/83075260/202563879-01820190-d3d4-45f0-8962-5fa76da3dd99.png">
 
-Feel free to save your event as a draft at anytime so that you can come back later to finish your work. Your event will only be visible to a global audience only when you submit your event.
+Feel free to save your event as a draft at anytime so that you can come back later to finish your work. Your event will be visible to a global audience only when you submit your event.
 
+### Guest
+If you choose to browse events at OPG, 
 
+### Other Technical Features and Functionalities
 * User management (guest vs. host)
 * Database management (create, read, update, delete)
-* Photo editing
-* Animation
 
 
 ## What's Coming
