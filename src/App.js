@@ -37,12 +37,13 @@ function App() {
     };
   }, [dispatch]);
 
-  if (!isDesktop) {
-    return <Mobile />;
-  }
+  // if (!isDesktop) {
+  //   return <Mobile />;
+  // }
 
   return (
     <>
+      {isDesktop || <Mobile />}
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />

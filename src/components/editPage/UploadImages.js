@@ -156,7 +156,7 @@ function UploadImages({ setImageFiles, setDeletedItem, previewHandler }) {
         <div className="w-[300px] h-[300px] bg-[#D9D9D9] flex flex-col justify-center items-center relative">
           {imageData.imgUrl && (
             <button
-              className="absolute top-0 right-0 m-[0.4rem] z-[99]"
+              className="absolute top-0 right-0 m-[0.4rem] z-[90]"
               type="button"
               onClick={() => {
                 setImageData((prev) => {

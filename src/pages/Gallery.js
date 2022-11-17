@@ -108,7 +108,7 @@ function Gallery({ previewData, setClose }) {
           {previewData && !zoomed && (
             <button
               type="button"
-              className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]"
+              className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]"
               onClick={() => {
                 setClose((prev) => !prev);
                 dispatch(navActions.toggleNav(true));
@@ -122,7 +122,7 @@ function Gallery({ previewData, setClose }) {
             <NavLink
               to="/events"
               className="
-                    absolute right-[3rem] top-[3rem] w-[5rem] h-[5rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[99]
+                    absolute right-[3rem] top-[3rem] w-[5rem] h-[5rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]
                     "
               onClick={() => dispatch(navActions.toggleNav(true))}
             >
@@ -136,7 +136,7 @@ function Gallery({ previewData, setClose }) {
               style={{
                 borderColor: galleryVisible ? textColor : thumbnailTextColor,
               }}
-              className="fixed bottom-[3rem] right-[3rem] w-[5rem] h-[5rem] flex items-center justify-center border rounded-full z-[99]"
+              className="fixed bottom-[3rem] right-[3rem] w-[5rem] h-[5rem] flex items-center justify-center border rounded-full z-[90]"
             >
               <ArcText text="Scroll to  Walk" arc={95} radius={70} />
               <div
@@ -150,7 +150,7 @@ function Gallery({ previewData, setClose }) {
           {zoomed && (
             <button
               type="button"
-              className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex flex-col items-center justify-center z-[99]"
+              className="fixed bottom-[3rem] right-[3rem] w-[6rem] h-[6rem] flex flex-col items-center justify-center z-[90]"
               onClick={() => {
                 setZoomed(false);
               }}

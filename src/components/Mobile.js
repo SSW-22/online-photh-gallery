@@ -1,6 +1,6 @@
 function Mobile() {
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
+    <div className="z-[99] absolute flex items-center justify-center w-screen h-screen bg-[#ffffff]">
       <div className="font-['average'] flex flex-col items-center">
         <h2 className="text-[1.8rem] mx-[4rem] text-center">
           Welcome to Online Photo Gallery
