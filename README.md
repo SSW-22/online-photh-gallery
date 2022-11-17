@@ -86,3 +86,4 @@ We are planning to launch special theme animaiton for seaonal events (e.g. cherr
 
 * Woong O
     * Front-end Developer
+    * [@WoongO](https://www.linkedin.com/in/woongo/)
