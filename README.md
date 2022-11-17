@@ -56,6 +56,7 @@ We are planning to launch special theme animaiton for seaonal events (e.g. cherr
 
 * Seungmin Shin
     * Front-end Developer
+    *[@SeungminShin] (https://www.linkedin.com/in/seungmin-shin-/)
 
 * Woong O
     * Front-end Developer
