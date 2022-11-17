@@ -45,10 +45,12 @@ Feel free to save your event as a draft at anytime so that you can come back lat
 ### Guest
 If you choose to browse events at OPG, you can see all the events that is currently being hosted under Browse Events page. Make sure to buy a ticket to enter the event you would like to view.
 
-<img width="1409" alt="Screen Shot 2022-11-17 at 4 37 31 PM" src="https://user-images.githubusercontent.com/83075260/202565381-03fcde40-cb29-4cc0-9e05-6987004dba5b.png">
-
+<img width="1318" alt="Screen Shot 2022-11-17 at 4 35 39 PM" src="https://user-images.githubusercontent.com/83075260/202566474-84024b01-e924-429c-9b84-ba11d2c41529.png">
 
 Once entered, you can use a vertical scroll to navigate. Feel free to click on the photo to see more details in a close-up view.
+
+<img width="1409" alt="Screen Shot 2022-11-17 at 4 37 31 PM" src="https://user-images.githubusercontent.com/83075260/202565381-03fcde40-cb29-4cc0-9e05-6987004dba5b.png">
+
 
 <img width="1401" alt="Screen Shot 2022-11-17 at 4 37 57 PM" src="https://user-images.githubusercontent.com/83075260/202565351-d00feda4-7d65-4557-b5ab-1931c6d3e131.png">
 
