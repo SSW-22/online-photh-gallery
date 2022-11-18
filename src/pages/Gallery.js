@@ -85,8 +85,8 @@ function Gallery({ previewData, setClose }) {
       )}
       {imgsLoaded && (
         <>
-          {previewData && (
-            <h1 className="absolute z-10 left-12 top-12">
+          {previewData && !zoomed && (
+            <h1 className="absolute z-10 left-12 top-12 text-2xl">
               This is a preview of your event
             </h1>
           )}
@@ -108,7 +108,7 @@ function Gallery({ previewData, setClose }) {
           {previewData && !zoomed && (
             <button
               type="button"
-              className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]"
+              className="absolute right-[3rem] top-[3rem] w-[6rem] h-[6rem] text-[2.2rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]"
               onClick={() => {
                 setClose((prev) => !prev);
                 dispatch(navActions.toggleNav(true));
@@ -122,7 +122,7 @@ function Gallery({ previewData, setClose }) {
             <NavLink
               to="/events"
               className="
-                    absolute right-[3rem] top-[3rem] w-[5rem] h-[5rem] text-[2.6rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]
+                    absolute right-[3rem] top-[3rem] w-[5rem] h-[5rem] text-[2.2rem] flex flex-col items-center gap-[0.7rem] font-[200] z-[90]
                     "
               onClick={() => dispatch(navActions.toggleNav(true))}
             >

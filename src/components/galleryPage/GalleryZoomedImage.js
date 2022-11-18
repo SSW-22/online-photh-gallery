@@ -3,7 +3,7 @@ function GalleryZoomedImage({ image }) {
     <div className="flex flex-col gap-[2.5rem]">
       <div className="drop-shadow-[5px_10px_4px_rgba(0,0,0,0.4)] ">
         <img
-          className="object-contain max-w-[900px] max-h-[700px] pointer-events-none"
+          className="object-contain max-w-[900px] max-h-[580px] pointer-events-none"
           src={image.imgUrl}
           alt=""
         />
