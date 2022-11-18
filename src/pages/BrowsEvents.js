@@ -59,7 +59,7 @@ function BrowseEvents() {
 
   return (
     <div className="font-['average'] relative flex justify-center 2xl:py-[2rem]">
-      <div className="my-0 max-w-[816px] 2xl:max-w-[876px] flex flex-col">
+      <div className="my-0 max-w-[694px] 2xl:max-w-[876px] flex flex-col">
         <h1 className="text-[1.3rem]">Events</h1>
         <div className="flex flex-wrap min-h-[70vh] gap-[1.5rem]">
           {galleries
@@ -73,7 +73,7 @@ function BrowseEvents() {
               return gallery === "" ? (
                 <div
                   key={uuid()}
-                  className="w-[185px] h-[180px] 2xl:w-[200px] 2xl:h-[200px] bg-slate-400 opacity-60"
+                  className="w-[155px] h-[150px] 2xl:w-[200px] 2xl:h-[200px] bg-slate-400 opacity-60"
                 />
               ) : (
                 <Thumbnail

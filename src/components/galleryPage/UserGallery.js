@@ -16,7 +16,7 @@ const boxShadow = {
 
 const variants = {
   open: {
-    scale: 1.6,
+    scale: 1.25,
     y: -17,
     transition: {
       delay: 0.5,
