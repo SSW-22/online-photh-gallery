@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 function Mobile() {
+  useEffect(() => {
+    document.body.style = "position: fixed; top: 0";
+    return () => {
+      document.body.style = "";
+    };
+  }, []);
   return (
     <div className="z-[99] absolute flex items-center justify-center w-screen h-screen bg-[#ffffff]">
       <div className="font-['average'] flex flex-col items-center">
