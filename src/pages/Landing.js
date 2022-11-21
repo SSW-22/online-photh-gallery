@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import LandingBg from "../components/LandingBg";
 
 function Landing() {
@@ -9,6 +10,7 @@ function Landing() {
         <h1 className="text-[6rem] flex justify-end">Photo Gallery</h1>
       </div> */}
       <LandingBg />
+      <Footer />
     </div>
   );
 }
