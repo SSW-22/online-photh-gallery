@@ -26,7 +26,7 @@ const heading3 = [
 ];
 
 const container = {
-  hidden: { opacity: 1, scale: 1 },
+  hidden: { opacity: 0, scale: 1 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -37,7 +37,7 @@ const container = {
   },
 };
 const container2 = {
-  hidden: { opacity: 1, scale: 1 },
+  hidden: { opacity: 0, scale: 1 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -48,7 +48,7 @@ const container2 = {
   },
 };
 const container3 = {
-  hidden: { opacity: 1, scale: 1 },
+  hidden: { opacity: 0, scale: 1 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -231,10 +231,6 @@ function LandingBg() {
             }}
           />
         </div>
-      </div>
-      <div className="flex justify-center items-center w-full min-h-[2rem]">
-        <p className="pr-[0.2rem] text-[0.8rem]">©</p>
-        <p>2022 opg.com</p>
       </div>
     </div>
   );

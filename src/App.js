@@ -16,6 +16,8 @@ import Protected from "./components/Protected";
 import { checkGallery } from "./store/gallery-slice";
 import useMedia from "./hooks/useMedia";
 import Mobile from "./components/Mobile";
+import Contact from "./pages/Contact";
+import Libraries from "./pages/Libraries";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +68,8 @@ function App() {
         />
         <Route path="/events" element={<BrowseEvents />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/libraries" element={<Libraries />} />
       </Routes>
     </>
   );
