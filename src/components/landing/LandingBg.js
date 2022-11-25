@@ -1,69 +1,25 @@
 import { motion } from "framer-motion";
 import uuid from "react-uuid";
-import landing1 from "../asset/landing1.jpg";
-import landing2 from "../asset/landing2.jpg";
-import landing3 from "../asset/landing3.jpg";
-import landing4 from "../asset/landing4.jpg";
-import landing5 from "../asset/landing5.jpg";
-import landingmain from "../asset/door.jpg";
+import landing1 from "../../asset/landing1.jpg";
+import landing2 from "../../asset/landing2.jpg";
+import landing3 from "../../asset/landing3.jpg";
+import landing4 from "../../asset/landing4.jpg";
+import landing5 from "../../asset/landing5.jpg";
+import landingmain from "../../asset/door.jpg";
+import LandingHeader from "./LandingHeader";
 
-const heading1 = ["W", "e", "l", "c", "o", "m", "e", " ", "t", "o"];
-const heading2 = ["O", "n", "l", "i", "n", "e"];
-const heading3 = [
-  "P",
-  "h",
-  "o",
-  "t",
-  "o",
-  " ",
-  "G",
-  "a",
-  "l",
-  "l",
-  "e",
-  "r",
-  "y",
+const headingText = [
+  { type: "heading1", text: "Welcome to" },
+  { type: "heading2", text: "Oneline" },
+  { type: "heading3", text: "Photo Gallery" },
 ];
 
 const container = {
-  hidden: { opacity: 0, scale: 1 },
   visible: {
-    opacity: 1,
-    scale: 1,
     transition: {
-      delayChildren: 2.5,
-      staggerChildren: 0.05,
+      delayChildren: 2.2,
+      staggerChildren: 0.025,
     },
-  },
-};
-const container2 = {
-  hidden: { opacity: 0, scale: 1 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 2.8,
-      staggerChildren: 0.05,
-    },
-  },
-};
-const container3 = {
-  hidden: { opacity: 0, scale: 1 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 3.1,
-      staggerChildren: 0.05,
-    },
-  },
-};
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
   },
 };
 
@@ -71,60 +27,20 @@ function LandingBg() {
   return (
     <div className="font-['average'] flex flex-col mx-auto bg-white static max-w-[1800px] h-[calc(100vh-8rem)] pt-[12rem] px-[7rem]">
       <div className="font-[100] absolute max-w-[1800px] top-[10rem] px-[7rem] inset-x-0 mx-auto w-full h-[30%] flex flex-col justify-between">
-        <motion.h1
-          className="text-[6rem] m-0 flex justify-start"
+        <motion.div
+          key={uuid()}
+          initial="hidden"
+          animate="visible"
           variants={container}
-          initial="hidden"
-          animate="visible"
         >
-          {heading1.map((heading) => {
-            return heading === " " ? (
-              <motion.span key={uuid()} variants={item}>
-                &nbsp;
-              </motion.span>
-            ) : (
-              <motion.span key={uuid()} variants={item}>
-                {heading}
-              </motion.span>
-            );
-          })}
-        </motion.h1>
-        <motion.h1
-          className="text-[6rem] m-0 flex justify-center"
-          variants={container2}
-          initial="hidden"
-          animate="visible"
-        >
-          {heading2.map((heading) => {
-            return heading === " " ? (
-              <motion.span key={uuid()} variants={item}>
-                &nbsp;
-              </motion.span>
-            ) : (
-              <motion.span key={uuid()} variants={item}>
-                {heading}
-              </motion.span>
-            );
-          })}
-        </motion.h1>
-        <motion.h1
-          className="text-[6rem] m-0 flex justify-end"
-          variants={container3}
-          initial="hidden"
-          animate="visible"
-        >
-          {heading3.map((heading) => {
-            return heading === " " ? (
-              <motion.span key={uuid()} variants={item}>
-                &nbsp;
-              </motion.span>
-            ) : (
-              <motion.span key={uuid()} variants={item}>
-                {heading}
-              </motion.span>
-            );
-          })}
-        </motion.h1>
+          <div>
+            {headingText.map((item) => {
+              return (
+                <LandingHeader text={item.text} type={item.type} key={uuid()} />
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
       <div className="flex h-full gap-4 pb-[3rem]">
         <div className="flex flex-wrap w-full pt-[1rem]">

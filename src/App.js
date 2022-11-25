@@ -42,7 +42,6 @@ function App() {
   // if (!isDesktop) {
   //   return <Mobile />;
   // }
-
   return (
     <>
       {isDesktop || <Mobile />}
