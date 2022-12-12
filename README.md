@@ -19,7 +19,7 @@ We started from an idea where we wanted to build a place where anyone can expres
 
 ### Sprint Planning
 
-This project took 4 sprints (2-week cycle) to compelete. Below screenshots show how we utilized Notion tool to create a scrum board and how each ticket is structured.
+This project took 4 sprints (2-week cycle) to complete. Below screenshots show how we utilized Notion tool to create a scrum board and how each ticket is structured.
 
 <img width="1122" alt="Screen Shot 2022-10-20 at 9 12 11 PM" src="https://user-images.githubusercontent.com/83075260/197088218-a4969716-1d0d-428f-b62d-0b2762e2371a.png">
 

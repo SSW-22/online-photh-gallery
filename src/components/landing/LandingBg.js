@@ -10,7 +10,7 @@ import LandingHeader from "./LandingHeader";
 
 const headingText = [
   { type: "heading1", text: "Welcome to" },
-  { type: "heading2", text: "Oneline" },
+  { type: "heading2", text: "Online" },
   { type: "heading3", text: "Photo Gallery" },
 ];
 
